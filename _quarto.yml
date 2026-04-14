@@ -1,6 +1,6 @@
 ﻿project:
   type: website
-  #output-dir: docs
+  output-dir: docs
 execute-dir: project
 
 website:
@@ -35,4 +35,5 @@ format:
 
 execute:
   freeze: auto
+
 

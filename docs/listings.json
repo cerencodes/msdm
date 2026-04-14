@@ -1,0 +1,16 @@
+[
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/posts/attribution-modelling/index.html",
+      "/posts/churn-prediction-tidymodels-knn/index.html",
+      "/posts/churn-prediction-tidymodels-random-forest/index.html",
+      "/posts/differences-in-differences-campaign/index.html",
+      "/posts/hierarchical-clustering-tidymodels/index.html",
+      "/posts/marketing-mix-modelling/index.html",
+      "/posts/blog-shiny-live/index.html",
+      "/posts/ecomm-dash/index.html",
+      "/posts/fb-dash/index.html"
+    ]
+  }
+]
