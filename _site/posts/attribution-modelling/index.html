@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Ceren Unal">
+<meta name="description" content="A fictional marketing attribution case study for KNC that analyzes multi-channel performance and compares heuristic vs.&nbsp;data-driven models to guide smarter budget allocation.">
+<title>Attribution Modelling Case Study – MSDM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-95f147d06fdb9f8ce149f95e323965f4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-40b139a89aac16d85d5e05c8dd14b815.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script><link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MSDM</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Content</h2>
+   
+  <ul>
+<li><a href="#case-study-knc" id="toc-case-study-knc" class="nav-link active" data-scroll-target="#case-study-knc"><span class="header-section-number">1</span> <strong>Case study: KNC</strong></a></li>
+  <li>
+<a href="#preparation-and-set-up" id="toc-preparation-and-set-up" class="nav-link" data-scroll-target="#preparation-and-set-up"><span class="header-section-number">2</span> <strong>2 Preparation and set-up</strong></a>
+  <ul class="collapse">
+<li><a href="#install-and-load-r-packages" id="toc-install-and-load-r-packages" class="nav-link" data-scroll-target="#install-and-load-r-packages"><strong>Install and load R packages</strong></a></li>
+  <li><a href="#consumer-path-to-purchase-data" id="toc-consumer-path-to-purchase-data" class="nav-link" data-scroll-target="#consumer-path-to-purchase-data"><strong>Consumer path-to-purchase data</strong></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#markov-chain-approach" id="toc-markov-chain-approach" class="nav-link" data-scroll-target="#markov-chain-approach"><span class="header-section-number">3</span> <strong>3 Markov chain approach</strong></a>
+  <ul class="collapse">
+<li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><strong>3.1 Data preparation</strong></a></li>
+  <li><a href="#markov-chain-modelling" id="toc-markov-chain-modelling" class="nav-link" data-scroll-target="#markov-chain-modelling"><strong>3.2 Markov chain modelling</strong></a></li>
+  <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation"><strong>3.3 Visualisation</strong></a></li>
+  </ul>
+</li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">4</span> <strong>4 Model comparison</strong></a></li>
+  <li><a href="#shapley-value-based-approach" id="toc-shapley-value-based-approach" class="nav-link" data-scroll-target="#shapley-value-based-approach"><span class="header-section-number">5</span> <strong>5 Shapley value-based approach</strong></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> <strong>6 Conclusion</strong></a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Attribution Modelling Case Study</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">attribution</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A fictional marketing attribution case study for KNC that analyzes multi-channel performance and compares heuristic vs.&nbsp;data-driven models to guide smarter budget allocation.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ceren Unal </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="case-study-knc" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="case-study-knc">
+<span class="header-section-number">1</span> <strong>Case study: KNC</strong>
+</h2>
+<p>“Let’s show a bird’s eye view of our digital channel performance from this year, first. Here we could have a bar chart on number of online purchases and some advertising data ¬on mobile, paid search, affiliations, and social media activities. And some correlations here as well… What do you think?,” said Levi.</p>
+<p>“Perhaps, Prisha will ask about the overall improvement compared to last year, right? So, let’s add the same figures from last year and make a comparison here too,” responded Emma.</p>
+<p>Levi and Emma, the marketing science team members at KNC–a European firm that sells trendy and quality make-up and skincare products at affordable prices for students and young professionals– sat round a modern-look, high gloss conference table to discuss what to include in their presentation deck prior to their meeting with Prisha, the chief marketing officer (CMO) of KNC.</p>
+<p>“I am sure that during the meeting, she will ask about each channel’s contribution to final purchases. This is quite critical for next year’s budget request. How about drilling down to the individual level data and running some attribution models?,” said Levi.</p>
+<p>Emma nodded in agreement and said “We can show the results from the ‘first-touch’ and ‘last-touch’ heuristics, and let her decide which model to use for budget-related decisions. Most brands use the ‘last-touch’ model, anyway.”</p>
+<p>After a long day at work, Levi and Emma agreed on what to cover in their presentation for the CMO: an overview of digital channel performance and some detailed results from attribution modelling.</p>
+<p><strong><em>Meeting with the CMO</em></strong></p>
+<p>Prisha interrupted the presentation and said “I am a little bit puzzled here, Emma. It is hard to believe that social media channel has lower impact on consumer purchases than affiliates. Most of our targeted consumers are young adults who spend considerable time on social networks. These results are not convincing enough.”</p>
+<p>Pointing to the below title of an online article from her laptop screen, Prisha continued: “Look at this”.</p>
+<p>“Google won’t use the last-click attribution as the default conversion model. I am not sure what exactly they mean by data modelling but they seem to be right in ditching the last-touch model. It is very clear that assigning full credit for a sale to the last digital touchpoint in consumer’s path to purchase may mislead us.”</p>
+<p>Meanwhile, as a recently graduated marketing analyst, Levi opens his laptop, digs up his analytics course content and rediscovers that there are other approaches to attribution modelling.</p>
+<p>Inspired by his class materials, Levi responded to Prisha:</p>
+<p>“Well, we can use more advanced models – for example Markov chain models– to get a better picture of attribution across all these digital touchpoints. Also, we can use Shapley value-based modelling approach to quantify the effect of a channel removal. What would happen if we turn off a channel? Perhaps, by turning off a particular channel we do not lose much on conversion rates…”</p>
+<p>“Excellent suggestions,” said Prisha. “My gut feeling is telling me that the model should assign different weights to all the channels on the customer journey. Why don’t you start right now? I will discuss our digital marketing budget with the board next week. So, we need to be quick on this.”</p>
+<p>The R application below will help us address the following questions on the KNC case study:</p>
+<ul>
+<li><p>Taking a path-to-purchase view, which customer touchpoint<sup><a href="#fn1">1</a></sup> contributes more or less to conversion?</p></li>
+<li><p>Should KNC give up on paid search and put more effort into mobile marketing?</p></li>
+<li><p>Which attribution modeling approach should the KNC marketing analysts, Levi and Emma, adopt in the future?</p></li>
+</ul></section><section id="preparation-and-set-up" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="preparation-and-set-up">
+<span class="header-section-number">2</span> <strong>2 Preparation and set-up</strong>
+</h2>
+<section id="install-and-load-r-packages" class="level3"><h3 class="anchored" data-anchor-id="install-and-load-r-packages"><strong>Install and load R packages</strong></h3>
+<p>Once the packages are installed to our computer, we should load them to R.</p>
+<p>Next, we will load the dataset.</p>
+</section><section id="consumer-path-to-purchase-data" class="level3"><h3 class="anchored" data-anchor-id="consumer-path-to-purchase-data"><strong>Consumer path-to-purchase data</strong></h3>
+<p>The dataset of this case study is available on the website of the book. The file is named ‘<em>knc_attribution</em>’, and stored in a <em>csv</em> format. We run the following code chunk to load the dataset to R.</p>
+<p>Looking at the dataset <em>attribution</em> from the upper right corner of the R Studio screen, we see that we are given 105 unique online consumer journeys, of which 89 turned into conversion. This corresponds to 85% of conversion rate. Note that this conversion rate is quite high. We typically observe such high conversion rates around heavy promotional times.</p>
+<p>The below table provides information on the variables of the dataset and their descriptions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">users_id</td>
+<td style="text-align: left;">Unique user ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">channeln</td>
+<td style="text-align: left;">Online advertising (i.e., mobile, paid search, affiliate, and social media) exposure path, with channel1 referring to the first exposure, channel2 the second, …, channeln the nth (maximum number of exposure = 45).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">user_purchase</td>
+<td style="text-align: left;">Consumer final conversion indicator, which takes value of 1 if a specific consumer made purchase (i.e., converted) at the end of her path, and 0 otherwise.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">null_purchase</td>
+<td style="text-align: left;">The opposite of ‘user_purchase’, taking value of 1 if there is no purchase and 0 otherwise.</td>
+</tr>
+</tbody>
+</table>
+<p>After getting a glimpse of the data, we can start running the attribution models.</p>
+</section></section><section id="markov-chain-approach" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="markov-chain-approach">
+<span class="header-section-number">3</span> <strong>3 Markov chain approach</strong>
+</h2>
+<section id="data-preparation" class="level3"><h3 class="anchored" data-anchor-id="data-preparation"><strong>3.1 Data preparation</strong></h3>
+<p>To estimate a Markov chain model, we use the ‘<em>ChannelAttribution</em>’ package in R.</p>
+<p>We start by knitting consumer advertising exposures into a desired ‘<em>sequenced path</em>’ format for the analysis.The below code generates ‘<em>conversion sequences</em>’ for all consumers.</p>
+<p>If we take a look at the dataset again, we see that there is a new variable created, called <em>cleaned_path</em>.</p>
+<p>Now let’s look at the paths of first five consumers in our dataset:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">x</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">mobile&gt;paid_search&gt;paid_search&gt;paid_search&gt;affiliate&gt;mobile&gt;paid_search&gt;paid_search&gt;social_media&gt;mobile&gt;social_media&gt;paid_search&gt;social_media&gt;mobile&gt;affiliate&gt;paid_search&gt;paid_search&gt;paid_search&gt;social_media&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paid_search&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;paid_search&gt;mobile&gt;paid_search&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;affiliate&gt;affiliate&gt;affiliate&gt;paid_search&gt;affiliate&gt;paid_search&gt;mobile&gt;affiliate&gt;affiliate&gt;paid_search&gt;affiliate&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">social_media&gt;social_media&gt;mobile&gt;affiliate&gt;social_media&gt;paid_search&gt;mobile&gt;mobile&gt;affiliate&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;mobile&gt;affiliate&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mobile&gt;affiliate&gt;mobile&gt;social_media&gt;affiliate&gt;mobile&gt;social_media&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">paid_search&gt;paid_search&gt;affiliate&gt;paid_search&gt;mobile&gt;paid_search&gt;paid_search&gt;affiliate&gt;mobile&gt;affiliate&gt;paid_search&gt;affiliate&gt;affiliate&gt;affiliate&gt;affiliate&gt;paid_search&gt;mobile&gt;affiliate&gt;mobile&gt;affiliate&gt;mobile&gt;mobile&gt;paid_search&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can already observe some heterogeneity across consumers in terms of:</p>
+<ol type="1">
+<li><p>starting touchpoint (i.e., first-touch)</p></li>
+<li><p>ending touchpoint before (non)conversion (i.e., last-touch), and</p></li>
+<li><p>composition and length of paths.</p></li>
+</ol>
+<p>For model estimation, we decide to take the first 80 consumers in the dataset as our training set and keep the remaining 25 observations for the test set. The below code chunk splits the data into training and test sets.</p>
+<p>As a final preparatory step, we need to create a ‘<em>channel stack</em>’, through which we summarize consumer paths and calculate the total number of conversions (frequency)and non-conversions for each path pattern. The following code chunk will help us generate that <em>channel stack</em>:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">cleaned_path</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">conversion</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">non_conversion</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">affiliate&gt;mobile&gt;affiliate&gt;social_media&gt;social_media&gt;mobile&gt;mobile&gt;mobile&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;mobile&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">affiliate&gt;paid_search&gt;affiliate&gt;paid_search&gt;affiliate&gt;affiliate&gt;affiliate&gt;affiliate&gt;affiliate&gt;mobile&gt;affiliate&gt;paid_search&gt;paid_search&gt;mobile&gt;paid_search&gt;paid_search&gt;affiliate&gt;affiliate&gt;affiliate&gt;paid_search&gt;affiliate&gt;mobile&gt;affiliate&gt;paid_search&gt;affiliate&gt;mobile&gt;affiliate&gt;affiliate&gt;paid_search&gt;paid_search&gt;paid_search&gt;mobile&gt;affiliate&gt;affiliate&gt;affiliate&gt;affiliate&gt;paid_search&gt;affiliate&gt;paid_search&gt;affiliate&gt;affiliate&gt;&gt;&gt;</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">affiliate&gt;paid_search&gt;affiliate&gt;paid_search&gt;mobile&gt;mobile&gt;paid_search&gt;paid_search&gt;mobile&gt;affiliate&gt;affiliate&gt;paid_search&gt;mobile&gt;paid_search&gt;affiliate&gt;mobile&gt;paid_search&gt;paid_search&gt;mobile&gt;paid_search&gt;affiliate&gt;paid_search&gt;affiliate&gt;social_media&gt;paid_search&gt;mobile&gt;paid_search&gt;affiliate&gt;mobile&gt;affiliate&gt;affiliate&gt;mobile&gt;affiliate&gt;mobile&gt;paid_search&gt;mobile&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;affiliate&gt;mobile&gt;affiliate&gt;paid_search&gt;mobile</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">affiliate&gt;paid_search&gt;affiliate&gt;paid_search&gt;social_media&gt;mobile&gt;social_media&gt;paid_search&gt;social_media&gt;affiliate&gt;social_media&gt;paid_search&gt;mobile&gt;paid_search&gt;social_media&gt;mobile&gt;paid_search&gt;paid_search&gt;social_media&gt;paid_search&gt;affiliate&gt;paid_search&gt;social_media&gt;social_media&gt;social_media&gt;mobile&gt;paid_search&gt;social_media&gt;mobile&gt;affiliate&gt;affiliate&gt;mobile&gt;affiliate&gt;mobile&gt;paid_search&gt;social_media&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;social_media&gt;mobile&gt;social_media&gt;social_media&gt;mobile</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">affiliate&gt;paid_search&gt;affiliate&gt;social_media&gt;social_media&gt;mobile&gt;mobile&gt;paid_search&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;paid_search&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">affiliate&gt;paid_search&gt;paid_search&gt;mobile&gt;affiliate&gt;social_media&gt;mobile&gt;paid_search&gt;social_media&gt;mobile&gt;paid_search&gt;mobile&gt;mobile&gt;affiliate&gt;social_media&gt;paid_search&gt;mobile&gt;paid_search&gt;social_media&gt;affiliate&gt;affiliate&gt;mobile&gt;mobile&gt;paid_search&gt;paid_search&gt;paid_search&gt;social_media&gt;mobile&gt;mobile&gt;mobile&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mobile&gt;affiliate&gt;mobile&gt;social_media&gt;affiliate&gt;mobile&gt;social_media&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mobile&gt;mobile&gt;affiliate&gt;paid_search&gt;affiliate&gt;mobile&gt;affiliate&gt;paid_search&gt;paid_search&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;paid_search&gt;paid_search&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mobile&gt;mobile&gt;social_media&gt;social_media&gt;affiliate&gt;affiliate&gt;paid_search&gt;mobile&gt;social_media&gt;affiliate&gt;affiliate&gt;mobile&gt;paid_search&gt;mobile&gt;social_media&gt;social_media&gt;social_media&gt;mobile&gt;social_media&gt;paid_search&gt;mobile&gt;affiliate&gt;paid_search&gt;mobile&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;mobile&gt;mobile&gt;paid_search&gt;affiliate&gt;social_media&gt;mobile&gt;mobile&gt;affiliate&gt;paid_search&gt;affiliate&gt;mobile&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mobile&gt;paid_search&gt;affiliate&gt;paid_search&gt;mobile&gt;mobile&gt;affiliate&gt;paid_search&gt;paid_search&gt;mobile&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;paid_search&gt;paid_search&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Now we are ready to estimate the Markov chain model with the cleaned version of our data.</p>
+</section><section id="markov-chain-modelling" class="level3"><h3 class="anchored" data-anchor-id="markov-chain-modelling"><strong>3.2 Markov chain modelling</strong></h3>
+<p>To estimate the Markov chain model, we use the <em>markov_model</em> function. Specifically, we estimate a third-order Markov model so that the ‘<em>memory</em>’ of the chain goes back to the most recent three states. Our assumption here is that consumer journeys typically cannot be restricted to the most recent state, i.e., consumers have a longer memory. Recall that first-order Markov model assumes that the current state is only determined by the previous or the most recent state.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Number of simulations: 100000 - Convergence reached: 0.34% &lt; 5.00%
+
+Percentage of simulated paths that successfully end before maximum number of steps (44) is reached: 89.52%
+
+[1] "*** Install ChannelAttribution Pro for free running install_pro(). Visit https://channelattribution.io for more info. Set flg_pro=FALSE to hide this message."</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">channel</th>
+<th style="text-align: right;">total_conversions</th>
+<th style="text-align: right;">percent</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">affiliate</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.242</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mobile</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.258</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">social_media</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.237</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paid_search</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.263</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The results based on Markov chain model tells us quite a different story compared to what the KNC analysts found using the last-touch heuristic.</p>
+<p>Markov chain model informs us that:</p>
+<ul>
+<li><p>The effectiveness of four touchpoints in driving conversions do not differ dramatically from each other.</p></li>
+<li><p>Both social media advertising and affiliate advertising contribute around 24% to conversion while both paid search and mobile channels contribute around 26%.</p></li>
+</ul>
+<p>To further make sense of what we have found, we can obtain the transition probabilities between all states through the following codes:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "*** Install ChannelAttribution Pro for free running install_pro(). Visit https://channelattribution.io for more info. Set flg_pro=FALSE to hide this message."</code></pre>
+</div>
+</div>
+<p>To summarize the transition matrix of third-order Markov model, we obtain the transition probabilities to conversion state using the three-channel paths.</p>
+<p>For example, we can see that consumers with the last three channel exposures <strong>Social Media &gt; Paid Search &gt; Affiliate</strong> has the highest conversion probability (p=0.455).</p>
+<p>We can imagine that such a path might highly describe a teenage consumer behaviour online. They are attracted by fancy social network advertising on Instagram or Facebook. Then, they click on paid search advertising to get further information about the product.Later, they get further enticed by repeatedly browsing on affiliate websites, and finally decide to purchase the latest beauty product of KNC.</p>
+<p><strong>Question</strong>: Considering the Markov transition matrix and path-to-conversion table above, can you try to infer why we have such a different conclusion about <em>social media</em> and <em>affiliate</em> channel contributions based on Markov chain and last-touch modelling approaches?</p>
+</section><section id="visualisation" class="level3"><h3 class="anchored" data-anchor-id="visualisation"><strong>3.3 Visualisation</strong></h3>
+<p><strong><em>Markov graph</em></strong></p>
+<p>A Markov graph helps us further understand the paths that consumers in our dataset have taken towards conversion and non-conversion. We could plot Markov graph for the third-order Markov chain model that we just estimated. However, due to complexity in visual representation of the third-order model, here we obtain a graph of the first-order Markov chain model to illustrate how to interpret such graphs from Markov chain models.</p>
+<p>Running the code chunks below gets us a nice-looking Markov graph.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "*** Install ChannelAttribution Pro for free running install_pro(). Visit https://channelattribution.io for more info. Set flg_pro=FALSE to hide this message."</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="index_files/figure-html/fig-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On the Markov graph above:</p>
+<ul>
+<li><p>Nodes 1, 2, 3, and 4 refer to mobile, paid search, affiliate, and social media advertising, respectively.</p></li>
+<li><p>Nodes ‘conversion’ and ‘null’ refer to conversion and non-conversion, respectively.</p></li>
+<li><p>Node ‘start’ represents a starting point of all paths, as is requested by the plotting package that we use.</p></li>
+<li><p>Arrows point from the ‘departing’ node (i.e., channel) to the ‘arriving’ node (i.e., (n-1)th channel).</p></li>
+<li><p>The numeric value along an arrow pointing from node to node is the transition probability of a customer first getting exposed to channel and then to channel .</p></li>
+</ul>
+<p>Looking at the graph, the probability of purchase for a consumer with a simple path of ‘<em>start &gt; paid_search &gt; conversion</em>’ is , 0.41*0.03 =0.0123 since the transition probability from <em>start</em> to <em>paid search</em> is 0.41, and that from <em>paid search</em> to <em>conversion</em> is 0.03.</p>
+<p><strong><em>Transition heatmap</em></strong></p>
+<p>We may also want to create a <strong>heatmap</strong> for the transition matrix of our estimated Markov model using the following codes. Note that this map is also created based on first-order markov model results (<em>trans_1st</em>), since graphical representation of the third-order Markov transition heatmap is too densed and difficult to read.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the transition matrix heatmap, the rows represent the ‘starting point’ and the columns represent the ‘ending point’ of each one-step transition.From this heatmap, we can reach the same conclusions as with the Markov graph.</p>
+<p>Note that there are no rows representing <em>conversion</em> or <em>null</em> states on the matrix because in our setting there are no paths starting from a conversion or starting from a non-conversion. That is also why the cells referring to the transition from <em>start</em> to <em>conversion</em> and <em>null</em> are empty.</p>
+</section></section><section id="model-comparison" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="model-comparison">
+<span class="header-section-number">4</span> <strong>4 Model comparison</strong>
+</h2>
+<p>We would like to see the difference in outcomes of the traditional heuristic approaches (i.e., first-touch, last-touch) and the model-based approach (i.e., Markov chain).</p>
+<p>We first use <em>heuristic_models</em> function to quickly obtain results for the heuristic models:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "*** Install ChannelAttribution Pro for free! Run install_pro(). Set flg_pro=FALSE to hide this message."</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">channel_name</th>
+<th style="text-align: right;">first_touch</th>
+<th style="text-align: right;">last_touch</th>
+<th style="text-align: right;">linear_touch</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">affiliate</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">14.80225</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mobile</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">19.23514</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">social_media</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">14.13698</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paid_search</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">18.82563</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Note that the output of <em>heuristic_function</em> also includes the <em>linear touch</em> model. As explained previously in the chapter, linear (even-split) touch model is a simple heuristic model that assumes that each channel contributes to final conversion equally. We do not focus on this specific model in this chapter as it is not of interest to KNC.</p>
+<p>Now we summarize model results of all three models into one table:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Item</th>
+<th style="text-align: right;">First_Touch</th>
+<th style="text-align: right;">Last_Touch</th>
+<th style="text-align: right;">Markov_Chain</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mobile</td>
+<td style="text-align: right;">0.254</td>
+<td style="text-align: right;">0.388</td>
+<td style="text-align: right;">0.260</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Paid Search</td>
+<td style="text-align: right;">0.418</td>
+<td style="text-align: right;">0.224</td>
+<td style="text-align: right;">0.245</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Affiliate</td>
+<td style="text-align: right;">0.209</td>
+<td style="text-align: right;">0.269</td>
+<td style="text-align: right;">0.238</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Social Media</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">0.119</td>
+<td style="text-align: right;">0.257</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The table above suggests that one can get to very different conclusions by adopting first-touch, last-touch, and Markov chain approach, respectively. Such difference is even clearer if we contrast model results by plotting a bar chart:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>While first-touch model guides KNC to invest more in paid search and less in social media, last-touch model would suggest strong influence of mobile advertising. Finally, Markov graph approach suggests that the contribution made by all four touchpoints are actually quite evenly distributed.</p>
+<p><strong><em>Which model should KNC choose?</em></strong></p>
+<p>There are two options available for KNC when deciding which model to choose:</p>
+<ol type="1">
+<li><p>KNC should try to make sense of these results, first. Prisha can combine the model-based evidence with her managerial intuition. Given her concerns about the touch-based models, Prisha is advised to make her next budget allocation decisions based on Markov chain model output. At the end of the campaign period, she can assess whether there is a significant improvement in conversion rates.</p></li>
+<li><p>Alternative approach would be to assess the predictive power of attribution models by using a larger dataset. Research on attribution models demonstrate that Markov chain models provide a fairer allocation of weights to channels and perform better than heuristic (e.g., first-touch and last-touch) methods in predicting conversion rates because they take into account the interplay across touchpoints and sequentiality in a customer journey (Anders et al.&nbsp;2016).In appendix, we illustrate how predictive performance of these models can be assessed using the current dataset. In our illustration, Markov model performs better than heuristic methods. However, we take those results with a grain of salt because some paths to purchase occur only a few times in the test set, which may make conversion probabilities less reliable.</p></li>
+</ol>
+<p><strong><em>What if a particular touchpoint is removed?</em></strong></p>
+<p>What would have happened to conversion rate when a particular channel was removed from path-to-purchase? To address this question, we will use Shapley value-based approach.</p>
+</section><section id="shapley-value-based-approach" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="shapley-value-based-approach">
+<span class="header-section-number">5</span> <strong>5 Shapley value-based approach</strong>
+</h2>
+<p>This modelling approach allows us to evaluate the relative importance of a customer touchpoint to <em>conversion</em>.</p>
+<p>Using mobile marketing as an example, we will calculate the <strong>drop</strong> in conversion probability. The scale of the drop will be the importance of mobile marketing in converting customers. Specifically, we will calculate the following:</p>
+<p>We do the same for each of the four touchpoints in the dataset.</p>
+<p>The below code chunk searches if each of the paths contains mobile, paid search, affiliate, and social media or not. Then, it generates four indicator variables.</p>
+<p>Next, we compute the Shapley values for each customer touchpoint and convert them to percentage terms.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01064426</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01064426</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.003479853</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.008095238</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3238919</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3238919</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1058878</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2463284</code></pre>
+</div>
+</div>
+<p>The output from the Shapley model suggests that the impact of mobile and paid search advertising is the largest because they are associated with the largest drop in conversion percentage, followed by social media, and then affiliate. Thus, removing mobile and paid search channels would not be an appropriate action for KNC. Our further advice to Prisha is that she needs to evaluate the strategic implications of a channel removal very carefully with a forward-looking perspective because consumers may be pushed to other touchpoints (e.g.paid search), which may result in a higher cost to KNC. Finally, conclusions from Shapley model are not causal. To understand the causal impact of a channel removal, randomized field experiments should be adopted, in which consumers are randomly assigned to control and treatment groups.</p>
+</section><section id="conclusion" class="level2" data-number="6"><h2 data-number="6" class="anchored" data-anchor-id="conclusion">
+<span class="header-section-number">6</span> <strong>6 Conclusion</strong>
+</h2>
+<p>Overall, the marketing group at KNC seems to be rather confident of the following decisions to make:</p>
+<ul>
+<li><p>KNC should analyze and predict consumer conversion by switching from first- and last-touch heuristic approaches to Markov chain model.</p></li>
+<li><p>Instead of downgrading their emphasis on affiliate and social media advertising, KNC should keep investing in all of the customer touchpoints.</p></li>
+<li><p>KNC can use the Shapley value-based modelling approach to quantify the potential impact of a channel removal on consumers’ purchases. However, removal of a channel (e.g., social media) may result in significant changes in the customer journey. Consumers may be pushed to other touchpoints (e.g.paid search) that might be more costly to the firm. Therefore, findings from Shapley model should always be combined with a careful strategic analysis. For instance, even though the model finds zero contribution for the social media channel, the manager may still want to be present on social media to increase the brand awareness in the market.</p></li>
+<li><p>These results do not imply causality. To understand the causal impact of a touchpoint on the relevant performance metrics, KNC is suggested to run randomized field experiments.</p></li>
+</ul>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/cerencodes\.github\.io\/msdm\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Attribution Modelling Case Study"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Ceren Unal</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [attribution]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> case_study.png</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> A fictional marketing attribution case study for KNC that analyzes multi-channel performance and compares heuristic vs. data-driven models to guide smarter budget allocation.</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="an">toc-title:</span><span class="co"> Content</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="an">toc-location:</span><span class="co"> right</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="an">number-depth:</span><span class="co"> 2 </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="an">smooth-scroll:</span><span class="co"> true</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="an">df-print:</span><span class="co"> kable</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="an">code-overflow:</span><span class="co"> wrap </span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="an">code-block-bg:</span><span class="co"> true</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="an">code-block-border-left:</span><span class="co"> "#31BAE9"</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="an">highlight-style:</span><span class="co"> pygments</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="an">code-link:</span><span class="co"> true</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Case study: KNC**</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>“Let’s show a bird’s eye view of our digital channel performance from this year, first. Here we could have a bar chart on number of online purchases and some advertising data ¬on mobile, paid search, affiliations, and social media activities. And some correlations here as well… What do you think?,” said Levi.</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>“Perhaps, Prisha will ask about the overall improvement compared to last year, right? So, let’s add the same figures from last year and make a comparison here too,” responded Emma.</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>Levi and Emma, the marketing science team members at KNC–a European firm that sells trendy and quality make-up and skincare products at affordable prices for students and young professionals– sat round a modern-look, high gloss conference table to discuss what to include in their presentation deck prior to their meeting with Prisha, the chief marketing officer (CMO) of KNC.</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>“I am sure that during the meeting, she will ask about each channel’s contribution to final purchases. This is quite critical for next year’s budget request. How about drilling down to the individual level data and running some attribution models?,” said Levi.</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>Emma nodded in agreement and said “We can show the results from the ‘first-touch’ and ‘last-touch’ heuristics, and let her decide which model to use for budget-related decisions. Most brands use the ‘last-touch’ model, anyway.”</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>After a long day at work, Levi and Emma agreed on what to cover in their presentation for the CMO: an overview of digital channel performance and some detailed results from attribution modelling.</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>***Meeting with the CMO***</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>Prisha interrupted the presentation and said “I am a little bit puzzled here, Emma. It is hard to believe that social media channel has lower impact on consumer purchases than affiliates. Most of our targeted consumers are young adults who spend considerable time on social networks. These results are not convincing enough.”</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>Pointing to the below title of an online article from her laptop screen, Prisha continued: “Look at this”.</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>“Google won’t use the last-click attribution as the default conversion model. I am not sure what exactly they mean by data modelling but they seem to be right in ditching the last-touch model. It is very clear that assigning full credit for a sale to the last digital touchpoint in consumer’s path to purchase may mislead us.”</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>Meanwhile, as a recently graduated marketing analyst, Levi opens his laptop, digs up his analytics course content and rediscovers that there are other approaches to attribution modelling.</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>Inspired by his class materials, Levi responded to Prisha:</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>“Well, we can use more advanced models – for example Markov chain models– to get a better picture of attribution across all these digital touchpoints. Also, we can use Shapley value-based modelling approach to quantify the effect of a channel removal. What would happen if we turn off a channel? Perhaps, by turning off a particular channel we do not lose much on conversion rates…”</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>“Excellent suggestions,” said Prisha. “My gut feeling is telling me that the model should assign different weights to all the channels on the customer journey. Why don’t you start right now? I will discuss our digital marketing budget with the board next week. So, we need to be quick on this.”</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>The R application below will help us address the following questions on the KNC case study:</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Taking a path-to-purchase view, which customer touchpoint^<span class="co">[</span><span class="ot">1</span><span class="co">](#fn1)</span>^ contributes more or less to conversion?</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Should KNC give up on paid search and put more effort into mobile marketing?</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Which attribution modeling approach should the KNC marketing analysts, Levi and Emma, adopt in the future?</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## **2 Preparation and set-up**</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Install and load R packages**</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=TRUE, error=TRUE, warning=FALSE, message=FALSE}</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>  <span class="st">"knitr"</span>,</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kableExtra"</span>,</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readxl"</span>,</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>,</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ChannelAttribution"</span>,</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>  <span class="st">"devtools"</span>,</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>  <span class="st">"reshape2"</span>,</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>,</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggthemes"</span>,</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggrepel"</span>,</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>  <span class="st">"RColorBrewer"</span>,</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>  <span class="st">"markovchain"</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>missing_packages <span class="ot">&lt;-</span> required_packages[</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!</span><span class="fu">vapply</span>(required_packages, requireNamespace, <span class="fu">logical</span>(<span class="dv">1</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_packages) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(</span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Missing packages: "</span>,</span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(missing_packages, <span class="at">collapse =</span> <span class="st">", "</span>),</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a>    <span class="st">". Install them locally before rendering this document."</span></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>Once the packages are installed to our computer, we should load them to R.</span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=TRUE, error=FALSE, warning=FALSE, message=FALSE}</span></span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ChannelAttribution)</span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(markovchain)</span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a>Next, we will load the dataset.</span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Consumer path-to-purchase data**</span></span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a>The dataset of this case study is available on the website of the book. The file is named ‘*knc_attribution*’, and stored in a *csv* format. We run the following code chunk to load the dataset to R.</span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset</span></span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a>attribution <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/knc_attribution.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a>Looking at the dataset *attribution* from the upper right corner of the R Studio screen, we see that we are given 105 unique online consumer journeys, of which 89 turned into conversion. This corresponds to 85% of conversion rate. Note that this conversion rate is quite high. We typically observe such high conversion rates around heavy promotional times.</span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a>The below table provides information on the variables of the dataset and their descriptions.</span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------------------------------|:-----------------------------------|</span></span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> users_id <span class="pp">|</span> Unique user ID <span class="pp">|</span></span>
+<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> channeln <span class="pp">|</span> Online advertising (i.e., mobile, paid search, affiliate, and social media) exposure path, with channel1 referring to the first exposure, channel2 the second, ..., channeln the nth (maximum number of exposure = 45). <span class="pp">|</span></span>
+<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> user_purchase <span class="pp">|</span> Consumer final conversion indicator, which takes value of 1 if a specific consumer made purchase (i.e., converted) at the end of her path, and 0 otherwise. <span class="pp">|</span></span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> null_purchase <span class="pp">|</span> The opposite of 'user_purchase', taking value of 1 if there is no purchase and 0 otherwise. <span class="pp">|</span></span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a>After getting a glimpse of the data, we can start running the attribution models.</span>
+<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## **3 Markov chain approach**</span></span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### **3.1 Data preparation**</span></span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>To estimate a Markov chain model, we use the ‘*ChannelAttribution*’ package in R.</span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>We start by knitting consumer advertising exposures into a desired ‘*sequenced path*’ format for the analysis.The below code generates ‘*conversion sequences*’ for all consumers.</span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct conversions sequences for all visitors</span></span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a>attribution[<span class="fu">is.na</span>(attribution)] <span class="ot">&lt;-</span> <span class="st">" "</span></span>
+<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a>attribution<span class="sc">$</span>path<span class="ot">=</span> <span class="fu">paste</span>(attribution<span class="sc">$</span>channel1,attribution<span class="sc">$</span>channel2,attribution<span class="sc">$</span>channel3,attribution<span class="sc">$</span>channel4,attribution<span class="sc">$</span>channel5,attribution<span class="sc">$</span>channel6,attribution<span class="sc">$</span>channel7,attribution<span class="sc">$</span>channel8,attribution<span class="sc">$</span>channel9,attribution<span class="sc">$</span>channel10,attribution<span class="sc">$</span>channel11,attribution<span class="sc">$</span>channel12,attribution<span class="sc">$</span>channel13,attribution<span class="sc">$</span>channel14,attribution<span class="sc">$</span>channel15,attribution<span class="sc">$</span>channel16,attribution<span class="sc">$</span>channel17,attribution<span class="sc">$</span>channel8,attribution<span class="sc">$</span>channel9,attribution<span class="sc">$</span>channel20,attribution<span class="sc">$</span>channel21,attribution<span class="sc">$</span>channel22,attribution<span class="sc">$</span>channel23 ,attribution<span class="sc">$</span>channel24,attribution<span class="sc">$</span>channel25,attribution<span class="sc">$</span>channel26,attribution<span class="sc">$</span>channel27,attribution<span class="sc">$</span>channel28,attribution<span class="sc">$</span>channel29,attribution<span class="sc">$</span>channel30,attribution<span class="sc">$</span>channel31,attribution<span class="sc">$</span>channel32,attribution<span class="sc">$</span>channel33,attribution<span class="sc">$</span>channel34,attribution<span class="sc">$</span>channel35,attribution<span class="sc">$</span>channel36,attribution<span class="sc">$</span>channel37,attribution<span class="sc">$</span>channel38,attribution<span class="sc">$</span>channel39,attribution<span class="sc">$</span>channel40, attribution<span class="sc">$</span>channel41, attribution<span class="sc">$</span>channel42, attribution<span class="sc">$</span>channel43, attribution<span class="sc">$</span>channel44,attribution<span class="sc">$</span>channel45, <span class="at">sep=</span><span class="st">"&gt;"</span>)</span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s.*"</span>,<span class="st">""</span>, attribution<span class="sc">$</span>path)</span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a>attribution<span class="sc">$</span>cleaned_path <span class="ot">&lt;-</span><span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">W$"</span>,<span class="st">""</span>, path)</span>
+<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a>If we take a look at the dataset again, we see that there is a new variable created, called *cleaned_path*.</span>
+<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a>Now let’s look at the paths of first five consumers in our dataset:</span>
+<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a><span class="co"># take a look at the data</span></span>
+<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>data_view <span class="ot">&lt;-</span> attribution [<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">50</span>]</span>
+<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>data_view <span class="sc">%&gt;%</span></span>
+<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span>
+<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a>We can already observe some heterogeneity across consumers in terms of:</span>
+<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>starting touchpoint (i.e., first-touch)</span>
+<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>ending touchpoint before (non)conversion (i.e., last-touch), and</span>
+<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>composition and length of paths.</span>
+<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a>For model estimation, we decide to take the first 80 consumers in the dataset as our training set and keep the remaining 25 observations for the test set. The below code chunk splits the data into training and test sets.</span>
+<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a><span class="co"># define training and testing set</span></span>
+<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>attribution_train <span class="ot">&lt;-</span>attribution[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>,] </span>
+<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>attribution_test <span class="ot">&lt;-</span>attribution[<span class="dv">81</span><span class="sc">:</span><span class="dv">105</span>,]</span>
+<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a>As a final preparatory step, we need to create a ‘*channel stack*’, through which we summarize consumer paths and calculate the total number of conversions (frequency)and non-conversions for each path pattern. The following code chunk will help us generate that *channel stack*:</span>
+<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>channel_stack <span class="ot">=</span> attribution_train <span class="sc">%&gt;%</span></span>
+<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cleaned_path) <span class="sc">%&gt;%</span></span>
+<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">conversion =</span> <span class="fu">sum</span>(user_purchase),<span class="at">non_conversion =</span> <span class="fu">sum</span>(null_purchase)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a><span class="fu">collect</span>()</span>
+<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a  look at prepared dataset</span></span>
+<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a>data_view <span class="ot">&lt;-</span> channel_stack [<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span>
+<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a>data_view <span class="sc">%&gt;%</span></span>
+<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span>
+<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a>Now we are ready to estimate the Markov chain model with the cleaned version of our data.</span>
+<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### **3.2 Markov chain modelling**</span></span>
+<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>To estimate the Markov chain model, we use the *markov_model* function. Specifically, we estimate a third-order Markov model so that the ‘*memory*’ of the chain goes back to the most recent three states. Our assumption here is that consumer journeys typically cannot be restricted to the most recent state, i.e., consumers have a longer memory. Recall that first-order Markov model assumes that the current state is only determined by the previous or the most recent state.</span>
+<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Third-order Markov chain model</span></span>
+<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>markov <span class="ot">=</span> <span class="fu">markov_model</span>(channel_stack, <span class="st">"cleaned_path"</span>, <span class="st">"conversion"</span>,  <span class="at">order=</span><span class="dv">3</span>)</span>
+<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>table_markov<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">channel =</span> markov<span class="sc">$</span>channel_name,<span class="at">total_conversions =</span><span class="fu">round</span>(markov<span class="sc">$</span>total_conversions), <span class="at">percent =</span> <span class="fu">round</span>(markov<span class="sc">$</span>total_conversions<span class="sc">/</span><span class="fu">sum</span>(attribution_train<span class="sc">$</span>user_purchase),<span class="dv">3</span>))</span>
+<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>table_markov</span>
+<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>The results based on Markov chain model tells us quite a different story compared to what the KNC analysts found using the last-touch heuristic.</span>
+<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a>Markov chain model informs us that:</span>
+<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The effectiveness of four touchpoints in driving conversions do not differ dramatically from each other.</span>
+<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Both social media advertising and affiliate advertising contribute around 24% to conversion while both paid search and mobile channels contribute around 26%.</span>
+<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>To further make sense of what we have found, we can obtain the transition probabilities between all states through the following codes:</span>
+<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a><span class="co"># Transition Matrix of order 3</span></span>
+<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a>trans_3rd_order<span class="ot">&lt;-</span><span class="fu">transition_matrix</span>(attribution_train, <span class="at">var_path =</span> <span class="st">"cleaned_path"</span>, <span class="at">var_conv =</span> <span class="st">"user_purchase"</span>, <span class="at">var_null =</span> <span class="st">"null_purchase"</span>, <span class="at">order=</span><span class="dv">3</span>, <span class="at">sep=</span><span class="st">"&gt;"</span>, <span class="at">flg_equal=</span><span class="cn">TRUE</span>)</span>
+<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a>To summarize the transition matrix of third-order Markov model, we obtain the transition probabilities to conversion state using the three-channel paths.</span>
+<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a>For example, we can see that consumers with the last three channel exposures **Social Media \&gt; Paid Search \&gt; Affiliate** has the highest conversion probability (p=0.455).</span>
+<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a>We can imagine that such a path might highly describe a teenage consumer behaviour online. They are attracted by fancy social network advertising on Instagram or Facebook. Then, they click on paid search advertising to get further information about the product.Later, they get further enticed by repeatedly browsing on affiliate websites, and finally decide to purchase the latest beauty product of KNC.</span>
+<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a>**Question**: Considering the Markov transition matrix and path-to-conversion table above, can you try to infer why we have such a different conclusion about *social media* and *affiliate* channel contributions based on Markov chain and last-touch modelling approaches?</span>
+<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a><span class="fu">### **3.3 Visualisation**</span></span>
+<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a>***Markov graph***</span>
+<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a>A Markov graph helps us further understand the paths that consumers in our dataset have taken towards conversion and non-conversion. We could plot Markov graph for the third-order Markov chain model that we just estimated. However, due to complexity in visual representation of the third-order model, here we obtain a graph of the first-order Markov chain model to illustrate how to interpret such graphs from Markov chain models.</span>
+<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a>Running the code chunks below gets us a nice-looking Markov graph.</span>
+<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate a first-order Markov Model to plot Markov graph for illustration</span></span>
+<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a>trans_1st<span class="ot">&lt;-</span><span class="fu">transition_matrix</span>(attribution_train, <span class="at">var_path =</span> <span class="st">"cleaned_path"</span>, <span class="at">var_conv =</span> <span class="st">"user_purchase"</span>, <span class="at">var_null =</span> <span class="st">"null_purchase"</span>, <span class="at">order=</span><span class="dv">1</span>, <span class="at">sep=</span><span class="st">"&gt;"</span>, <span class="at">flg_equal=</span><span class="cn">TRUE</span>)</span>
+<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a>trans_matrix_1st <span class="ot">&lt;-</span>trans_1st<span class="sc">$</span>transition_matrix</span>
+<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a>df_dummy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">channel_from =</span> <span class="fu">c</span>(<span class="st">'(start)'</span>, <span class="st">'(conversion)'</span>, <span class="st">'(null)'</span>),<span class="at">channel_to =</span> <span class="fu">c</span>(<span class="st">'(start)'</span>, <span class="st">'(conversion)'</span>, <span class="st">'(null)'</span>), <span class="at">transition_probability =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a>trans_matrix_1st <span class="ot">&lt;-</span><span class="fu">rbind</span>(trans_matrix_1st, df_dummy)</span>
+<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a>trans_matrix_1st<span class="sc">$</span>channel_from <span class="ot">&lt;-</span><span class="fu">factor</span>(trans_matrix_1st<span class="sc">$</span>channel_from, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'(start)'</span>, <span class="st">'(conversion)'</span>, <span class="st">'(null)'</span>, <span class="st">'1'</span>,<span class="st">'2'</span>,<span class="st">'3'</span>,<span class="st">'4'</span>))</span>
+<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a>trans_matrix_1st<span class="sc">$</span>channel_to <span class="ot">&lt;-</span><span class="fu">factor</span>(trans_matrix_1st<span class="sc">$</span>channel_to, <span class="at">levels =</span><span class="fu">c</span>(<span class="st">'(start)'</span>, <span class="st">'(conversion)'</span>, <span class="st">'(null)'</span>, <span class="st">'1'</span>,<span class="st">'2'</span>,<span class="st">'3'</span>,<span class="st">'4'</span>))</span>
+<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a>trans_matrix_1st <span class="ot">&lt;-</span><span class="fu">dcast</span>(trans_matrix_1st, channel_from<span class="sc">~</span>channel_to, <span class="at">value.var =</span> <span class="st">'transition_probability'</span>)</span>
+<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a>trans_matrix_final <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">as.matrix</span>(trans_matrix_1st[, <span class="sc">-</span><span class="dv">1</span>]), <span class="at">nrow =</span> <span class="fu">nrow</span>(trans_matrix_1st[, <span class="sc">-</span><span class="dv">1</span>]), <span class="at">ncol=</span><span class="fu">ncol</span>(trans_matrix_1st[,<span class="sc">-</span><span class="dv">1</span>]), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fu">as.character</span>(trans_matrix_1st[,<span class="dv">1</span>])), <span class="fu">c</span>(<span class="fu">colnames</span>(trans_matrix_1st[,<span class="sc">-</span><span class="dv">1</span>]))))</span>
+<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a>                       </span>
+<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a>trans_matrix_final[<span class="fu">is.na</span>(trans_matrix_final)] <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a>trans_matrix1 <span class="ot">&lt;-</span> <span class="fu">new</span>(<span class="st">"markovchain"</span>, <span class="at">transitionMatrix =</span> trans_matrix_final)</span>
+<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig, fig.height = 15, fig.width = 10, fig.align = "center"}</span></span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Markov graph</span></span>
+<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(trans_matrix1, <span class="at">edge.arrow.siz=</span><span class="fl">0.01</span>, <span class="at">main=</span><span class="st">"Markov Graph"</span>, <span class="at">fill=</span><span class="fu">c</span>(<span class="st">"yellow"</span>) )</span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a>On the Markov graph above:</span>
+<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Nodes 1, 2, 3, and 4 refer to mobile, paid search, affiliate, and social media advertising, respectively.</span>
+<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Nodes ‘conversion’ and ‘null’ refer to conversion and non-conversion, respectively.</span>
+<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Node ‘start’ represents a starting point of all paths, as is requested by the plotting package that we use.</span>
+<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Arrows point from the ‘departing’ node (i.e., channel) to the ‘arriving’ node (i.e., (n-1)th channel).</span>
+<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The numeric value along an arrow pointing from node to node is the transition probability of a customer first getting exposed to channel and then to channel .</span>
+<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a>Looking at the graph, the probability of purchase for a consumer with a simple path of ‘*start \&gt; paid_search \&gt; conversion*’ is , 0.41\*0.03 =0.0123 since the transition probability from *start* to *paid search* is 0.41, and that from *paid search* to *conversion* is 0.03.</span>
+<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a>***Transition heatmap***</span>
+<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a>We may also want to create a **heatmap** for the transition matrix of our estimated Markov model using the following codes. Note that this map is also created based on first-order markov model results (*trans_1st*), since graphical representation of the third-order Markov transition heatmap is too densed and difficult to read.</span>
+<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a>df_plot_trans <span class="ot">&lt;-</span>trans_1st<span class="sc">$</span>transition_matrix</span>
+<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a><span class="co"># If you prefer a map with 3rd order Markov chain, you may simply run the following line of code instead of the one above:</span></span>
+<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a><span class="co">#df_plot_trans &lt;-trans_3rd_order$transition_matrix</span></span>
+<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a><span class="co"># Start setting up plotting index </span></span>
+<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#e7f0fa"</span>, <span class="st">"#c9e2f6"</span>, <span class="st">"#95cbee"</span>, <span class="st">"#0099dc"</span>, <span class="st">"#4ab04a"</span>, <span class="st">"#ffd73e"</span>, <span class="st">"#eec73a"</span>,</span>
+<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a>          <span class="st">"#e29421"</span>)</span>
+<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">max</span>(trans_1st<span class="sc">$</span>transition_matrix<span class="sc">$</span>transition_probability)</span>
+<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_plot_trans, <span class="fu">aes</span>(<span class="at">y =</span> channel_from, <span class="at">x =</span> channel_to, <span class="at">fill =</span> transition_probability)) <span class="sc">+</span></span>
+<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-339"><a href="#cb13-339" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_tile</span>(<span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">width =</span> .<span class="dv">9</span>, <span class="at">height =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb13-340"><a href="#cb13-340" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> cols, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, t),</span>
+<span id="cb13-341"><a href="#cb13-341" aria-hidden="true" tabindex="-1"></a>                             <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, t, <span class="at">by =</span> t<span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb13-342"><a href="#cb13-342" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="fu">round</span>(t<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">round</span>(t<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">round</span>(t<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span><span class="dv">3</span>, <span class="dv">2</span>), <span class="fu">round</span>(t<span class="sc">/</span><span class="dv">4</span><span class="sc">*</span><span class="dv">4</span>, <span class="dv">2</span>)),</span>
+<span id="cb13-343"><a href="#cb13-343" aria-hidden="true" tabindex="-1"></a>                             <span class="at">guide =</span> <span class="fu">guide_colourbar</span>(<span class="at">ticks =</span> T, <span class="at">nbin =</span> <span class="dv">50</span>, <span class="at">barheight =</span> .<span class="dv">5</span>, <span class="at">label =</span> T, <span class="at">barwidth =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb13-344"><a href="#cb13-344" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(transition_probability, <span class="dv">2</span>)), <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb13-345"><a href="#cb13-345" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>,</span>
+<span id="cb13-346"><a href="#cb13-346" aria-hidden="true" tabindex="-1"></a>              <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb13-347"><a href="#cb13-347" aria-hidden="true" tabindex="-1"></a>              <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-348"><a href="#cb13-348" aria-hidden="true" tabindex="-1"></a>              <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-349"><a href="#cb13-349" aria-hidden="true" tabindex="-1"></a>              <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">vjust =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">'black'</span>, <span class="at">lineheight =</span> <span class="fl">0.8</span>),</span>
+<span id="cb13-350"><a href="#cb13-350" aria-hidden="true" tabindex="-1"></a>              <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb13-351"><a href="#cb13-351" aria-hidden="true" tabindex="-1"></a>              <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb13-352"><a href="#cb13-352" aria-hidden="true" tabindex="-1"></a>              <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">'black'</span>),</span>
+<span id="cb13-353"><a href="#cb13-353" aria-hidden="true" tabindex="-1"></a>              <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"plain"</span>)) <span class="sc">+</span></span>
+<span id="cb13-354"><a href="#cb13-354" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="st">"Transition matrix heatmap"</span>)</span>
+<span id="cb13-355"><a href="#cb13-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-356"><a href="#cb13-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-357"><a href="#cb13-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-358"><a href="#cb13-358" aria-hidden="true" tabindex="-1"></a>In the transition matrix heatmap, the rows represent the ‘starting point’ and the columns represent the ‘ending point’ of each one-step transition.From this heatmap, we can reach the same conclusions as with the Markov graph.</span>
+<span id="cb13-359"><a href="#cb13-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-360"><a href="#cb13-360" aria-hidden="true" tabindex="-1"></a>Note that there are no rows representing *conversion* or *null* states on the matrix because in our setting there are no paths starting from a conversion or starting from a non-conversion. That is also why the cells referring to the transition from *start* to *conversion* and *null* are empty.</span>
+<span id="cb13-361"><a href="#cb13-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-362"><a href="#cb13-362" aria-hidden="true" tabindex="-1"></a><span class="fu">## **4 Model comparison**</span></span>
+<span id="cb13-363"><a href="#cb13-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-364"><a href="#cb13-364" aria-hidden="true" tabindex="-1"></a>We would like to see the difference in outcomes of the traditional heuristic approaches (i.e., first-touch, last-touch) and the model-based approach (i.e., Markov chain).</span>
+<span id="cb13-365"><a href="#cb13-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-366"><a href="#cb13-366" aria-hidden="true" tabindex="-1"></a>We first use *heuristic_models* function to quickly obtain results for the heuristic models:</span>
+<span id="cb13-367"><a href="#cb13-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-368"><a href="#cb13-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
+<span id="cb13-369"><a href="#cb13-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Heuristic Models</span></span>
+<span id="cb13-370"><a href="#cb13-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-371"><a href="#cb13-371" aria-hidden="true" tabindex="-1"></a><span class="fu">heuristic_models</span>(channel_stack, <span class="st">"cleaned_path"</span>, <span class="st">"conversion"</span>, <span class="cn">NULL</span>, <span class="at">sep =</span> <span class="st">"&gt;"</span>)</span>
+<span id="cb13-372"><a href="#cb13-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-373"><a href="#cb13-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-374"><a href="#cb13-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-375"><a href="#cb13-375" aria-hidden="true" tabindex="-1"></a>Note that the output of *heuristic_function* also includes the *linear touch* model. As explained previously in the chapter, linear (even-split) touch model is a simple heuristic model that assumes that each channel contributes to final conversion equally. We do not focus on this specific model in this chapter as it is not of interest to KNC.</span>
+<span id="cb13-376"><a href="#cb13-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-377"><a href="#cb13-377" aria-hidden="true" tabindex="-1"></a>Now we summarize model results of all three models into one table:</span>
+<span id="cb13-378"><a href="#cb13-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-381"><a href="#cb13-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-382"><a href="#cb13-382" aria-hidden="true" tabindex="-1"></a>table_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Item =</span> <span class="fu">c</span>(<span class="st">"Mobile"</span> ,<span class="st">"Paid Search"</span>, <span class="st">"Affiliate"</span>, <span class="st">"Social Media"</span>), <span class="at">First_Touch =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">28</span>, <span class="dv">14</span>, <span class="dv">8</span>)<span class="sc">/</span><span class="dv">67</span>,<span class="dv">3</span>), <span class="at">Last_Touch=</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">8</span>)<span class="sc">/</span><span class="dv">67</span>,<span class="dv">3</span>), <span class="at">Markov_Chain =</span> <span class="fu">c</span>(<span class="fl">0.260</span>, <span class="fl">0.245</span>, <span class="fl">0.238</span>, <span class="fl">0.257</span>))</span>
+<span id="cb13-383"><a href="#cb13-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-384"><a href="#cb13-384" aria-hidden="true" tabindex="-1"></a>table_summary</span>
+<span id="cb13-385"><a href="#cb13-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-386"><a href="#cb13-386" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-387"><a href="#cb13-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-388"><a href="#cb13-388" aria-hidden="true" tabindex="-1"></a>The table above suggests that one can get to very different conclusions by adopting first-touch, last-touch, and Markov chain approach, respectively. Such difference is even clearer if we contrast model results by plotting a bar chart:</span>
+<span id="cb13-389"><a href="#cb13-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-392"><a href="#cb13-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-393"><a href="#cb13-393" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dataset</span></span>
+<span id="cb13-394"><a href="#cb13-394" aria-hidden="true" tabindex="-1"></a>method <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"First Touch"</span>,<span class="dv">4</span>) ,<span class="fu">rep</span>(<span class="st">"Last Touch"</span>,<span class="dv">4</span>) ,<span class="fu">rep</span>(<span class="st">"Markov chain"</span>,<span class="dv">4</span>))</span>
+<span id="cb13-395"><a href="#cb13-395" aria-hidden="true" tabindex="-1"></a>channel <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Mobile"</span> , <span class="st">"Paid Search"</span> , <span class="st">"Affiliate"</span>, <span class="st">"Social Media"</span>) , <span class="dv">3</span>)</span>
+<span id="cb13-396"><a href="#cb13-396" aria-hidden="true" tabindex="-1"></a>value <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.254</span>, <span class="fl">0.418</span>, <span class="fl">0.209</span>, <span class="fl">0.119</span>, <span class="fl">0.388</span>, <span class="fl">0.224</span>, <span class="fl">0.269</span>, <span class="fl">0.119</span>,<span class="fl">0.260</span>,<span class="fl">0.245</span>, <span class="fl">0.238</span>, <span class="fl">0.257</span>)</span>
+<span id="cb13-397"><a href="#cb13-397" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(method,channel,value)</span>
+<span id="cb13-398"><a href="#cb13-398" aria-hidden="true" tabindex="-1"></a><span class="co"># Stacked + percent</span></span>
+<span id="cb13-399"><a href="#cb13-399" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">fill=</span>channel, <span class="at">y=</span>value, <span class="at">x=</span>method)) <span class="sc">+</span> </span>
+<span id="cb13-400"><a href="#cb13-400" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"fill"</span>, <span class="at">stat=</span><span class="st">"identity"</span>)</span>
+<span id="cb13-401"><a href="#cb13-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-402"><a href="#cb13-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-403"><a href="#cb13-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-404"><a href="#cb13-404" aria-hidden="true" tabindex="-1"></a>While first-touch model guides KNC to invest more in paid search and less in social media, last-touch model would suggest strong influence of mobile advertising. Finally, Markov graph approach suggests that the contribution made by all four touchpoints are actually quite evenly distributed.</span>
+<span id="cb13-405"><a href="#cb13-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-406"><a href="#cb13-406" aria-hidden="true" tabindex="-1"></a>***Which model should KNC choose?***</span>
+<span id="cb13-407"><a href="#cb13-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-408"><a href="#cb13-408" aria-hidden="true" tabindex="-1"></a>There are two options available for KNC when deciding which model to choose:</span>
+<span id="cb13-409"><a href="#cb13-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-410"><a href="#cb13-410" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>KNC should try to make sense of these results, first. Prisha can combine the model-based evidence with her managerial intuition. Given her concerns about the touch-based models, Prisha is advised to make her next budget allocation decisions based on Markov chain model output. At the end of the campaign period, she can assess whether there is a significant improvement in conversion rates.</span>
+<span id="cb13-411"><a href="#cb13-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-412"><a href="#cb13-412" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Alternative approach would be to assess the predictive power of attribution models by using a larger dataset. Research on attribution models demonstrate that Markov chain models provide a fairer allocation of weights to channels and perform better than heuristic (e.g., first-touch and last-touch) methods in predicting conversion rates because they take into account the interplay across touchpoints and sequentiality in a customer journey (Anders et al.&nbsp;2016).In appendix, we illustrate how predictive performance of these models can be assessed using the current dataset. In our illustration, Markov model performs better than heuristic methods. However, we take those results with a grain of salt because some paths to purchase occur only a few times in the test set, which may make conversion probabilities less reliable.</span>
+<span id="cb13-413"><a href="#cb13-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-414"><a href="#cb13-414" aria-hidden="true" tabindex="-1"></a>***What if a particular touchpoint is removed?***</span>
+<span id="cb13-415"><a href="#cb13-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-416"><a href="#cb13-416" aria-hidden="true" tabindex="-1"></a>What would have happened to conversion rate when a particular channel was removed from path-to-purchase? To address this question, we will use Shapley value-based approach.</span>
+<span id="cb13-417"><a href="#cb13-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-418"><a href="#cb13-418" aria-hidden="true" tabindex="-1"></a><span class="fu">## **5 Shapley value-based approach**</span></span>
+<span id="cb13-419"><a href="#cb13-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-420"><a href="#cb13-420" aria-hidden="true" tabindex="-1"></a>This modelling approach allows us to evaluate the relative importance of a customer touchpoint to *conversion*.</span>
+<span id="cb13-421"><a href="#cb13-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-422"><a href="#cb13-422" aria-hidden="true" tabindex="-1"></a>Using mobile marketing as an example, we will calculate the **drop** in conversion probability. The scale of the drop will be the importance of mobile marketing in converting customers. Specifically, we will calculate the following:</span>
+<span id="cb13-423"><a href="#cb13-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-424"><a href="#cb13-424" aria-hidden="true" tabindex="-1"></a>We do the same for each of the four touchpoints in the dataset.</span>
+<span id="cb13-425"><a href="#cb13-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-426"><a href="#cb13-426" aria-hidden="true" tabindex="-1"></a>The below code chunk searches if each of the paths contains mobile, paid search, affiliate, and social media or not. Then, it generates four indicator variables.</span>
+<span id="cb13-427"><a href="#cb13-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-430"><a href="#cb13-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-431"><a href="#cb13-431" aria-hidden="true" tabindex="-1"></a><span class="co"># Search if each of the paths contains mobile, paid search, affiliate, and social media or not, and generate four indicator variables.</span></span>
+<span id="cb13-432"><a href="#cb13-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-433"><a href="#cb13-433" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>with_mobile <span class="ot">=</span> <span class="fu">grepl</span>(<span class="at">x=</span>channel_stack<span class="sc">$</span>cleaned_path,<span class="at">pattern=</span><span class="st">"mobile"</span>)</span>
+<span id="cb13-434"><a href="#cb13-434" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>with_paid_search <span class="ot">=</span> <span class="fu">grepl</span>(<span class="at">x=</span>channel_stack<span class="sc">$</span>cleaned_path,<span class="at">pattern=</span><span class="st">"paid_search"</span>)</span>
+<span id="cb13-435"><a href="#cb13-435" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>with_affiliate <span class="ot">=</span> <span class="fu">grepl</span>(<span class="at">x=</span>channel_stack<span class="sc">$</span>cleaned_path,<span class="at">pattern=</span><span class="st">"affiliate"</span>)</span>
+<span id="cb13-436"><a href="#cb13-436" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>with_social_media <span class="ot">=</span> <span class="fu">grepl</span>(<span class="at">x=</span>channel_stack<span class="sc">$</span>cleaned_path,<span class="at">pattern=</span><span class="st">"social_media"</span>)</span>
+<span id="cb13-437"><a href="#cb13-437" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-438"><a href="#cb13-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-439"><a href="#cb13-439" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_mobile_conversion<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_mobile<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion,<span class="dv">0</span>)</span>
+<span id="cb13-440"><a href="#cb13-440" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_mobile_count<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_mobile<span class="sc">==</span><span class="st">"FALSE"</span>,channel_stack<span class="sc">$</span>conversion<span class="sc">+</span> channel_stack<span class="sc">$</span>non_conversion,<span class="dv">0</span>)</span>
+<span id="cb13-441"><a href="#cb13-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-442"><a href="#cb13-442" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_paidsearch_conversion<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_paid_search<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion,<span class="dv">0</span>)</span>
+<span id="cb13-443"><a href="#cb13-443" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_paidsearch_count<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_paid_search<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion<span class="sc">+</span> channel_stack<span class="sc">$</span>non_conversion,<span class="dv">0</span>)</span>
+<span id="cb13-444"><a href="#cb13-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-445"><a href="#cb13-445" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_affiliate_conversion<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_affiliate<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion,<span class="dv">0</span>)</span>
+<span id="cb13-446"><a href="#cb13-446" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_affiliate_count<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_affiliate<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion<span class="sc">+</span> channel_stack<span class="sc">$</span>non_conversion,<span class="dv">0</span>)</span>
+<span id="cb13-447"><a href="#cb13-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-448"><a href="#cb13-448" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_social_media_conversion<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_social_media<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion,<span class="dv">0</span>)</span>
+<span id="cb13-449"><a href="#cb13-449" aria-hidden="true" tabindex="-1"></a>channel_stack<span class="sc">$</span>no_social_media_count<span class="ot">&lt;-</span><span class="fu">ifelse</span> (channel_stack<span class="sc">$</span>with_social_media<span class="sc">==</span><span class="st">"FALSE"</span>, channel_stack<span class="sc">$</span>conversion<span class="sc">+</span> channel_stack<span class="sc">$</span>non_conversion,<span class="dv">0</span>)</span>
+<span id="cb13-450"><a href="#cb13-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-451"><a href="#cb13-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-452"><a href="#cb13-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-453"><a href="#cb13-453" aria-hidden="true" tabindex="-1"></a>Next, we compute the Shapley values for each customer touchpoint and convert them to percentage terms.</span>
+<span id="cb13-454"><a href="#cb13-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-457"><a href="#cb13-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-458"><a href="#cb13-458" aria-hidden="true" tabindex="-1"></a><span class="co"># get Shapley values for each touchpoint</span></span>
+<span id="cb13-459"><a href="#cb13-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-460"><a href="#cb13-460" aria-hidden="true" tabindex="-1"></a>shapley_mobile<span class="ot">&lt;-</span>(<span class="fu">sum</span>(channel_stack<span class="sc">$</span>conversion)<span class="sc">/</span><span class="dv">105</span>)<span class="sc">-</span>(<span class="dv">67</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_mobile_conversion))<span class="sc">/</span>(<span class="dv">105</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_mobile_count))</span>
+<span id="cb13-461"><a href="#cb13-461" aria-hidden="true" tabindex="-1"></a>shapley_paidsearch<span class="ot">&lt;-</span>(<span class="fu">sum</span>(channel_stack<span class="sc">$</span>conversion)<span class="sc">/</span><span class="dv">105</span>)<span class="sc">-</span>(<span class="dv">67</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_paidsearch_conversion))<span class="sc">/</span>(<span class="dv">105</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_paidsearch_count))</span>
+<span id="cb13-462"><a href="#cb13-462" aria-hidden="true" tabindex="-1"></a>shapley_affiliate<span class="ot">&lt;-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>conversion)<span class="sc">/</span><span class="dv">105</span><span class="sc">-</span>(<span class="dv">67</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_affiliate_conversion))<span class="sc">/</span>(<span class="dv">105</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_affiliate_count))</span>
+<span id="cb13-463"><a href="#cb13-463" aria-hidden="true" tabindex="-1"></a>shapley_socialmedia<span class="ot">&lt;-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>conversion)<span class="sc">/</span><span class="dv">105</span><span class="sc">-</span>(<span class="dv">67</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_social_media_conversion))<span class="sc">/</span>(<span class="dv">105</span><span class="sc">-</span><span class="fu">sum</span>(channel_stack<span class="sc">$</span>no_social_media_count))</span>
+<span id="cb13-464"><a href="#cb13-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-465"><a href="#cb13-465" aria-hidden="true" tabindex="-1"></a>shapley_mobile</span>
+<span id="cb13-466"><a href="#cb13-466" aria-hidden="true" tabindex="-1"></a>shapley_paidsearch</span>
+<span id="cb13-467"><a href="#cb13-467" aria-hidden="true" tabindex="-1"></a>shapley_affiliate</span>
+<span id="cb13-468"><a href="#cb13-468" aria-hidden="true" tabindex="-1"></a>shapley_socialmedia</span>
+<span id="cb13-469"><a href="#cb13-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-470"><a href="#cb13-470" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-471"><a href="#cb13-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-474"><a href="#cb13-474" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-475"><a href="#cb13-475" aria-hidden="true" tabindex="-1"></a><span class="co"># converting Shapley values to percentage terms</span></span>
+<span id="cb13-476"><a href="#cb13-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-477"><a href="#cb13-477" aria-hidden="true" tabindex="-1"></a>shapley_mobile_pct<span class="ot">&lt;-</span>shapley_mobile<span class="sc">/</span>(shapley_mobile<span class="sc">+</span>shapley_paidsearch<span class="sc">+</span>shapley_affiliate <span class="sc">+</span>shapley_socialmedia)</span>
+<span id="cb13-478"><a href="#cb13-478" aria-hidden="true" tabindex="-1"></a>shapley_paidsearch_pct <span class="ot">&lt;-</span>shapley_paidsearch<span class="sc">/</span>(shapley_mobile<span class="sc">+</span>shapley_paidsearch<span class="sc">+</span>shapley_affiliate <span class="sc">+</span>shapley_socialmedia)</span>
+<span id="cb13-479"><a href="#cb13-479" aria-hidden="true" tabindex="-1"></a>shapley_affiliate_pct<span class="ot">&lt;-</span> shapley_affiliate<span class="sc">/</span>(shapley_mobile<span class="sc">+</span>shapley_paidsearch<span class="sc">+</span>shapley_affiliate <span class="sc">+</span>shapley_socialmedia)</span>
+<span id="cb13-480"><a href="#cb13-480" aria-hidden="true" tabindex="-1"></a>shapley_socialmedia_pct<span class="ot">&lt;-</span> shapley_socialmedia<span class="sc">/</span>(shapley_mobile<span class="sc">+</span>shapley_paidsearch<span class="sc">+</span>shapley_affiliate<span class="sc">+</span>shapley_socialmedia)</span>
+<span id="cb13-481"><a href="#cb13-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-482"><a href="#cb13-482" aria-hidden="true" tabindex="-1"></a>shapley_mobile_pct</span>
+<span id="cb13-483"><a href="#cb13-483" aria-hidden="true" tabindex="-1"></a>shapley_paidsearch_pct</span>
+<span id="cb13-484"><a href="#cb13-484" aria-hidden="true" tabindex="-1"></a>shapley_affiliate_pct</span>
+<span id="cb13-485"><a href="#cb13-485" aria-hidden="true" tabindex="-1"></a>shapley_socialmedia_pct</span>
+<span id="cb13-486"><a href="#cb13-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-487"><a href="#cb13-487" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-488"><a href="#cb13-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-489"><a href="#cb13-489" aria-hidden="true" tabindex="-1"></a>The output from the Shapley model suggests that the impact of mobile and paid search advertising is the largest because they are associated with the largest drop in conversion percentage, followed by social media, and then affiliate. Thus, removing mobile and paid search channels would not be an appropriate action for KNC. Our further advice to Prisha is that she needs to evaluate the strategic implications of a channel removal very carefully with a forward-looking perspective because consumers may be pushed to other touchpoints (e.g.paid search), which may result in a higher cost to KNC. Finally, conclusions from Shapley model are not causal. To understand the causal impact of a channel removal, randomized field experiments should be adopted, in which consumers are randomly assigned to control and treatment groups.</span>
+<span id="cb13-490"><a href="#cb13-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-491"><a href="#cb13-491" aria-hidden="true" tabindex="-1"></a><span class="fu">## **6 Conclusion**</span></span>
+<span id="cb13-492"><a href="#cb13-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-493"><a href="#cb13-493" aria-hidden="true" tabindex="-1"></a>Overall, the marketing group at KNC seems to be rather confident of the following decisions to make:</span>
+<span id="cb13-494"><a href="#cb13-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-495"><a href="#cb13-495" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>KNC should analyze and predict consumer conversion by switching from first- and last-touch heuristic approaches to Markov chain model.</span>
+<span id="cb13-496"><a href="#cb13-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-497"><a href="#cb13-497" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Instead of downgrading their emphasis on affiliate and social media advertising, KNC should keep investing in all of the customer touchpoints.</span>
+<span id="cb13-498"><a href="#cb13-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-499"><a href="#cb13-499" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>KNC can use the Shapley value-based modelling approach to quantify the potential impact of a channel removal on consumers’ purchases. However, removal of a channel (e.g., social media) may result in significant changes in the customer journey. Consumers may be pushed to other touchpoints (e.g.paid search) that might be more costly to the firm. Therefore, findings from Shapley model should always be combined with a careful strategic analysis. For instance, even though the model finds zero contribution for the social media channel, the manager may still want to be present on social media to increase the brand awareness in the market.</span>
+<span id="cb13-500"><a href="#cb13-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-501"><a href="#cb13-501" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>These results do not imply causality. To understand the causal impact of a touchpoint on the relevant performance metrics, KNC is suggested to run randomized field experiments.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item">
+ <a href="https://www.jhelvy.com/cv.html">Resume</a> &nbsp;<a href="https://github.com/cerencodes" target="blank"><i class="bi bi-github"></i></a> &nbsp;<a href="https://www.linkedin.com/in/cbunal/" target="blank"><i class="bi bi-linkedin"></i></a> &nbsp;<br>Site made with <i class="bi bi-heart-fill"></i> <a href="https://github.com/cerencodes" target="_blank"><i class="bi bi-git"></i></a>, and <a href="https://quarto.org/" target="_blank"><img src="https://quarto.org/favicon.png" width="12"> quarto</a><br>Â© 2025 Ceren Unal
+  </li>  
+</ul>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

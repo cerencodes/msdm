@@ -1,0 +1,61 @@
+---
+title: "What Is Shinylive?"
+author: "Ceren Unal"
+date: "2026-04-13"
+description: "Shinylive is a way to run a Shiny app directly in the browser, without needing a live server to power the app."
+categories: [Shiny, R, Deployment]
+format: html
+toc: true
+---
+
+Shinylive is a way to run a Shiny app directly in the browser, without needing a live server to power the app. Instead of hosting the app on a Shiny server, you export it as static files and publish it on a basic web host. The browser then runs the app locally using WebAssembly.
+
+For coworkers, the easiest way to think about Shinylive is this: it is a **lighter, more portable version of Shiny** for cases where you want to share interactive apps quickly and cheaply.
+
+### How is Shinylive different from a traditional Shiny app?
+
+A traditional Shiny app follows a **server-client model**:
+
+-    The app code runs on a server
+
+-    Users interact with it through their browsers
+
+-    The server handles processing and app logic
+
+-    Deployment usually needs Shiny Server, Posit Connect, or shinyapps.io
+
+Shinylive works differently:
+
+-    The app runs in the user’s browser
+
+-    No dedicated Shiny server is required
+
+-    You can host it on static sites like GitHub Pages
+
+-    The browser handles the app’s computation
+
+### Pros of Shinylive
+
+-    **Simpler deployment:** no need to manage a Shiny backend
+
+-    **Lower hosting cost:** static hosting is cheaper and easier
+
+-    **Easy sharing:** apps can be distributed like normal websites
+
+-    **Good for demos and teaching:** especially useful for lightweight tools and examples
+
+-    **Scales easily for traffic:** static files are easier to serve than live app sessions
+
+### Cons of Shinylive
+
+-    **Limited package support:** not every R or Python package works in the browser
+
+-    **Slower first load:** users may need to download a large runtime before the app starts
+
+-    **Less suitable for heavy apps:** large computations can strain the user’s device
+
+-    **Not ideal for private data or secure backend workflows:** traditional Shiny handles these better
+
+### Bottom line
+
+Shinylive is best for **simple, shareable, browser-based interactive apps**. Traditional Shiny is still better when you need **full server power, broader package compatibility, secure data access, or more complex backend logic**.

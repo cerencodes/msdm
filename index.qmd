@@ -1,0 +1,44 @@
+---
+title: "About"
+image: ceren-unal.jpg
+about: 
+  template: trestles
+  image-width: 20em
+  image-shape: round
+  links: 
+    - icon: linkedin
+      text: Linkedin
+      href: https://www.linkedin.com/in/cbunal/
+    #- icon: github
+    #  text: GitHub
+---
+
+Based in Southern California, Ceren is a digital marketing expert specializing in digital products and services. When not innovating on advertising platforms, Ceren enjoys exploring the LA theater and food scene, visiting museums and learning about art and photography.
+
+### Professional Experience
+
+**Rocket Lawyer**
+
+Performance Marketing Specialist \| Jun 2025 - Present
+
+**Cal Poly Pomona**
+
+Marketing Specialist \| Sep 2024 - Mar 2025
+
+**Novakid Inc**
+
+Performance Marketing Specialist \| Oct 2022 - Sept 2024
+
+**AdXclusive Agency**
+
+Performance Marketing Specialist \| Aug 2021 - Nov 2022
+
+### Education
+
+**Cal Poly Pomona**
+
+MS. in Digital Marketing \| Aug 2024 - Aug 2026
+
+**Bogazici University**
+
+BA. in English Literature \| Aug 2017 - Aug 2022

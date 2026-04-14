@@ -1,0 +1,901 @@
+﻿CustomerID,Genre,State,SubscriptionTier,Age,Gender,JoinDate,CancelDate,NumberMonthsActive,AvgSessionLength,MonthsSinceLastActivity,AvgWatchHoursPerMonth,RevenueYTD,DevicePreference
+8,Horror,IL,Premium,42,M,2025-01-29,,12.00,55,0,65,191.88,Mobile
+2,Action & Adventure,TX,Family,39,F,2025-01-04,,12.00,70,0,58,239.88,Smart TV
+59,Documentary,FL,Family,48,M,2025-01-03,,12.00,88,0,57,239.88,Smart TV
+11,Action & Adventure,TX,Family,30,O,2025-01-06,,12.00,74,0,55,239.88,Smart TV
+75,Horror,IL,Family,28,M,2025-01-06,,12.00,90,0,55,239.88,Tablet
+35,Children & Family,GA,Family,41,M,2025-01-02,,12.00,88,0,55,239.88,Mobile
+18,Drama,WA,Family,29,M,2025-01-09,,12.00,60,0,48,239.88,Mobile
+28,Children & Family,IL,Premium,30,F,2025-01-08,,11.00,60,0,42,175.89,Smart TV
+67,Action & Adventure,FL,Family,60,O,2025-01-11,,10.00,85,0,47,199.9,Smart TV
+6,Drama,GA,Family,58,M,2025-02-24,,10.00,85,0,40,199.9,Smart TV
+24,Drama,NY,Premium,25,F,2025-01-10,,10.00,58,0,35,159.9,Laptop
+32,Documentary,NY,Premium,35,M,2025-01-28,2025-10-12,9.00,57,0,38,143.91,Laptop
+147,Documentary,WA,Premium,33,M,2025-01-21,2025-10-12,9.00,52,0,38,143.91,Laptop
+20,Horror,GA,Premium,35,F,2025-01-31,,9.00,65,0,38,143.91,Tablet
+259,Documentary,WA,Premium,24,F,2025-01-30,2025-10-12,9.00,55,0,36,143.91,Mixed
+183,Horror,TX,Premium,24,F,2025-01-14,,9.00,60,0,36,143.91,Tablet
+83,Documentary,WA,Family,45,F,2025-01-16,2025-10-12,9.00,74,0,36,179.91,Laptop
+251,Horror,WA,Premium,28,F,2025-01-25,2025-10-25,9.00,60,0,36,143.91,Tablet
+371,Action & Adventure,WA,Premium,27,F,2025-01-26,,9.00,60,0,36,143.91,Mobile
+123,Action & Adventure,WA,Premium,33,F,2025-01-10,,9.00,57,0,36,143.91,Smart TV
+291,Action & Adventure,WA,Premium,33,F,2025-01-26,,9.00,62,0,36,143.91,Mobile
+315,Action & Adventure,WA,Premium,42,O,2025-01-26,,9.00,60,0,36,143.91,Mobile
+323,Horror,WA,Premium,35,F,2025-01-12,2025-10-02,9.00,62,0,36,143.91,Laptop
+387,Documentary,WA,Premium,37,F,2025-01-08,,9.00,58,0,36,143.91,Mixed
+464,Horror,WA,Premium,32,M,2025-01-19,,9.00,62,0,36,143.91,Mobile
+488,Horror,WA,Premium,40,M,2025-01-08,,9.00,60,0,36,143.91,Mobile
+36,Comedy,TX,Premium,23,F,2025-01-11,,9.00,50,0,36,143.91,Mobile
+560,Horror,WA,Premium,41,O,2025-01-13,,9.00,62,0,36,143.91,Mobile
+227,Horror,WA,Premium,46,F,2025-01-14,,9.00,62,0,36,143.91,Tablet
+307,Documentary,WA,Premium,58,F,2025-01-18,2025-10-18,9.00,60,0,36,143.91,Mixed
+55,Horror,NY,Family,37,F,2025-02-25,,3.00,80,1,35,59.97,Smart TV
+87,Children & Family,CA,Family,42,F,2025-02-25,,5.00,88,1,35,99.95,Mobile
+363,Documentary,WA,Premium,46,O,2025-01-12,2025-10-12,9.00,62,0,36,143.91,Tablet
+179,Documentary,WA,Premium,25,F,2025-01-10,2025-10-10,9.00,55,0,35,143.91,Mobile
+68,Documentary,CA,Premium,25,M,2025-01-30,2025-10-30,9.00,54,0,33,143.91,Mobile
+339,Documentary,WA,Premium,27,M,2025-01-31,,8.00,62,0,35,127.92,Mobile
+210,Action & Adventure,GA,Family,56,M,2025-01-15,,6.00,85,0,35,119.94,Smart TV
+496,Documentary,WA,Premium,29,O,2025-01-29,2025-10-05,8.00,62,0,35,127.92,Mobile
+275,Horror,WA,Premium,32,F,2025-01-29,,8.00,60,0,35,127.92,Mobile
+440,Horror,WA,Premium,44,F,2025-01-30,,8.00,62,0,35,127.92,Mobile
+171,Horror,WA,Premium,49,M,2025-01-29,,8.00,65,0,35,127.92,Tablet
+576,Action & Adventure,WA,Premium,57,M,2025-01-27,,8.00,62,0,35,127.92,Tablet
+664,Documentary,WA,Premium,57,F,2025-01-31,,8.00,60,0,35,127.92,Mobile
+79,Horror,FL,Family,36,F,2025-01-25,,6.00,85,0,34,119.94,Smart TV
+950,Drama,CA,Family,42,M,2025-02-09,,5.00,85,1,34,99.95,Smart TV
+222,Comedy,CA,Family,64,F,2025-02-02,,6.00,85,0,34,119.94,Mixed
+182,Action & Adventure,CA,Family,47,F,2025-03-01,,2.00,88,1,34,39.98,Smart TV
+738,Documentary,TX,Family,60,M,2025-01-28,,5.00,85,1,34,99.95,Tablet
+794,Action & Adventure,TX,Family,63,F,2025-01-31,,5.00,85,1,34,99.95,Smart TV
+138,Comedy,GA,Family,48,M,2025-02-10,,5.00,88,0,34,99.95,Laptop
+162,Drama,GA,Family,53,M,2025-02-09,,5.00,85,0,34,99.95,Tablet
+655,Drama,GA,Family,55,M,2025-02-03,,5.00,85,1,34,99.95,Smart TV
+595,Drama,CA,Family,37,F,2025-01-16,,6.00,82,0,33,119.94,Smart TV
+415,Drama,GA,Family,38,M,2025-01-27,,6.00,82,0,33,119.94,Mixed
+158,Action & Adventure,CA,Family,25,F,2025-01-09,,6.00,80,0,33,119.94,Tablet
+702,Children & Family,NY,Family,57,F,2025-01-28,,6.00,80,0,33,119.94,Smart TV
+718,Horror,NY,Family,61,M,2025-01-06,,6.00,82,0,33,119.94,Mobile
+126,Comedy,CA,Family,61,M,2025-01-27,,6.00,82,0,33,119.94,Smart TV
+334,Horror,CA,Family,53,M,2025-01-22,,6.00,80,0,33,119.94,Smart TV
+635,Children & Family,CA,Family,49,F,2025-01-24,,6.00,82,0,33,119.94,Smart TV
+918,Drama,TX,Family,58,F,2025-01-06,,6.00,80,0,33,119.94,Mobile
+274,Drama,GA,Family,58,F,2025-02-02,,6.00,82,0,33,119.94,Laptop
+607,Drama,GA,Family,62,F,2025-01-09,,6.00,80,0,33,119.94,Mobile
+938,Drama,GA,Family,63,F,2025-01-10,,6.00,82,0,33,119.94,Smart TV
+99,Children & Family,FL,Family,46,M,2025-01-12,,6.00,85,0,33,119.94,Smart TV
+270,Comedy,CA,Family,50,O,2025-02-07,,5.00,88,1,33,99.95,Smart TV
+294,Comedy,CA,Family,59,M,2025-02-19,,5.00,80,1,33,99.95,Smart TV
+106,Dramas,GA,Family,61,F,2025-01-25,,5.00,88,0,33,99.95,Mixed
+378,Dramas,GA,Family,59,M,2025-02-10,,5.00,85,0,33,99.95,Mobile
+84,Horror,CO,Premium,55,M,2025-01-27,,8.00,60,0,32,127.92,Mixed
+459,Comedy,CA,Premium,22,F,2025-02-14,,5.00,80,1,32,79.96,Smart TV
+134,Children & Family,CA,Family,38,M,2025-01-23,,6.00,79,0,32,119.94,Smart TV
+194,Action & Adventure,GA,Family,44,F,2025-01-22,,6.00,88,0,32,119.94,Smart TV
+475,Dramas,CA,Family,42,M,2025-02-05,,5.00,85,1,32,99.95,Smart TV
+563,Children & Family,CA,Premium,30,F,2025-02-01,,5.00,80,1,32,79.96,Mixed
+51,Horror,TX,Family,25,F,2025-03-25,,1.00,90,1,32,19.99,Mobile
+114,Comedy,GA,Family,52,M,2025-01-15,,6.00,85,0,32,119.94,Laptop
+202,Horror,GA,Family,47,F,2025-01-06,,6.00,80,0,32,119.94,Mobile
+27,Drama,TX,Family,68,F,2025-03-15,,2.00,88,1,32,39.98,Smart TV
+358,Children & Family,CA,Family,60,F,2025-02-21,,4.00,80,1,32,79.96,Smart TV
+667,Drama,CA,Family,48,F,2025-02-27,,4.00,85,1,32,79.96,Smart TV
+974,Drama,CA,Family,62,M,2025-02-25,,4.00,85,1,32,79.96,Smart TV
+730,Horror,TX,Family,53,M,2025-02-23,,4.00,85,1,32,79.96,Smart TV
+535,Drama,GA,Family,58,M,2025-02-27,,4.00,85,1,32,79.96,Smart TV
+238,Dramas,CA,Family,51,M,2025-01-28,,5.00,85,0,32,99.95,Smart TV
+56,Children & Family,GA,Premium,33,F,2025-01-31,,8.00,58,0,31,127.92,Smart TV
+515,Children & Family,CA,Premium,51,F,2025-02-12,,5.00,80,1,32,79.96,Smart TV
+512,Horror,WA,Premium,47,M,2025-01-06,,6.00,65,0,32,95.94,Mobile
+428,Horror,TX,Premium,61,F,2025-01-19,,6.00,65,0,32,95.94,Tablet
+543,Comedy,GA,Family,21,F,2025-01-16,,6.00,75,0,31,119.94,Smart TV
+726,Documentary,NY,Family,27,M,2025-01-29,,6.00,78,0,31,119.94,Laptop
+611,Children & Family,CA,Family,27,F,2025-01-10,,6.00,75,0,31,119.94,Smart TV
+786,Documentary,TX,Family,26,M,2025-01-05,2025-10-05,6.00,75,0,31,119.94,Smart TV
+226,Dramas,GA,Family,28,M,2025-01-05,,6.00,80,0,31,119.94,Smart TV
+930,Children & Family,GA,Family,27,F,2025-01-16,,6.00,75,0,31,119.94,Smart TV
+96,Documentary,WA,Premium,19,F,2025-01-26,2025-10-12,8.00,55,0,30,127.92,Mobile
+390,Dramas,CA,Family,31,M,2025-01-05,,6.00,80,0,31,119.94,Mobile
+435,Comedy,CA,Family,45,M,2025-01-14,,6.00,78,0,31,119.94,Smart TV
+699,Comedy,CA,Family,44,F,2025-01-08,,6.00,78,0,31,119.94,Mobile
+982,Comedy,CA,Family,36,F,2025-01-29,,6.00,80,0,31,119.94,Laptop
+423,Comedy,GA,Family,40,F,2025-01-11,,6.00,75,0,31,119.94,Smart TV
+671,Children & Family,GA,Family,33,F,2025-01-28,,6.00,78,0,31,119.94,Laptop
+539,Children & Family,CA,Family,43,F,2025-02-23,,4.00,82,1,31,79.96,Laptop
+214,Dramas,CA,Family,45,F,2025-02-12,,5.00,78,0,31,99.95,Laptop
+246,Comedy,CA,Family,37,F,2025-02-14,,5.00,84,1,31,99.95,Mixed
+382,Children & Family,CA,Family,33,F,2025-01-29,,5.00,74,0,31,99.95,Smart TV
+571,Drama,CA,Family,45,M,2025-02-14,,5.00,82,1,31,99.95,Laptop
+527,Children & Family,GA,Family,36,F,2025-01-28,,5.00,82,0,31,99.95,Mobile
+15,Comedy,NY,Family,44,F,2025-02-02,,7.00,90,0,34,139.93,Smart TV
+174,Drama,CA,Family,45,F,2025-01-05,,7.00,82,0,31,139.93,Laptop
+942,Children & Family,CA,Family,49,F,2025-01-20,,6.00,78,0,31,119.94,Mixed
+154,Comedy,GA,Family,57,F,2025-01-12,,6.00,82,0,31,119.94,Mobile
+407,Comedy,GA,Family,46,F,2025-01-14,,6.00,78,0,31,119.94,Smart TV
+463,Dramas,GA,Family,48,F,2025-01-10,,6.00,78,0,31,119.94,Smart TV
+567,Comedy,GA,Family,62,F,2025-01-10,,6.00,78,0,31,119.94,Mobile
+451,Drama,CA,Family,59,M,2025-02-04,,5.00,82,1,31,99.95,Smart TV
+499,Dramas,CA,Family,54,F,2025-01-19,,5.00,82,1,31,99.95,Laptop
+762,Documentary,TX,Family,53,F,2025-02-05,,5.00,82,1,31,99.95,Laptop
+258,Comedy,GA,Family,62,M,2025-02-25,,5.00,75,0,31,99.95,Mobile
+471,Comedy,GA,Family,53,M,2025-02-09,,5.00,78,0,31,99.95,Mobile
+679,Drama,GA,Family,60,M,2025-02-01,,5.00,82,1,31,99.95,Smart TV
+603,Comedy,CA,Family,23,O,2025-02-05,,5.00,75,1,30,99.95,Smart TV
+591,Comedy,GA,Family,24,M,2025-02-12,,5.00,75,1,30,99.95,Tablet
+286,Dramas,CA,Family,48,M,2025-01-03,,7.00,82,0,31,139.93,Smart TV
+991,Action & Adventure,TX,Premium,21,F,2025-01-06,,6.00,54,0,30,95.94,Mobile
+242,Children & Family,GA,Family,29,M,2025-01-02,,7.00,76,0,30,139.93,Smart TV
+278,Children & Family,CA,Family,29,F,2025-01-18,,6.00,75,0,30,119.94,Mixed
+63,Children & Family,WA,Family,27,F,2025-03-01,,2.00,75,1,30,39.98,Smart TV
+734,Action & Adventure,NY,Family,45,F,2025-02-27,,4.00,78,1,30,79.96,Smart TV
+374,Comedy,CA,Family,45,F,2025-02-24,,4.00,78,1,30,79.96,Mixed
+926,Drama,CA,Family,45,F,2025-02-28,,4.00,78,1,30,79.96,Tablet
+742,Horror,NY,Family,31,F,2025-01-25,,5.00,75,1,30,99.95,Mixed
+798,Documentary,NY,Family,38,F,2025-02-01,,5.00,78,1,30,99.95,Laptop
+350,Comedy,CA,Family,45,M,2025-02-04,,5.00,76,1,30,99.95,Smart TV
+427,Drama,CA,Family,31,F,2025-02-15,,5.00,80,1,30,99.95,Mobile
+651,Comedy,CA,Family,32,F,2025-02-09,,5.00,78,1,30,99.95,Mixed
+691,Drama,CA,Family,33,M,2025-02-01,,5.00,75,1,30,99.95,Smart TV
+914,Comedy,WA,Family,34,M,2025-02-06,,5.00,75,1,30,99.95,Laptop
+47,Horror,IL,Family,42,F,2025-01-31,,5.00,88,1,30,99.95,Tablet
+338,Comedy,GA,Family,43,F,2025-02-06,,5.00,78,1,30,99.95,Tablet
+623,Children & Family,GA,Family,33,M,2025-02-13,,5.00,78,1,30,99.95,Mobile
+978,Children & Family,GA,Family,44,M,2025-02-03,,5.00,75,1,30,99.95,Tablet
+547,Drama,CA,Family,26,F,2025-02-20,,4.00,76,1,30,79.96,Smart TV
+758,Action & Adventure,NY,Family,27,F,2025-02-11,,5.00,75,1,30,99.95,Smart TV
+782,Action & Adventure,NY,Family,30,F,2025-02-02,,5.00,72,1,30,99.95,Mixed
+118,Drama,CA,Family,28,F,2025-02-12,,5.00,76,0,30,99.95,Smart TV
+166,Comedy,CA,Family,29,F,2025-02-01,,5.00,78,1,30,99.95,Smart TV
+302,Children & Family,CA,Family,26,O,2025-02-16,,5.00,78,1,30,99.95,Laptop
+483,Comedy,CA,Family,27,F,2025-01-28,,5.00,75,1,30,99.95,Smart TV
+186,Drama,GA,Family,28,M,2025-01-31,,5.00,75,0,30,99.95,Mixed
+511,Drama,GA,Family,28,M,2025-01-31,,5.00,78,0,30,99.95,Mixed
+939,Horror,WA,Premium,30,F,2025-01-27,2025-10-09,6.00,60,0,30,95.94,Tablet
+947,Documentary,WA,Premium,27,F,2025-01-08,,6.00,60,0,30,95.94,Mobile
+923,Documentary,WA,Premium,33,F,2025-01-21,,6.00,58,0,30,95.94,Mobile
+987,Horror,WA,Premium,31,F,2025-01-18,2025-10-09,6.00,60,0,30,95.94,Tablet
+452,Horror,TX,Premium,33,F,2025-01-24,2025-10-09,6.00,60,0,30,95.94,Mobile
+620,Horror,TX,Premium,38,F,2025-01-11,,6.00,60,0,30,95.94,Mobile
+660,Action & Adventure,TX,Premium,31,F,2025-01-13,,6.00,58,0,30,95.94,Mobile
+927,Horror,TX,Premium,38,F,2025-01-06,,6.00,60,0,30,95.94,Mobile
+935,Documentary,TX,Premium,42,M,2025-01-14,,6.00,62,0,30,95.94,Mobile
+967,Action & Adventure,TX,Premium,35,F,2025-01-11,,6.00,58,0,30,95.94,Mobile
+735,Drama,FL,Premium,42,F,2025-01-18,,6.00,60,0,30,95.94,Mobile
+743,Comedy,FL,Premium,39,F,2025-01-14,,6.00,58,0,30,95.94,Mobile
+799,Children & Family,FL,Premium,40,M,2025-01-24,,6.00,58,0,30,95.94,Mobile
+755,Comedy,CO,Premium,44,F,2025-01-06,,6.00,58,0,30,95.94,Mobile
+907,Horror,CO,Premium,39,F,2025-01-07,,6.00,60,0,30,95.94,Tablet
+326,Children & Family,CA,Family,62,F,2025-01-17,,6.00,70,0,30,119.94,Smart TV
+342,Dramas,CA,Family,46,F,2025-01-09,,6.00,74,0,30,119.94,Smart TV
+710,Action & Adventure,NY,Family,56,F,2025-03-08,,1.00,82,1,30,19.99,Mixed
+990,Children & Family,CA,Family,58,F,2025-03-09,,1.00,78,1,30,19.99,Smart TV
+615,Comedy,GA,Family,56,F,2025-03-08,,1.00,82,1,30,19.99,Laptop
+954,Children & Family,GA,Family,56,F,2025-03-11,,1.00,78,1,30,19.99,Smart TV
+366,Dramas,CA,Family,54,F,2025-02-15,,4.00,78,1,30,79.96,Smart TV
+419,Comedy,CA,Family,57,M,2025-02-27,,4.00,78,1,30,79.96,Smart TV
+627,Comedy,CA,Family,51,M,2025-02-27,,4.00,78,1,30,79.96,Smart TV
+966,Children & Family,CA,Family,60,F,2025-02-24,,4.00,82,1,30,79.96,Smart TV
+902,Comedy,TX,Family,61,F,2025-02-16,,4.00,78,1,30,79.96,Smart TV
+298,Dramas,GA,Family,56,F,2025-02-27,,4.00,78,1,30,79.96,Smart TV
+487,Dramas,GA,Family,58,F,2025-02-26,,4.00,82,1,30,79.96,Smart TV
+687,Comedy,GA,Family,58,F,2025-02-26,,4.00,82,1,30,79.96,Mobile
+695,Children & Family,GA,Family,50,M,2025-02-15,,4.00,78,1,30,79.96,Mobile
+946,Comedy,GA,Family,58,F,2025-02-19,,4.00,78,1,30,79.96,Laptop
+766,Horror,NY,Family,62,M,2025-02-09,,5.00,75,1,30,99.95,Smart TV
+318,Comedy,CA,Family,47,F,2025-02-02,,5.00,78,1,30,99.95,Smart TV
+178,Comedy,GA,Family,50,M,2025-02-08,,5.00,78,1,30,99.95,Mobile
+431,Children & Family,GA,Family,52,M,2025-01-31,,5.00,78,1,30,99.95,Laptop
+559,Drama,GA,Family,49,F,2025-02-04,,5.00,75,1,30,99.95,Smart TV
+994,Comedy,GA,Family,55,F,2025-01-31,,5.00,78,1,30,99.95,Mobile
+322,Dramas,GA,Family,25,M,2025-02-07,,5.00,75,1,30,99.95,Mobile
+639,Comedy,GA,Family,25,F,2025-02-05,,5.00,75,1,30,99.95,Mobile
+955,Action & Adventure,WA,Premium,48,M,2025-01-25,,6.00,58,0,30,95.94,Mobile
+412,Documentary,TX,Premium,50,F,2025-01-09,,6.00,65,0,30,95.94,Mobile
+652,Documentary,TX,Premium,49,M,2025-01-20,,6.00,65,0,30,95.94,Mobile
+783,Drama,FL,Premium,46,M,2025-01-14,,6.00,60,0,30,95.94,Tablet
+911,Action & Adventure,FL,Premium,46,F,2025-01-25,,6.00,58,0,30,95.94,Laptop
+715,Children & Family,CO,Premium,58,M,2025-01-04,,6.00,65,0,30,95.94,Mobile
+787,Children & Family,CO,Premium,62,F,2025-01-27,,6.00,65,0,30,95.94,Mobile
+906,Drama,WA,Family,22,F,2025-02-24,,4.00,75,1,29,79.96,Mobile
+962,Drama,GA,Family,19,M,2025-02-17,,4.00,75,1,29,79.96,Mobile
+31,Comedy,CA,Family,21,F,2025-02-14,,5.00,68,1,29,99.95,Mixed
+531,Comedy,CA,Family,20,F,2025-02-02,,5.00,75,1,29,99.95,Laptop
+714,Documentary,TX,Family,24,F,2025-02-29,,4.00,75,1,29,79.96,Smart TV
+583,Drama,GA,Family,24,M,2025-02-21,,4.00,74,1,29,79.96,Mobile
+254,Children & Family,CA,Family,27,F,2025-01-31,,6.00,70,0,29,119.94,Tablet
+456,Action & Adventure,WA,Family,29,F,2025-01-06,,6.00,58,0,29,119.94,Tablet
+443,Children & Family,CA,Family,27,F,2025-03-25,,1.00,78,1,29,19.99,Smart TV
+102,Comedy,CA,Family,44,F,2025-02-16,,6.00,72,0,29,119.94,Smart TV
+504,Action & Adventure,WA,Family,33,F,2025-01-17,,6.00,58,0,29,119.94,Tablet
+688,Documentary,WA,Family,31,F,2025-01-17,,6.00,56,0,29,119.94,Tablet
+556,Documentary,TX,Family,35,F,2025-01-11,2025-10-10,6.00,58,0,29,119.94,Mobile
+310,Dramas,CA,Family,44,F,2025-03-13,,1.00,80,1,29,19.99,Mobile
+675,Comedy,CA,Family,37,M,2025-03-02,,1.00,78,1,29,19.99,Laptop
+770,Action & Adventure,TX,Family,45,F,2025-03-15,,1.00,78,1,29,19.99,Mobile
+910,Children & Family,TX,Family,41,F,2025-03-04,,1.00,78,1,29,19.99,Smart TV
+234,Comedy,GA,Family,39,F,2025-03-25,,1.00,78,1,29,19.99,Laptop
+519,Comedy,GA,Family,33,F,2025-03-26,,1.00,78,1,29,19.99,Laptop
+398,Comedy,CA,Family,40,M,2025-03-10,,2.00,78,1,29,39.98,Smart TV
+170,Action & Adventure,GA,Family,36,F,2025-03-02,,2.00,85,1,29,39.98,Smart TV
+774,Documentary,NY,Family,41,F,2025-02-17,,4.00,74,1,29,79.96,Laptop
+523,Drama,CA,Family,40,F,2025-02-26,,4.00,75,1,29,79.96,Smart TV
+619,Drama,CA,Family,31,F,2025-02-22,,4.00,75,1,29,79.96,Smart TV
+754,Horror,TX,Family,34,F,2025-02-27,,4.00,75,1,29,79.96,Smart TV
+282,Comedy,GA,Family,34,M,2025-02-26,,4.00,78,1,29,79.96,Mobile
+346,Children & Family,GA,Family,32,F,2025-02-23,,4.00,80,1,29,79.96,Mixed
+599,Children & Family,GA,Family,40,F,2025-02-27,,4.00,75,1,29,79.96,Mobile
+230,Children & Family,CA,Family,34,F,2025-02-10,,5.00,72,0,29,99.95,Smart TV
+354,Dramas,GA,Family,26,M,2025-01-31,,5.00,70,0,29,99.95,Laptop
+394,Children & Family,GA,Family,26,M,2025-02-01,,5.00,70,1,29,99.95,Mixed
+359,Action & Adventure,TX,Premium,33,F,2025-01-05,,7.00,58,0,29,111.93,Mobile
+746,Action & Adventure,TX,Family,25,M,2025-03-05,,1.00,78,1,29,19.99,Smart TV
+750,Documentary,NY,Family,56,F,2025-03-28,,1.00,85,1,29,19.99,Tablet
+507,Comedy,CA,Family,48,M,2025-03-12,,1.00,78,1,29,19.99,Smart TV
+146,Action & Adventure,GA,Family,46,F,2025-03-09,,1.00,78,1,29,19.99,Mixed
+439,Drama,GA,Family,62,F,2025-03-09,,1.00,85,1,29,19.99,Mixed
+495,Comedy,GA,Family,46,F,2025-03-21,,1.00,76,1,29,19.99,Smart TV
+986,Drama,GA,Family,48,F,2025-03-28,,1.00,85,1,29,19.99,Mobile
+403,Drama,CA,Family,48,M,2025-03-01,,2.00,85,1,29,39.98,Smart TV
+467,Children & Family,CA,Family,61,O,2025-03-01,,2.00,76,1,29,39.98,Tablet
+659,Children & Family,CA,Family,62,F,2025-03-01,,2.00,75,1,29,39.98,Smart TV
+250,Dramas,GA,Family,55,F,2025-03-01,,2.00,78,1,29,39.98,Mobile
+386,Comedy,GA,Family,52,F,2025-03-01,,2.00,78,1,29,39.98,Smart TV
+455,Children & Family,GA,Family,62,M,2025-02-28,,4.00,75,1,29,79.96,Mobile
+503,Children & Family,GA,Family,60,F,2025-02-28,,4.00,75,1,29,79.96,Mobile
+206,Drama,CA,Family,53,M,2025-01-31,,5.00,78,0,29,99.95,Smart TV
+793,Children & Family,CA,Ad-Supported,20,M,2025-01-15,2025-07-15,6.00,22,0,14,35.94,Mobile
+538,Documentary,NY,Ad-Supported,25,F,2025-01-09,2025-07-09,6.00,25,0,14,35.94,Tablet
+506,Horror,NY,Ad-Supported,27,F,2025-01-10,2025-07-10,6.00,24,0,14,35.94,Mobile
+411,Children & Family,CA,Family,22,M,2025-02-18,,4.00,75,1,28,79.96,Mobile
+447,Comedy,GA,Family,30,M,2025-03-02,,1.00,72,1,28,19.99,Laptop
+43,Comedy,CO,Family,32,F,2025-01-16,,6.00,72,0,28,119.94,Smart TV
+790,Horror,NY,Family,33,M,2025-03-03,,1.00,75,1,28,19.99,Mobile
+491,Children & Family,CA,Family,34,F,2025-03-04,,1.00,80,1,28,19.99,Mobile
+579,Comedy,CA,Family,43,M,2025-03-07,,1.00,75,1,28,19.99,Smart TV
+706,Drama,TX,Family,42,M,2025-03-02,,1.00,75,1,28,19.99,Smart TV
+218,Children & Family,GA,Family,41,F,2025-03-28,,1.00,75,1,28,19.99,Smart TV
+290,Children & Family,GA,Family,41,F,2025-03-27,,1.00,75,1,28,19.99,Laptop
+306,Comedy,GA,Family,33,M,2025-03-09,,1.00,75,1,28,19.99,Smart TV
+330,Comedy,GA,Family,34,F,2025-03-06,,1.00,82,1,28,19.99,Laptop
+370,Children & Family,GA,Family,35,M,2025-03-20,,1.00,75,1,28,19.99,Tablet
+479,Children & Family,GA,Family,35,M,2025-03-08,,1.00,72,1,28,19.99,Laptop
+551,Children & Family,GA,Family,36,M,2025-03-05,,1.00,80,1,28,19.99,Mobile
+575,Children & Family,GA,Family,36,F,2025-03-01,,1.00,75,1,28,19.99,Mobile
+631,Drama,GA,Family,44,F,2025-03-05,,1.00,75,1,28,19.99,Mixed
+647,Children & Family,GA,Family,40,F,2025-03-28,,1.00,75,1,28,19.99,Laptop
+970,Comedy,GA,Family,33,M,2025-03-01,,1.00,75,1,28,19.99,Laptop
+150,Drama,CA,Family,39,M,2025-02-19,,4.00,85,1,28,79.96,Smart TV
+71,Children & Family,WA,Family,44,M,2025-02-29,,4.00,78,1,28,79.96,Laptop
+91,Drama,FL,Family,33,M,2025-02-02,,5.00,80,1,28,99.95,Smart TV
+958,Comedy,CA,Family,25,M,2025-03-02,,1.00,75,1,28,19.99,Mixed
+722,Action & Adventure,TX,Family,25,O,2025-03-16,,1.00,75,1,28,19.99,Smart TV
+266,Children & Family,GA,Family,25,F,2025-03-16,,1.00,80,1,28,19.99,Mixed
+142,Horror,CA,Family,55,F,2025-03-05,,1.00,82,1,28,19.99,Smart TV
+587,Children & Family,CA,Family,56,F,2025-03-17,,1.00,75,1,28,19.99,Mixed
+643,Drama,CA,Family,56,F,2025-03-25,,1.00,80,1,28,19.99,Smart TV
+683,Children & Family,CA,Family,49,F,2025-03-06,,1.00,75,1,28,19.99,Mixed
+998,Drama,CA,Family,61,F,2025-03-21,,1.00,80,1,28,19.99,Mobile
+778,Horror,TX,Family,59,F,2025-03-25,,1.00,85,1,28,19.99,Smart TV
+314,Children & Family,GA,Family,68,F,2025-03-03,,1.00,85,1,28,19.99,Laptop
+362,Comedy,GA,Family,49,F,2025-03-14,,1.00,75,1,28,19.99,Laptop
+922,Comedy,GA,Family,57,M,2025-03-02,,1.00,72,1,28,19.99,Smart TV
+23,Comedy,CA,Family,50,F,2025-03-02,,2.00,80,1,28,39.98,Mixed
+190,Comedy,CA,Family,57,M,2025-03-18,,2.00,80,1,28,39.98,Laptop
+122,Children & Family,GA,Family,58,M,2025-03-01,,2.00,78,1,28,39.98,Laptop
+110,Children & Family,CA,Family,25,F,2025-02-03,,5.00,80,1,28,99.95,Smart TV
+262,Drama,CA,Family,39,M,2025-03-07,,1.00,84,1,27,19.99,Laptop
+198,Drama,CA,Family,60,M,2025-03-08,,1.00,84,1,27,19.99,Smart TV
+130,Drama,GA,Family,20,M,2025-01-28,,6.00,70,0,25,119.94,Mobile
+672,Action & Adventure,WA,Premium,20,M,2025-02-19,,5.00,54,1,25,79.95,Mobile
+436,Documentary,TX,Premium,23,F,2025-02-03,,5.00,57,1,25,79.95,Mobile
+636,Action & Adventure,TX,Premium,20,F,2025-01-31,,5.00,54,1,25,79.95,Laptop
+608,Horror,WA,Premium,26,F,2025-01-20,,5.00,60,1,25,79.95,Tablet
+931,Action & Adventure,WA,Premium,26,M,2025-02-04,,5.00,58,1,25,79.95,Mobile
+644,Horror,TX,Premium,26,M,2025-01-28,,5.00,58,1,25,79.95,Mobile
+711,Drama,FL,Premium,27,M,2025-02-02,,5.00,58,1,25,79.95,Mobile
+584,Horror,WA,Premium,40,F,2025-02-02,,5.00,62,1,25,79.95,Laptop
+632,Horror,WA,Premium,33,F,2025-02-02,,5.00,62,1,25,79.95,Mobile
+963,Horror,WA,Premium,43,F,2025-02-06,,5.00,65,1,25,79.95,Laptop
+375,Documentary,TX,Premium,32,M,2025-01-31,,5.00,60,1,25,79.95,Smart TV
+420,Action & Adventure,TX,Premium,31,M,2025-01-29,,5.00,59,1,25,79.95,Tablet
+508,Documentary,TX,Premium,36,F,2025-02-03,,5.00,58,1,25,79.95,Mobile
+516,Action & Adventure,TX,Premium,38,F,2025-01-30,,5.00,58,1,25,79.95,Mobile
+959,Documentary,TX,Premium,42,F,2025-02-11,,5.00,60,1,25,79.95,Tablet
+999,Horror,TX,Premium,40,F,2025-02-04,,5.00,60,1,25,79.95,Mobile
+759,Drama,FL,Premium,38,F,2025-01-20,,5.00,60,1,25,79.95,Mobile
+919,Horror,FL,Premium,42,M,2025-01-26,,5.00,60,1,25,79.95,Mobile
+771,Drama,CO,Premium,33,M,2025-02-02,,5.00,60,1,25,79.95,Tablet
+779,Comedy,CO,Premium,38,F,2025-02-04,,5.00,58,1,25,79.95,Mobile
+39,Horror,IL,Family,57,F,2025-03-29,,1.00,70,1,25,19.99,Smart TV
+95,Comedy,GA,Family,58,M,2025-03-06,,1.00,75,1,25,19.99,Tablet
+983,Documentary,TX,Family,59,F,2025-02-20,,4.00,65,1,25,79.95,Mixed
+367,Horror,TX,Premium,25,M,2025-01-06,2025-10-09,6.00,58,0,25,95.94,Mobile
+399,Documentary,TX,Premium,46,F,2025-01-28,,5.00,56,1,25,79.95,Mobile
+444,Action & Adventure,TX,Premium,47,M,2025-01-28,,5.00,60,1,25,79.95,Laptop
+492,Action & Adventure,TX,Premium,53,F,2025-02-01,,5.00,58,1,25,79.95,Laptop
+548,Horror,TX,Premium,51,F,2025-02-01,,5.00,65,1,25,79.95,Mobile
+572,Horror,TX,Premium,49,F,2025-01-30,,5.00,65,1,25,79.95,Tablet
+668,Horror,TX,Premium,59,F,2025-02-01,,5.00,65,1,25,79.95,Mobile
+76,Children & Family,GA,Premium,50,M,2025-02-20,,5.00,62,1,25,79.95,Laptop
+915,Documentary,CO,Premium,60,M,2025-01-28,,5.00,65,1,25,79.95,Mobile
+263,Horror,TX,Premium,28,F,2025-02-04,,4.00,62,1,24,63.96,Smart TV
+223,Documentary,TX,Premium,26,F,2025-01-31,,5.00,59,1,24,79.95,Laptop
+60,Horror,TX,Premium,35,F,2025-02-16,,4.00,60,1,24,63.96,Tablet
+159,Horror,TX,Premium,44,M,2025-02-14,,4.00,60,1,24,63.96,Smart TV
+100,Action & Adventure,TX,Premium,37,F,2025-02-21,,5.00,62,1,24,79.95,Mobile
+404,Horror,TX,Premium,42,F,2025-01-25,,5.00,60,1,24,79.95,Tablet
+767,Comedy,FL,Premium,35,F,2025-01-31,,5.00,58,1,24,79.95,Mobile
+52,Action & Adventure,FL,Premium,46,M,2025-02-01,,5.00,52,0,24,79.95,Tablet
+536,Horror,WA,Premium,22,F,2025-02-14,,4.00,65,1,23,63.96,Mobile
+424,Documentary,WA,Premium,27,F,2025-02-24,,4.00,62,1,23,63.96,Laptop
+299,Horror,WA,Premium,45,F,2025-02-03,,4.00,65,1,23,63.96,Mobile
+379,Horror,WA,Premium,42,M,2025-02-21,,4.00,62,1,23,63.96,Laptop
+616,Documentary,WA,Premium,42,F,2025-02-10,,4.00,65,1,23,63.96,Mixed
+979,Action & Adventure,WA,Premium,40,F,2025-02-14,,4.00,62,1,23,63.96,Mobile
+215,Horror,TX,Premium,33,M,2025-02-27,,4.00,65,1,23,63.96,Mobile
+235,Documentary,WA,Premium,53,F,2025-02-17,,4.00,62,1,23,63.96,Mobile
+243,Action & Adventure,WA,Premium,57,F,2025-02-28,,4.00,62,1,23,63.96,Tablet
+267,Action & Adventure,WA,Premium,54,M,2025-02-15,,4.00,65,1,23,63.96,Mobile
+355,Horror,WA,Premium,57,F,2025-02-07,,4.00,64,1,23,63.96,Mobile
+448,Documentary,WA,Premium,56,F,2025-02-10,,4.00,65,1,23,63.96,Mobile
+480,Action & Adventure,WA,Premium,59,F,2025-02-03,,4.00,65,1,23,63.96,Mobile
+648,Action & Adventure,WA,Premium,46,M,2025-02-21,,4.00,62,1,23,63.96,Mobile
+391,Horror,TX,Premium,49,F,2025-02-06,,4.00,65,1,23,63.96,Smart TV
+596,Horror,TX,Premium,52,F,2025-02-15,,4.00,65,1,23,63.96,Mobile
+763,Children & Family,CO,Premium,24,M,2025-02-21,,4.00,58,1,22,63.96,Mobile
+191,Documentary,TX,Premium,21,F,2025-02-15,,4.00,54,1,22,63.96,Mobile
+53,Drama,CA,Basic,28,F,2025-01-05,,6.00,42,0,22,59.94,Mixed
+600,Action & Adventure,WA,Premium,27,M,2025-02-18,,4.00,56,1,22,63.96,Tablet
+143,Comedy,TX,Premium,28,M,2025-02-13,,4.00,55,1,22,63.96,Mobile
+311,Horror,TX,Premium,30,F,2025-02-01,,4.00,50,1,22,63.96,Laptop
+684,Action & Adventure,TX,Premium,26,F,2025-02-13,,4.00,58,1,22,63.96,Smart TV
+951,Horror,TX,Premium,29,F,2025-02-27,,4.00,60,1,22,63.96,Mobile
+707,Horror,CO,Premium,29,M,2025-02-13,,4.00,60,1,22,63.96,Laptop
+795,Drama,CO,Premium,27,F,2025-02-21,,4.00,60,1,22,63.96,Mobile
+187,Children & Family,WA,Premium,42,F,2025-02-11,,4.00,52,1,22,63.96,Laptop
+395,Action & Adventure,WA,Premium,42,F,2025-02-11,,4.00,60,1,22,63.96,Mobile
+568,Documentary,WA,Premium,37,F,2025-02-16,,4.00,60,1,22,63.96,Tablet
+640,Documentary,WA,Premium,42,M,2025-02-28,,4.00,60,1,22,63.96,Tablet
+119,Horror,TX,Premium,40,F,2025-01-31,,4.00,52,1,22,63.96,Tablet
+175,Children & Family,TX,Premium,33,M,2025-02-13,,4.00,58,1,22,63.96,Laptop
+199,Children & Family,TX,Premium,36,O,2025-02-05,,4.00,59,1,22,63.96,Laptop
+231,Action & Adventure,TX,Premium,43,M,2025-02-01,,4.00,55,1,22,63.96,Mobile
+303,Action & Adventure,TX,Premium,41,M,2025-01-25,,4.00,58,1,22,63.96,Mobile
+327,Action & Adventure,TX,Premium,37,M,2025-02-04,,4.00,58,1,22,63.96,Mobile
+351,Documentary,TX,Premium,34,F,2025-01-24,,4.00,60,1,22,63.96,Mobile
+468,Action & Adventure,TX,Premium,36,F,2025-02-12,,4.00,58,1,22,63.96,Mixed
+588,Action & Adventure,TX,Premium,33,M,2025-02-09,,4.00,58,1,22,63.96,Mobile
+612,Action & Adventure,TX,Premium,41,M,2025-02-23,,4.00,58,1,22,63.96,Mobile
+676,Documentary,TX,Premium,45,F,2025-02-11,,4.00,60,1,22,63.96,Mobile
+700,Documentary,TX,Premium,42,F,2025-02-22,,4.00,60,1,22,63.96,Tablet
+719,Comedy,FL,Premium,36,F,2025-02-10,,4.00,58,1,22,63.96,Mixed
+751,Children & Family,FL,Premium,33,M,2025-02-14,,4.00,58,1,22,63.96,Mobile
+115,Documentary,WA,Premium,25,F,2025-02-24,,4.00,50,1,22,63.96,Smart TV
+287,Horror,TX,Premium,25,M,2025-02-28,,4.00,58,1,22,63.96,Mobile
+943,Action & Adventure,TX,Premium,25,M,2025-02-14,,4.00,58,1,22,63.96,Mobile
+528,Action & Adventure,WA,Premium,52,M,2025-02-20,,4.00,60,1,22,63.96,Smart TV
+544,Documentary,WA,Premium,58,M,2025-02-28,,4.00,60,1,22,63.96,Mobile
+552,Action & Adventure,WA,Premium,56,F,2025-02-06,,4.00,60,1,22,63.96,Mixed
+92,Children & Family,TX,Premium,48,F,2025-02-15,,4.00,58,1,22,63.96,Laptop
+127,Documentary,TX,Premium,50,F,2025-02-11,,4.00,60,1,22,63.96,Mixed
+247,Documentary,TX,Premium,46,M,2025-02-22,,4.00,60,1,22,63.96,Smart TV
+295,Documentary,TX,Premium,46,F,2025-01-30,,4.00,60,1,22,63.96,Tablet
+319,Documentary,TX,Premium,50,F,2025-01-20,,4.00,56,1,22,63.96,Laptop
+484,Documentary,TX,Premium,49,F,2025-02-20,,4.00,58,1,22,63.96,Mobile
+580,Documentary,TX,Premium,62,F,2025-02-28,,4.00,60,1,22,63.96,Mobile
+791,Comedy,FL,Premium,55,F,2025-02-10,,4.00,58,1,22,63.96,Mobile
+747,Drama,CO,Premium,53,M,2025-02-09,,4.00,60,1,22,63.96,Laptop
+163,Children & Family,WA,Premium,19,F,2025-02-26,,3.00,57,1,21,47.97,Mobile
+89,Horror,GA,Basic,60,O,2025-01-08,,6.00,40,0,21,59.94,Tablet
+335,Comedy,TX,Premium,26,M,2025-02-18,,3.00,54,1,21,47.97,Mobile
+255,Action & Adventure,TX,Premium,36,M,2025-02-27,,3.00,58,1,21,47.97,Laptop
+139,Documentary,WA,Premium,42,F,2025-02-01,,4.00,45,1,21,63.96,Mobile
+195,Horror,WA,Premium,25,M,2025-02-01,,4.00,50,1,21,63.96,Mobile
+219,Action & Adventure,WA,Premium,48,M,2025-02-19,,4.00,58,1,21,63.96,Mobile
+13,Horror,GA,Basic,28,M,2025-01-22,2025-06-14,4.00,45,3,17,39.96,Laptop
+260,Children & Family,CO,Basic,20,M,2025-01-05,,6.00,39,0,20,59.94,Mobile
+207,Horror,TX,Premium,22,F,2025-02-24,,4.00,52,1,20,63.96,Laptop
+69,Drama,IL,Basic,57,F,2025-02-06,,5.00,38,1,20,49.95,Tablet
+372,Drama,CO,Basic,60,F,2025-02-03,,5.00,42,1,20,49.95,Laptop
+760,Horror,IL,Basic,51,M,2025-01-09,,6.00,39,0,20,59.94,Tablet
+272,Children & Family,FL,Basic,46,M,2025-01-12,,6.00,38,0,20,59.94,Laptop
+288,Comedy,FL,Basic,51,F,2025-01-09,,6.00,41,0,20,59.94,Mobile
+312,Comedy,FL,Basic,53,M,2025-01-09,,6.00,41,0,20,59.94,Mobile
+376,Children & Family,FL,Basic,46,F,2025-01-09,,6.00,38,0,20,59.94,Mobile
+477,Comedy,FL,Basic,50,F,2025-01-09,,6.00,40,0,20,59.94,Mobile
+517,Drama,FL,Basic,46,F,2025-01-16,,6.00,40,0,20,59.94,Mixed
+525,Comedy,FL,Basic,61,F,2025-01-13,,6.00,39,0,20,59.94,Mobile
+573,Comedy,FL,Basic,59,F,2025-01-09,,6.00,39,0,20,59.94,Mobile
+645,Comedy,FL,Basic,60,F,2025-01-15,,6.00,40,0,20,59.94,Tablet
+677,Children & Family,FL,Basic,54,F,2025-01-04,,6.00,36,0,20,59.94,Tablet
+236,Children & Family,CO,Basic,66,F,2025-01-12,,6.00,39,0,20,59.94,Mixed
+988,Comedy,CO,Basic,46,F,2025-01-09,,6.00,39,0,20,59.94,Mobile
+25,Horror,GA,Basic,43,M,2025-01-26,,4.00,40,1,20,39.96,Mobile
+120,Comedy,FL,Basic,37,M,2025-01-05,,6.00,39,0,20,59.94,Laptop
+224,Children & Family,FL,Basic,37,M,2025-01-09,,6.00,38,0,20,59.94,Mobile
+296,Children & Family,FL,Basic,34,M,2025-01-13,,6.00,39,0,20,59.94,Laptop
+344,Comedy,FL,Basic,42,F,2025-01-18,,6.00,39,0,20,59.94,Mobile
+384,Drama,FL,Basic,39,F,2025-01-19,,6.00,40,0,20,59.94,Mobile
+485,Children & Family,FL,Basic,42,M,2025-01-13,,6.00,36,0,20,59.94,Laptop
+629,Children & Family,FL,Basic,34,M,2025-01-06,,6.00,38,0,20,59.94,Laptop
+164,Action & Adventure,CO,Basic,38,M,2025-01-06,,6.00,40,0,20,59.94,Laptop
+441,Comedy,CO,Basic,33,F,2025-01-07,,6.00,39,0,20,59.94,Mobile
+481,Drama,CO,Basic,31,F,2025-01-17,,6.00,42,0,20,59.94,Tablet
+497,Children & Family,CO,Basic,44,M,2025-01-09,,6.00,37,0,20,59.94,Mobile
+537,Comedy,CO,Basic,45,M,2025-01-03,,6.00,39,0,20,59.94,Mobile
+641,Children & Family,CO,Basic,33,M,2025-01-09,,6.00,38,0,20,59.94,Mixed
+924,Children & Family,CO,Basic,42,M,2025-01-08,,6.00,39,0,20,59.94,Tablet
+97,Drama,NY,Basic,44,M,2025-01-04,,7.00,38,0,20,69.93,Mixed
+196,Comedy,CO,Basic,27,F,2025-01-17,,5.00,43,1,20,49.95,Mobile
+268,Drama,CO,Basic,30,F,2025-01-23,,5.00,42,1,20,49.95,Tablet
+380,Comedy,CO,Basic,27,F,2025-01-15,,5.00,39,1,20,49.95,Mobile
+764,Action & Adventure,GA,Basic,26,F,2025-01-13,,6.00,40,0,20,59.94,Tablet
+401,Comedy,CO,Basic,27,F,2025-01-05,,6.00,42,0,20,59.94,Mobile
+529,Drama,CO,Basic,29,M,2025-01-07,,6.00,40,0,20,59.94,Mobile
+220,Drama,CO,Basic,25,F,2025-01-03,,6.00,42,0,20,59.94,Tablet
+585,Comedy,CO,Basic,28,M,2025-01-13,,6.00,40,0,20,59.94,Mobile
+211,Horror,WA,Premium,29,F,2025-02-05,,4.00,57,1,20,63.96,Mobile
+40,Children & Family,NY,Premium,36,M,2025-02-27,,3.00,55,1,20,47.97,Mobile
+111,Action & Adventure,TX,Premium,39,M,2025-02-27,,3.00,56,1,20,47.97,Mobile
+135,Action & Adventure,TX,Premium,25,F,2025-02-28,,3.00,58,1,20,47.97,Mobile
+772,Horror,GA,Basic,22,M,2025-01-08,,6.00,35,0,19,59.94,Mobile
+168,Drama,FL,Basic,21,M,2025-01-18,,6.00,35,0,19,59.94,Tablet
+469,Drama,FL,Basic,20,F,2025-01-06,,6.00,35,0,19,59.94,Laptop
+673,Drama,CO,Basic,22,F,2025-01-26,,6.00,33,0,19,59.94,Tablet
+625,Drama,CO,Basic,24,F,2025-01-20,,5.00,39,1,19,49.95,Mobile
+784,Horror,IL,Basic,53,F,2025-01-30,,5.00,35,1,19,49.95,Laptop
+41,Comedy,GA,Basic,47,F,2025-01-30,,5.00,42,1,19,49.95,Tablet
+176,Action & Adventure,FL,Basic,57,F,2025-01-28,,5.00,42,1,19,49.95,Mobile
+244,Drama,CO,Basic,49,O,2025-01-27,,5.00,38,1,19,49.95,Mobile
+348,Drama,CO,Basic,49,M,2025-01-16,,5.00,42,1,19,49.95,Tablet
+433,Dramas,CO,Basic,48,F,2025-01-25,,5.00,40,1,19,49.95,Tablet
+192,Drama,FL,Basic,62,M,2025-01-09,,6.00,35,0,19,59.94,Tablet
+589,Drama,FL,Basic,25,F,2025-01-22,,5.00,38,1,19,49.95,Mobile
+649,Drama,CO,Basic,25,F,2025-01-29,,5.00,39,1,19,49.95,Tablet
+81,Action & Adventure,IL,Basic,32,M,2025-02-05,,5.00,42,1,19,49.95,Mobile
+776,Action & Adventure,IL,Basic,42,M,2025-01-23,,5.00,40,1,19,49.95,Mobile
+904,Children & Family,IL,Basic,45,M,2025-01-29,,5.00,40,1,19,49.95,Tablet
+716,Action & Adventure,GA,Basic,39,F,2025-01-31,,5.00,40,1,19,49.95,Laptop
+724,Horror,GA,Basic,33,F,2025-01-20,,5.00,38,1,19,49.95,Tablet
+748,Horror,GA,Basic,42,F,2025-01-30,,5.00,38,1,19,49.95,Mobile
+756,Documentary,GA,Basic,42,M,2025-01-28,,5.00,36,1,19,49.95,Mixed
+264,Comedy,FL,Basic,43,F,2025-01-27,,5.00,40,1,19,49.95,Mobile
+328,Drama,FL,Basic,31,F,2025-01-29,,5.00,40,1,19,49.95,Laptop
+493,Drama,FL,Basic,39,F,2025-01-24,,5.00,39,1,19,49.95,Mixed
+541,Drama,FL,Basic,39,F,2025-02-02,,5.00,42,1,19,49.95,Tablet
+605,Children & Family,FL,Basic,35,F,2025-01-29,,5.00,38,1,19,49.95,Laptop
+685,Drama,FL,Basic,42,M,2025-01-28,,5.00,38,1,19,49.95,Mobile
+976,Comedy,FL,Basic,38,F,2025-01-27,,5.00,40,1,19,49.95,Laptop
+992,Drama,FL,Basic,42,M,2025-01-23,,5.00,36,1,19,49.95,Tablet
+356,Comedy,CO,Basic,39,O,2025-01-29,,5.00,40,1,19,49.95,Mobile
+457,Drama,CO,Basic,40,F,2025-01-27,,5.00,40,1,19,49.95,Mixed
+545,Children & Family,CO,Basic,34,F,2025-01-29,,5.00,39,1,19,49.95,Laptop
+561,Comedy,CO,Basic,33,M,2025-01-28,,5.00,39,1,19,49.95,Tablet
+593,Children & Family,CO,Basic,45,F,2025-01-28,,5.00,42,1,19,49.95,Mobile
+681,Comedy,CO,Basic,39,M,2025-02-02,,5.00,40,1,19,49.95,Mobile
+964,Comedy,CO,Basic,37,F,2025-01-28,,5.00,39,1,19,49.95,Mobile
+996,Children & Family,CO,Basic,33,M,2025-02-10,,5.00,39,1,19,49.95,Mobile
+240,Comedy,FL,Basic,35,M,2025-01-11,,6.00,40,0,19,59.94,Laptop
+952,Comedy,FL,Basic,33,F,2025-01-06,,6.00,35,0,19,59.94,Mobile
+132,Comedy,CO,Basic,44,F,2025-01-07,,6.00,42,0,19,59.94,Laptop
+284,Children & Family,CO,Basic,39,F,2025-01-21,,6.00,40,0,19,59.94,Laptop
+921,Horror,IL,Basic,29,F,2025-02-10,,5.00,35,1,19,49.95,Laptop
+232,Drama,FL,Basic,27,F,2025-01-20,,5.00,38,1,19,49.95,Tablet
+204,Documentary,CO,Basic,26,F,2025-01-19,,5.00,44,1,19,49.95,Mobile
+449,Children & Family,CO,Basic,29,M,2025-01-16,,5.00,38,1,19,49.95,Tablet
+657,Comedy,CO,Basic,29,M,2025-01-21,,5.00,40,1,19,49.95,Laptop
+73,Comedy,TX,Basic,26,M,2025-01-16,,6.00,42,0,19,59.94,Mobile
+533,Children & Family,FL,Basic,27,M,2025-01-18,,6.00,35,0,19,59.94,Mixed
+693,Comedy,FL,Basic,26,F,2025-01-09,,6.00,35,0,19,59.94,Mixed
+9,Horror,FL,Basic,21,F,2025-01-20,,5.00,25,2,18,49.95,Laptop
+617,Children & Family,CO,Basic,20,F,2025-02-03,,5.00,36,1,18,49.95,Mobile
+565,Drama,FL,Basic,50,M,2025-02-14,,4.00,40,1,18,39.96,Mobile
+316,Drama,CO,Basic,56,M,2025-02-17,,4.00,42,1,18,39.96,Mobile
+609,Comedy,CO,Basic,48,F,2025-02-14,,4.00,39,1,18,39.96,Tablet
+697,Drama,CO,Basic,56,F,2025-02-28,,4.00,40,1,18,39.96,Tablet
+932,Drama,CO,Basic,58,F,2025-02-21,,4.00,42,1,18,39.96,Mixed
+956,Drama,CO,Basic,60,F,2025-02-20,,4.00,40,1,18,39.96,Laptop
+972,Children & Family,CO,Basic,50,F,2025-02-05,,4.00,39,1,18,39.96,Tablet
+29,Action & Adventure,GA,Basic,56,M,2025-02-04,,5.00,45,1,18,49.95,Laptop
+140,Children & Family,CO,Basic,62,O,2025-01-15,,6.00,36,0,18,59.94,Tablet
+505,Drama,CO,Basic,25,F,2025-02-15,,4.00,40,1,18,39.96,Laptop
+461,Children & Family,FL,Basic,25,M,2025-01-29,,5.00,37,1,18,49.95,Mobile
+613,Drama,FL,Basic,25,F,2025-01-31,,5.00,36,1,18,49.95,Laptop
+324,Comedy,CO,Basic,40,M,2025-02-15,,4.00,39,1,18,39.96,Tablet
+409,Drama,CO,Basic,35,M,2025-02-05,,4.00,39,1,18,39.96,Tablet
+513,Comedy,CO,Basic,42,F,2025-02-21,,4.00,39,1,18,39.96,Laptop
+633,Comedy,CO,Basic,41,F,2025-02-15,,4.00,39,1,18,39.96,Tablet
+701,Horror,GA,Basic,30,M,2025-02-16,,5.00,40,1,18,49.95,Laptop
+960,Children & Family,FL,Basic,27,O,2025-02-01,,5.00,37,1,18,49.95,Mobile
+417,Children & Family,CO,Basic,26,F,2025-02-03,,5.00,36,1,18,49.95,Mobile
+521,Children & Family,CO,Basic,26,F,2025-02-06,,5.00,36,1,18,49.95,Tablet
+5,Action & Adventure,CA,Basic,27,F,2025-02-16,2025-05-10,3.00,50,2,20,29.97,Mobile
+336,Drama,FL,Basic,60,F,2025-02-28,,4.00,34,1,17,39.96,Laptop
+940,Comedy,CO,Basic,46,M,2025-02-05,,4.00,38,1,17,39.96,Laptop
+712,Horror,IL,Basic,44,F,2025-02-20,,4.00,33,1,17,39.96,Laptop
+49,Comedy,GA,Basic,34,F,2025-01-27,,4.00,38,1,17,39.96,Laptop
+85,Comedy,FL,Basic,40,F,2025-02-19,,4.00,39,1,17,39.96,Mobile
+304,Drama,FL,Basic,37,F,2025-02-08,,4.00,40,1,17,39.96,Tablet
+124,Dramas,CO,Basic,42,M,2025-02-26,,4.00,37,1,17,39.96,Mobile
+148,Horror,CO,Basic,36,F,2025-02-02,,4.00,40,1,17,39.96,Tablet
+172,Comedy,CO,Basic,42,F,2025-02-21,,4.00,43,1,17,39.96,Mobile
+308,Children & Family,CO,Basic,35,F,2025-02-11,,4.00,39,1,17,39.96,Tablet
+388,Children & Family,CO,Basic,45,F,2025-02-16,,4.00,36,1,17,39.96,Tablet
+948,Children & Family,CO,Basic,34,F,2025-02-26,,4.00,39,1,17,39.96,Tablet
+105,Action & Adventure,IL,Basic,27,M,2025-02-09,,3.00,41,1,17,29.97,Laptop
+744,Documentary,IL,Basic,28,M,2025-02-19,,4.00,39,1,17,39.96,Tablet
+968,Drama,FL,Basic,28,F,2025-02-15,,4.00,38,1,17,39.96,Mobile
+553,Drama,CO,Basic,29,O,2025-02-24,,4.00,40,1,17,39.96,Tablet
+108,Comedy,CO,Basic,30,F,2025-01-17,2025-05-25,3.00,44,2,16,29.97,Tablet
+116,Children & Family,CO,Basic,34,M,2025-01-21,2025-06-06,3.00,40,2,16,29.97,Mobile
+22,Action & Adventure,FL,Ad-Supported,59,M,2025-01-14,,5.00,22,1,16,29.95,Smart TV
+33,Horror,WA,Basic,60,F,2025-02-18,,4.00,33,1,16,39.96,Tablet
+708,Children & Family,WA,Basic,61,F,2025-02-06,,4.00,36,1,16,39.96,Tablet
+788,Action & Adventure,GA,Basic,48,F,2025-02-28,,4.00,36,1,16,39.96,Tablet
+248,Children & Family,FL,Basic,54,F,2025-02-07,,4.00,36,1,16,39.96,Mobile
+400,Children & Family,FL,Basic,54,M,2025-02-18,,4.00,36,1,16,39.96,Tablet
+421,Dramas,FL,Basic,49,F,2025-02-20,,4.00,35,1,16,39.96,Mobile
+661,Drama,FL,Basic,46,O,2025-02-24,,4.00,36,1,16,39.96,Tablet
+61,Action & Adventure,CA,Basic,22,O,2025-02-08,,4.00,42,1,16,39.96,Mixed
+728,Action & Adventure,IL,Basic,20,F,2025-02-06,,4.00,36,1,16,39.96,Mobile
+740,Action & Adventure,GA,Basic,20,F,2025-02-15,,4.00,35,1,16,39.96,Mobile
+360,Drama,FL,Basic,22,M,2025-02-16,,4.00,35,1,16,39.96,Tablet
+501,Comedy,FL,Basic,23,M,2025-02-05,,4.00,35,1,16,39.96,Tablet
+577,Drama,CO,Basic,20,M,2025-02-08,,4.00,33,1,16,39.96,Tablet
+445,Dramas,FL,Basic,25,F,2025-02-21,,4.00,36,1,16,39.96,Tablet
+936,Children & Family,FL,Basic,25,F,2025-02-24,,4.00,36,1,16,39.96,Mobile
+368,Comedy,FL,Basic,33,F,2025-02-27,,3.00,38,1,16,29.97,Laptop
+916,Children & Family,NY,Basic,33,F,2025-02-22,,4.00,36,1,16,39.96,Mobile
+184,Comedy,FL,Basic,34,M,2025-02-06,,4.00,35,1,16,39.96,Laptop
+453,Comedy,FL,Basic,41,F,2025-02-09,,4.00,39,1,16,39.96,Mobile
+557,Children & Family,FL,Basic,44,M,2025-02-10,,4.00,38,1,16,39.96,Mobile
+332,Children & Family,CO,Basic,44,M,2025-02-10,,4.00,36,1,16,39.96,Tablet
+705,Comedy,CA,Basic,45,F,2025-02-25,,4.00,39,1,16,39.96,Mobile
+908,Comedy,NY,Basic,28,M,2025-02-02,,4.00,35,1,16,39.96,Tablet
+920,Comedy,IL,Basic,29,M,2025-02-15,,4.00,35,1,16,39.96,Tablet
+405,Children & Family,FL,Basic,29,O,2025-02-11,,4.00,35,1,16,39.96,Mixed
+621,Comedy,FL,Basic,27,F,2025-02-06,,4.00,35,1,16,39.96,Laptop
+637,Drama,FL,Basic,27,F,2025-02-16,,4.00,35,1,16,39.96,Mobile
+669,Comedy,FL,Basic,28,M,2025-02-14,,4.00,35,1,16,39.96,Tablet
+689,Children & Family,CO,Basic,27,M,2025-02-20,,4.00,36,1,16,39.96,Mobile
+128,Children & Family,FL,Basic,29,M,2025-02-05,2025-06-01,3.00,35,2,15,29.97,Mobile
+30,Horror,FL,Basic,48,M,2025-01-21,2025-05-18,3.00,38,2,15,17.97,Mobile
+17,Documentary,CA,Basic,62,F,2025-02-12,2025-05-21,3.00,30,2,15,29.97,Tablet
+37,Documentary,FL,Basic,49,F,2025-02-21,2025-06-03,3.00,26,2,12,29.97,Tablet
+42,Drama,WA,Ad-Supported,22,M,2025-01-07,,5.00,20,1,15,29.95,Laptop
+216,Comedy,FL,Basic,20,F,2025-02-15,,3.00,35,1,15,29.97,Tablet
+152,Action & Adventure,FL,Basic,24,F,2025-02-25,,3.00,35,1,15,29.97,Tablet
+473,Children & Family,CO,Basic,24,F,2025-02-28,,3.00,37,1,15,29.97,Mobile
+392,Comedy,FL,Basic,25,O,2025-02-26,,3.00,35,1,15,29.97,Laptop
+78,Drama,WA,Ad-Supported,45,M,2025-01-13,,5.00,28,1,15,29.95,Mixed
+252,Comedy,CO,Basic,41,M,2025-03-04,,2.00,42,1,15,19.98,Laptop
+144,Drama,FL,Basic,42,F,2025-02-23,,3.00,37,1,15,29.97,Laptop
+437,Children & Family,FL,Basic,39,F,2025-02-26,,3.00,36,1,15,29.97,Laptop
+45,Horror,TX,Basic,38,M,2025-02-22,,4.00,34,1,15,39.96,Mixed
+228,Comedy,CO,Basic,30,F,2025-03-06,,2.00,40,1,15,19.98,Laptop
+65,Horror,NY,Basic,29,M,2025-02-14,,3.00,34,1,15,29.97,Laptop
+101,Horror,NY,Basic,33,M,2025-01-03,2025-03-20,2.00,38,2,15,19.98,Laptop
+156,Drama,CO,Basic,59,M,2025-01-22,2025-03-28,2.00,39,2,15,19.98,Mixed
+112,Dramas,FL,Basic,66,F,2025-01-08,2025-03-05,2.00,42,2,15,19.98,Tablet
+21,Children & Family,IL,Basic,26,M,2025-02-28,2025-04-28,2.00,48,2,14,19.98,Mobile
+1,Comedy,NY,Basic,45,M,2025-01-24,2025-03-18,2.00,45,2,14,19.98,Laptop
+4,Horror,WA,Ad-Supported,33,M,2025-01-13,2025-03-12,2.00,41,1,12,11.98,Tablet
+10,Comedy,WA,Ad-Supported,46,M,2025-02-25,2025-04-20,2.00,30,2,10,11.98,Laptop
+104,Documentary,FL,Ad-Supported,58,M,2025-01-11,,4.00,27,1,14,23.96,Mobile
+765,Drama,WA,Ad-Supported,47,F,2025-01-25,,5.00,20,1,14,29.95,Mobile
+773,Comedy,WA,Ad-Supported,58,F,2025-01-29,,5.00,24,1,14,29.95,Mobile
+153,Horror,IL,Ad-Supported,48,M,2025-01-31,,5.00,23,1,14,29.95,Laptop
+369,Documentary,IL,Ad-Supported,64,M,2025-01-13,,5.00,22,1,14,29.95,Mobile
+510,Action & Adventure,IL,Ad-Supported,53,F,2025-01-21,,5.00,22,1,14,29.95,Laptop
+534,Action & Adventure,IL,Ad-Supported,51,F,2025-01-31,,5.00,24,1,14,29.95,Mobile
+622,Documentary,IL,Ad-Supported,64,F,2025-01-30,,5.00,25,1,14,29.95,Tablet
+929,Documentary,IL,Ad-Supported,54,M,2025-01-29,,5.00,22,1,14,29.95,Tablet
+62,Comedy,GA,Ad-Supported,59,M,2025-01-09,,5.00,24,1,14,29.95,Tablet
+293,Horror,NY,Ad-Supported,62,M,2025-01-07,,5.00,26,1,14,29.95,Tablet
+301,Documentary,NY,Ad-Supported,53,M,2025-01-29,,5.00,27,1,14,29.95,Mobile
+410,Horror,NY,Ad-Supported,60,F,2025-01-24,,5.00,26,1,14,29.95,Laptop
+458,Horror,NY,Ad-Supported,58,M,2025-01-18,,5.00,26,1,14,29.95,Mobile
+514,Documentary,NY,Ad-Supported,59,O,2025-01-28,,5.00,24,1,14,29.95,Mobile
+522,Action & Adventure,NY,Ad-Supported,58,M,2025-01-22,,5.00,28,1,14,29.95,Laptop
+554,Horror,NY,Ad-Supported,46,F,2025-01-21,,5.00,25,1,14,29.95,Mobile
+618,Action & Adventure,NY,Ad-Supported,46,M,2025-01-28,,5.00,28,1,14,29.95,Tablet
+933,Horror,NY,Ad-Supported,47,F,2025-01-28,,5.00,24,1,14,29.95,Mobile
+949,Action & Adventure,NY,Ad-Supported,59,O,2025-01-15,,5.00,28,1,14,29.95,Mobile
+797,Comedy,WA,Ad-Supported,46,F,2025-01-12,,6.00,24,0,14,35.94,Mobile
+145,Children & Family,IL,Ad-Supported,60,M,2025-01-06,,6.00,25,0,14,35.94,Mobile
+265,Documentary,IL,Ad-Supported,57,M,2025-01-06,,6.00,24,0,14,35.94,Tablet
+305,Horror,IL,Ad-Supported,49,F,2025-01-06,,6.00,22,0,14,35.94,Mobile
+393,Documentary,IL,Ad-Supported,60,F,2025-01-10,,6.00,25,0,14,35.94,Tablet
+590,Horror,IL,Ad-Supported,46,F,2025-01-03,,6.00,22,0,14,35.94,Laptop
+638,Horror,IL,Ad-Supported,62,M,2025-01-12,,6.00,22,0,14,35.94,Tablet
+969,Horror,IL,Ad-Supported,46,M,2025-01-06,,6.00,23,0,14,35.94,Tablet
+913,Horror,GA,Ad-Supported,50,M,2025-01-17,,6.00,22,0,14,35.94,Mobile
+426,Action & Adventure,NY,Ad-Supported,46,F,2025-01-05,,6.00,30,0,14,35.94,Laptop
+674,Horror,NY,Ad-Supported,51,M,2025-01-09,,6.00,25,0,14,35.94,Mobile
+161,Documentary,IL,Ad-Supported,23,F,2025-01-20,,5.00,26,1,14,29.95,Laptop
+709,Documentary,GA,Ad-Supported,19,M,2025-01-22,,5.00,22,1,14,29.95,Mobile
+373,Horror,NY,Ad-Supported,22,M,2025-01-18,,5.00,23,1,14,29.95,Mobile
+973,Action & Adventure,NY,Ad-Supported,20,F,2025-01-20,,5.00,26,1,14,29.95,Mobile
+329,Horror,IL,Ad-Supported,20,M,2025-01-09,2025-10-09,6.00,20,0,14,35.94,Mobile
+598,Documentary,IL,Ad-Supported,24,F,2025-02-01,,5.00,24,1,14,29.95,Mobile
+749,Comedy,WA,Ad-Supported,24,M,2025-01-12,,6.00,23,0,14,35.94,Mobile
+245,Horror,NY,Ad-Supported,24,F,2025-01-09,2025-10-09,6.00,22,0,14,35.94,Laptop
+781,Children & Family,WA,Ad-Supported,44,F,2025-01-18,,5.00,28,1,14,29.95,Mobile
+14,Children & Family,IL,Ad-Supported,33,F,2025-01-18,,5.00,42,1,14,29.95,Tablet
+446,Horror,IL,Ad-Supported,43,F,2025-01-13,,5.00,25,1,14,29.95,Mobile
+502,Documentary,IL,Ad-Supported,42,M,2025-01-26,,5.00,26,1,14,29.95,Mobile
+614,Horror,IL,Ad-Supported,36,M,2025-01-18,,5.00,24,1,14,29.95,Mobile
+694,Documentary,IL,Ad-Supported,35,F,2025-01-30,,5.00,24,1,14,29.95,Mobile
+945,Horror,IL,Ad-Supported,45,M,2025-01-31,,5.00,24,1,14,29.95,Mobile
+213,Children & Family,NY,Ad-Supported,36,F,2025-01-22,,5.00,24,1,14,29.95,Mobile
+221,Horror,NY,Ad-Supported,32,M,2025-01-26,,5.00,30,1,14,29.95,Mobile
+397,Horror,NY,Ad-Supported,36,F,2025-01-14,,5.00,24,1,14,29.95,Laptop
+418,Documentary,NY,Ad-Supported,43,F,2025-01-16,,5.00,24,1,14,29.95,Tablet
+530,Horror,NY,Ad-Supported,45,F,2025-01-24,,5.00,25,1,14,29.95,Tablet
+586,Documentary,NY,Ad-Supported,42,F,2025-01-30,,5.00,26,1,14,29.95,Tablet
+666,Action & Adventure,NY,Ad-Supported,36,M,2025-01-16,,5.00,28,1,14,29.95,Laptop
+682,Documentary,NY,Ad-Supported,34,F,2025-01-21,,5.00,28,1,14,29.95,Laptop
+698,Horror,NY,Ad-Supported,31,M,2025-01-18,,5.00,25,1,14,29.95,Mobile
+957,Horror,NY,Ad-Supported,34,F,2025-01-23,,5.00,25,1,14,29.95,Tablet
+901,Horror,CA,Ad-Supported,36,M,2025-01-20,,5.00,24,1,14,29.95,Mobile
+582,Action & Adventure,IL,Ad-Supported,45,F,2025-01-10,,6.00,25,0,14,35.94,Tablet
+654,Action & Adventure,IL,Ad-Supported,44,F,2025-01-08,,6.00,23,0,14,35.94,Tablet
+977,Documentary,IL,Ad-Supported,31,F,2025-01-10,2025-10-10,6.00,22,0,14,35.94,Mobile
+905,Action & Adventure,GA,Ad-Supported,34,M,2025-01-10,,6.00,28,0,14,35.94,Laptop
+570,Action & Adventure,NY,Ad-Supported,34,F,2025-01-05,,6.00,26,0,14,35.94,Mobile
+602,Horror,NY,Ad-Supported,44,F,2025-01-07,,6.00,25,0,14,35.94,Mobile
+626,Horror,NY,Ad-Supported,40,F,2025-01-10,,6.00,25,0,14,35.94,Tablet
+745,Children & Family,CA,Ad-Supported,45,F,2025-01-05,,6.00,22,0,14,35.94,Mobile
+38,Action & Adventure,CA,Ad-Supported,26,M,2025-02-05,,4.00,40,1,14,23.96,Mixed
+438,Action & Adventure,IL,Ad-Supported,28,M,2025-01-22,,5.00,24,1,14,29.95,Tablet
+518,Horror,IL,Ad-Supported,28,F,2025-01-27,,5.00,23,1,14,29.95,Mobile
+566,Horror,IL,Ad-Supported,29,F,2025-01-24,,5.00,24,1,14,29.95,Laptop
+678,Action & Adventure,IL,Ad-Supported,27,O,2025-01-31,,5.00,23,1,14,29.95,Mobile
+141,Action & Adventure,NY,Ad-Supported,27,F,2025-01-09,,5.00,28,1,14,29.95,Tablet
+269,Horror,NY,Ad-Supported,29,F,2025-01-31,,5.00,30,1,14,29.95,Mobile
+309,Action & Adventure,NY,Ad-Supported,29,M,2025-01-28,,5.00,28,1,14,29.95,Mobile
+349,Horror,NY,Ad-Supported,29,F,2025-01-28,,5.00,28,1,14,29.95,Mobile
+365,Action & Adventure,NY,Ad-Supported,30,F,2025-01-21,,5.00,26,1,14,29.95,Mixed
+474,Action & Adventure,NY,Ad-Supported,27,F,2025-01-26,,5.00,25,1,14,29.95,Tablet
+578,Horror,NY,Ad-Supported,28,F,2025-01-19,,5.00,25,1,14,29.95,Mixed
+997,Action & Adventure,NY,Ad-Supported,26,F,2025-01-27,,5.00,26,1,14,29.95,Tablet
+733,Children & Family,WA,Ad-Supported,28,M,2025-01-11,,6.00,25,0,14,35.94,Mobile
+414,Action & Adventure,IL,Ad-Supported,28,F,2025-01-12,,6.00,22,0,14,35.94,Tablet
+558,Action & Adventure,IL,Ad-Supported,28,M,2025-01-03,,6.00,22,0,14,35.94,Tablet
+281,Horror,IL,Ad-Supported,46,F,2025-01-16,,5.00,24,1,13,29.95,Laptop
+109,Documentary,NY,Ad-Supported,49,O,2025-01-29,,5.00,32,1,13,29.95,Laptop
+181,Children & Family,NY,Ad-Supported,63,M,2025-01-07,,5.00,26,1,13,29.95,Mobile
+253,Documentary,NY,Ad-Supported,60,O,2025-01-13,,5.00,28,1,13,29.95,Mobile
+149,Comedy,NY,Ad-Supported,25,F,2025-01-27,,4.00,31,1,13,23.96,Laptop
+249,Action & Adventure,IL,Ad-Supported,20,M,2025-01-18,,5.00,23,1,13,29.95,Laptop
+703,Documentary,FL,Ad-Supported,22,F,2025-01-05,,5.00,25,1,13,29.95,Mobile
+753,Drama,CA,Ad-Supported,19,M,2025-02-01,,5.00,22,1,13,29.95,Tablet
+233,Horror,IL,Ad-Supported,22,M,2025-01-07,2025-10-07,6.00,25,0,13,35.94,Mobile
+297,Action & Adventure,IL,Ad-Supported,24,F,2025-01-22,,5.00,23,1,13,29.95,Mobile
+953,Documentary,IL,Ad-Supported,24,M,2025-02-02,,5.00,22,1,13,29.95,Tablet
+7,Children & Family,NY,Ad-Supported,36,F,2025-02-11,,2.00,28,1,13,11.98,Tablet
+205,Children & Family,NY,Ad-Supported,39,F,2025-02-08,,4.00,27,1,13,23.96,Tablet
+129,Action & Adventure,IL,Ad-Supported,35,F,2025-01-16,,5.00,24,1,13,29.95,Laptop
+337,Horror,IL,Ad-Supported,36,F,2025-01-14,,5.00,23,1,13,29.95,Mobile
+361,Horror,IL,Ad-Supported,36,F,2025-01-27,,5.00,24,1,13,29.95,Mobile
+470,Horror,IL,Ad-Supported,34,F,2025-01-30,,5.00,22,1,13,29.95,Mobile
+985,Action & Adventure,IL,Ad-Supported,34,M,2025-02-01,,5.00,22,1,13,29.95,Laptop
+713,Comedy,CA,Ad-Supported,31,F,2025-01-17,,5.00,24,1,13,29.95,Mobile
+729,Drama,CA,Ad-Supported,35,M,2025-01-16,,5.00,22,1,13,29.95,Tablet
+189,Horror,NY,Ad-Supported,29,F,2025-02-03,,4.00,24,1,13,23.96,Tablet
+285,Action & Adventure,NY,Basic,30,O,2025-02-14,,3.00,34,1,13,17.97,Mobile
+94,Horror,IL,Ad-Supported,29,F,2025-02-28,2025-04-28,2.00,24,2,9,11.98,Mobile
+66,Comedy,TX,Ad-Supported,49,F,2025-02-26,2025-04-26,2.00,29,2,9,11.98,Mobile
+137,Horror,IL,Ad-Supported,51,M,2025-01-29,2025-03-25,2.00,26,2,9,11.98,Mobile
+169,Children & Family,IL,Ad-Supported,60,M,2025-01-26,,4.00,20,1,12,23.96,Mobile
+494,Horror,IL,Ad-Supported,60,M,2025-02-15,,4.00,20,1,12,23.96,Tablet
+550,Documentary,IL,Ad-Supported,60,F,2025-02-15,,4.00,25,1,12,23.96,Laptop
+133,Documentary,NY,Ad-Supported,59,M,2025-02-04,,4.00,28,1,12,23.96,Tablet
+381,Documentary,NY,Ad-Supported,51,F,2025-02-13,,4.00,26,1,12,23.96,Tablet
+434,Horror,NY,Ad-Supported,66,F,2025-02-06,,4.00,25,1,12,23.96,Mobile
+442,Documentary,NY,Ad-Supported,52,M,2025-02-14,,4.00,26,1,12,23.96,Mobile
+650,Horror,NY,Ad-Supported,58,F,2025-02-14,,4.00,26,1,12,23.96,Laptop
+981,Horror,NY,Ad-Supported,52,M,2025-02-09,,4.00,26,1,12,23.96,Mobile
+466,Documentary,NY,Ad-Supported,46,F,2025-02-17,,4.00,26,1,12,23.96,Laptop
+237,Action & Adventure,NY,Ad-Supported,25,F,2025-02-04,,4.00,26,1,12,23.96,Tablet
+185,Documentary,IL,Basic,51,F,2025-02-24,,3.00,28,1,12,17.97,Mobile
+321,Action & Adventure,IL,Basic,54,F,2025-02-24,,3.00,23,1,12,17.97,Tablet
+353,Action & Adventure,IL,Basic,48,M,2025-02-13,,3.00,23,1,12,17.97,Tablet
+341,Action & Adventure,NY,Basic,58,F,2025-02-15,,3.00,26,1,12,17.97,Laptop
+917,Action & Adventure,CA,Ad-Supported,20,F,2025-02-11,,4.00,25,1,12,23.96,Tablet
+313,Documentary,IL,Ad-Supported,24,M,2025-02-05,,4.00,28,1,12,23.96,Tablet
+58,Comedy,IL,Basic,20,F,2025-01-18,,3.00,27,1,12,17.97,Laptop
+257,Horror,IL,Ad-Supported,33,F,2025-02-03,,4.00,30,1,12,23.96,Tablet
+486,Action & Adventure,IL,Ad-Supported,31,F,2025-02-09,,4.00,22,1,12,23.96,Mobile
+574,Documentary,IL,Ad-Supported,33,M,2025-02-05,,4.00,26,1,12,23.96,Laptop
+646,Documentary,IL,Ad-Supported,37,M,2025-02-10,,4.00,28,1,12,23.96,Laptop
+157,Children & Family,NY,Ad-Supported,34,F,2025-02-06,,4.00,30,1,12,23.96,Laptop
+402,Action & Adventure,NY,Ad-Supported,36,M,2025-02-02,,4.00,28,1,12,23.96,Laptop
+498,Action & Adventure,NY,Ad-Supported,36,F,2025-02-07,,4.00,28,1,12,23.96,Tablet
+594,Action & Adventure,NY,Ad-Supported,31,M,2025-02-24,,4.00,28,1,12,23.96,Mobile
+721,Children & Family,CA,Ad-Supported,42,F,2025-02-01,,4.00,26,1,12,23.96,Tablet
+777,Drama,CA,Ad-Supported,34,F,2025-02-12,,4.00,22,1,12,23.96,Tablet
+482,Horror,NY,Ad-Supported,45,M,2025-02-16,,4.00,28,1,12,23.96,Mobile
+989,Documentary,NY,Ad-Supported,35,O,2025-02-21,,4.00,28,1,12,23.96,Mixed
+277,Documentary,NY,Ad-Supported,27,M,2025-02-09,,4.00,25,1,12,23.96,Mobile
+333,Action & Adventure,NY,Ad-Supported,29,F,2025-02-01,,4.00,25,1,12,23.96,Mobile
+546,Action & Adventure,NY,Ad-Supported,30,M,2025-02-08,,4.00,29,1,12,23.96,Mobile
+925,Action & Adventure,NY,Ad-Supported,28,O,2025-02-16,,4.00,25,1,12,23.96,Mobile
+209,Documentary,IL,Basic,31,F,2025-01-29,,3.00,26,1,12,17.97,Mobile
+273,Action & Adventure,IL,Basic,35,M,2025-02-21,,3.00,28,1,12,17.97,Mobile
+197,Documentary,NY,Basic,38,F,2025-02-18,,3.00,29,1,12,17.97,Mobile
+90,Comedy,NY,Basic,27,F,2025-01-18,,3.00,32,1,12,17.97,Mobile
+279,Action & Adventure,TX,Premium,55,F,2025-03-13,,1.00,62,1,12,15.99,Smart TV
+12,Documentary,CA,Premium,55,F,2025-03-01,,2.00,36,0,12,31.98,Tablet
+725,Comedy,WA,Basic,57,F,2025-02-12,,4.00,23,1,11,17.97,Mobile
+741,Drama,WA,Basic,52,M,2025-02-28,,3.00,20,1,11,17.97,Laptop
+201,Comedy,IL,Basic,59,F,2025-02-21,,3.00,30,1,11,17.97,Laptop
+462,Action & Adventure,IL,Basic,51,F,2025-02-21,,3.00,23,1,11,17.97,Tablet
+165,Horror,NY,Basic,46,M,2025-02-17,,3.00,24,1,11,17.97,Mobile
+610,Documentary,NY,Basic,53,M,2025-02-28,,3.00,26,1,11,17.97,Laptop
+769,Children & Family,CA,Basic,50,F,2025-02-27,,3.00,26,1,11,17.97,Laptop
+909,Documentary,CA,Basic,53,M,2025-02-27,,3.00,23,1,11,17.97,Mobile
+789,Drama,WA,Basic,24,F,2025-02-07,,4.00,20,1,11,17.97,Laptop
+26,Documentary,WA,Basic,24,F,2025-02-09,,3.00,26,1,11,17.97,Mobile
+385,Horror,IL,Basic,24,M,2025-02-28,,3.00,23,1,11,17.97,Laptop
+82,Children & Family,GA,Basic,24,F,2025-01-29,,3.00,22,1,11,17.97,Tablet
+345,Documentary,IL,Basic,19,M,2025-02-02,,4.00,22,1,11,17.97,Laptop
+562,Documentary,NY,Basic,24,F,2025-02-23,,3.00,28,1,11,17.97,Laptop
+430,Documentary,IL,Basic,20,F,2025-02-11,,4.00,22,1,11,17.97,Mobile
+686,Horror,IL,Basic,19,F,2025-02-06,,4.00,22,1,11,17.97,Tablet
+785,Comedy,CA,Basic,18,F,2025-02-25,,4.00,20,1,11,17.97,Mobile
+121,Documentary,IL,Basic,23,F,2025-02-17,,3.00,23,1,11,17.97,Mobile
+662,Horror,IL,Basic,33,M,2025-02-06,,4.00,24,1,11,17.97,Laptop
+993,Horror,IL,Basic,37,F,2025-02-28,,4.00,24,1,11,17.97,Laptop
+737,Comedy,CA,Basic,33,F,2025-02-03,,4.00,24,1,11,17.97,Mobile
+225,Action & Adventure,IL,Basic,44,F,2025-02-23,,3.00,23,1,11,17.97,Mobile
+422,Horror,IL,Basic,34,M,2025-02-07,,3.00,24,1,11,17.97,Tablet
+478,Documentary,IL,Basic,33,M,2025-02-23,,3.00,26,1,11,17.97,Mixed
+526,Documentary,IL,Basic,26,M,2025-02-15,,4.00,22,1,11,17.97,Laptop
+261,Action & Adventure,NY,Basic,45,F,2025-02-16,,3.00,25,1,11,17.97,Mobile
+325,Documentary,NY,Basic,45,F,2025-02-28,,3.00,24,1,11,17.97,Mixed
+642,Action & Adventure,NY,Basic,45,F,2025-02-19,,3.00,25,1,11,17.97,Mobile
+289,Documentary,IL,Basic,28,M,2025-02-05,,3.00,29,1,11,17.97,Tablet
+630,Action & Adventure,IL,Basic,28,M,2025-02-21,,3.00,22,1,11,17.97,Laptop
+490,Documentary,NY,Basic,19,M,2025-02-14,,3.00,25,1,11,17.97,Mobile
+46,Action & Adventure,CA,Ad-Supported,53,O,2025-01-23,2025-03-21,2.00,32,2,9,11.98,Mobile
+217,Documentary,IL,Ad-Supported,54,M,2025-01-10,2025-03-23,2.00,28,2,9,11.98,Laptop
+54,Documentary,IL,Ad-Supported,57,M,2025-01-14,2025-04-03,2.00,20,2,9,11.98,Laptop
+663,Comedy,GA,Family,21,M,2025-03-12,2025-04-12,1.00,75,1,28,19.99,Tablet
+200,Action & Adventure,FL,Basic,49,F,2025-03-27,,1.00,39,1,10,9.99,Mobile
+188,Action & Adventure,CO,Basic,55,M,2025-03-28,,1.00,45,1,10,9.99,Mobile
+555,Comedy,CA,Family,22,F,2025-03-29,2025-04-29,1.00,72,1,28,19.99,Laptop
+283,Documentary,WA,Premium,58,F,2025-03-30,,1.00,56,1,10,15.99,Tablet
+331,Documentary,WA,Premium,48,F,2025-03-14,,1.00,59,1,10,15.99,Mobile
+347,Action & Adventure,WA,Premium,50,F,2025-03-11,,1.00,60,1,10,15.99,Mobile
+416,Horror,WA,Premium,46,F,2025-03-19,,1.00,62,1,10,15.99,Laptop
+592,Documentary,WA,Premium,59,F,2025-03-21,,1.00,60,1,10,15.99,Laptop
+624,Action & Adventure,WA,Premium,54,F,2025-03-01,,1.00,60,1,10,15.99,Laptop
+971,Documentary,WA,Premium,57,F,2025-03-10,,1.00,62,1,10,15.99,Mobile
+995,Documentary,WA,Premium,46,F,2025-03-14,,1.00,65,1,10,15.99,Laptop
+80,Comedy,TX,Premium,62,F,2025-03-03,,1.00,56,1,10,15.99,Mobile
+357,Documentary,NY,Ad-Supported,44,F,2025-03-17,,1.00,30,1,10,5.99,Laptop
+160,Comedy,FL,Basic,32,M,2025-03-29,,1.00,42,1,10,9.99,Mobile
+151,Children & Family,TX,Premium,54,M,2025-03-03,,1.00,56,1,10,15.99,Mobile
+276,Comedy,CO,Basic,41,M,2025-03-02,,1.00,42,1,10,9.99,Tablet
+70,Horror,GA,Basic,31,F,2025-01-21,,3.00,22,1,10,17.97,Mobile
+628,Documentary,TX,Premium,59,F,2025-03-16,,1.00,65,1,10,15.99,Mobile
+50,Documentary,WA,Basic,29,M,2025-02-19,,3.00,28,1,10,17.97,Tablet
+692,Horror,TX,Premium,59,M,2025-03-24,,1.00,65,1,10,15.99,Laptop
+723,Drama,CO,Premium,49,F,2025-03-02,,1.00,60,1,10,15.99,Laptop
+203,Action & Adventure,WA,Premium,34,M,2025-03-25,,1.00,60,1,10,15.99,Tablet
+472,Documentary,WA,Premium,44,F,2025-03-16,,1.00,60,1,10,15.99,Laptop
+520,Documentary,WA,Premium,44,M,2025-03-15,,1.00,62,1,10,15.99,Mobile
+656,Horror,WA,Premium,34,F,2025-03-10,,1.00,60,1,10,15.99,Mobile
+680,Horror,WA,Premium,42,F,2025-03-09,,1.00,62,1,10,15.99,Mobile
+103,Children & Family,TX,Premium,36,F,2025-03-22,,1.00,54,1,10,15.99,Tablet
+271,Documentary,TX,Premium,37,F,2025-03-24,,1.00,59,1,10,15.99,Mobile
+500,Horror,TX,Premium,32,F,2025-03-25,,1.00,60,1,10,15.99,Mobile
+934,Comedy,CA,Family,22,F,2025-03-06,2025-04-06,1.00,72,1,28,19.99,Tablet
+48,Children & Family,NY,Premium,24,M,2025-03-06,2025-04-06,1.00,60,1,12,15.99,Mixed
+343,Horror,TX,Premium,23,M,2025-03-26,2025-04-26,1.00,56,1,10,15.99,Mobile
+125,Horror,NY,Ad-Supported,26,F,2025-03-21,2025-04-21,1.00,30,1,10,5.99,Tablet
+317,Horror,NY,Ad-Supported,33,F,2025-03-23,2025-04-23,1.00,32,1,10,5.99,Tablet
+757,Children & Family,WA,Ad-Supported,66,F,2025-03-02,2025-04-02,1.00,24,1,10,5.99,Mobile
+239,Horror,TX,Premium,20,F,2025-03-19,2025-04-19,1.00,54,1,9,15.99,Mobile
+696,Action & Adventure,WA,Premium,24,F,2025-03-04,2025-04-04,1.00,56,1,9,15.99,Laptop
+975,Horror,TX,Premium,24,F,2025-03-16,2025-04-16,1.00,58,1,9,15.99,Mobile
+658,Documentary,NY,Ad-Supported,26,M,2025-03-16,2025-04-16,1.00,26,1,9,5.99,Mobile
+377,Action & Adventure,IL,Ad-Supported,28,F,2025-03-02,2025-04-02,1.00,25,1,9,5.99,Tablet
+177,Horror,IL,Ad-Supported,28,M,2025-03-05,2025-04-05,1.00,29,1,9,5.99,Tablet
+113,Horror,IL,Ad-Supported,29,F,2025-03-12,2025-04-11,1.00,35,1,9,5.99,Tablet
+98,Horror,AZ,Ad-Supported,31,F,2025-03-24,2025-04-24,1.00,25,1,9,5.99,Mobile
+717,Drama,WA,Ad-Supported,46,F,2025-03-24,2025-04-24,1.00,28,1,9,5.99,Tablet
+542,Horror,IL,Ad-Supported,47,F,2025-03-08,2025-04-08,1.00,23,1,9,5.99,Mobile
+690,Action & Adventure,NY,Ad-Supported,48,F,2025-03-15,2025-04-15,1.00,25,1,9,5.99,Mobile
+961,Action & Adventure,IL,Ad-Supported,53,M,2025-03-28,2025-04-28,1.00,25,1,9,5.99,Tablet
+634,Documentary,NY,Ad-Supported,53,M,2025-03-14,2025-04-14,1.00,26,1,9,5.99,Mobile
+406,Documentary,IL,Ad-Supported,57,M,2025-03-09,2025-04-09,1.00,27,1,9,5.99,Tablet
+780,Documentary,GA,Basic,25,M,2025-03-08,,1.00,35,1,9,9.99,Laptop
+340,Children & Family,CO,Basic,25,M,2025-03-04,,1.00,32,1,9,9.99,Mixed
+57,Action & Adventure,WA,Basic,60,M,2025-03-10,,1.00,32,1,9,9.99,Mobile
+752,Action & Adventure,IL,Basic,46,F,2025-03-10,,1.00,36,1,9,9.99,Laptop
+796,Horror,GA,Basic,59,M,2025-03-13,,1.00,35,1,9,9.99,Tablet
+212,Comedy,CO,Basic,61,M,2025-03-21,,1.00,39,1,9,9.99,Mixed
+396,Drama,CO,Basic,58,M,2025-03-19,,1.00,42,1,9,9.99,Mobile
+425,Children & Family,CO,Basic,59,M,2025-03-13,,1.00,38,1,9,9.99,Mobile
+465,Comedy,CO,Basic,54,F,2025-03-06,,1.00,40,1,9,9.99,Mobile
+229,Documentary,NY,Ad-Supported,60,M,2025-03-03,2025-04-03,1.00,29,1,9,5.99,Mobile
+408,Action & Adventure,WA,Premium,25,F,2025-03-10,,1.00,54,1,9,15.99,Mobile
+476,Horror,TX,Premium,25,F,2025-03-13,,1.00,58,1,9,15.99,Tablet
+903,Documentary,FL,Premium,25,F,2025-03-12,,1.00,54,1,9,15.99,Mobile
+383,Action & Adventure,TX,Premium,61,F,2025-03-07,,1.00,54,1,9,15.99,Mobile
+604,Documentary,TX,Premium,46,F,2025-03-03,,1.00,58,1,9,15.99,Mobile
+727,Children & Family,FL,Premium,46,F,2025-03-10,,1.00,58,1,9,15.99,Mobile
+454,Documentary,IL,Ad-Supported,22,M,2025-03-05,,1.00,25,1,9,5.99,Laptop
+86,Action & Adventure,TX,Ad-Supported,35,M,2025-03-11,,1.00,28,1,9,5.99,Smart TV
+241,Documentary,IL,Ad-Supported,42,F,2025-03-14,,1.00,32,1,9,5.99,Mobile
+670,Documentary,IL,Ad-Supported,41,F,2025-03-20,,1.00,27,1,9,5.99,Mobile
+937,Action & Adventure,IL,Ad-Supported,34,M,2025-03-04,,1.00,23,1,9,5.99,Laptop
+941,Documentary,NY,Ad-Supported,36,F,2025-03-24,,1.00,28,1,9,5.99,Mobile
+912,Drama,IL,Basic,24,M,2025-03-14,2025-04-05,1.00,35,1,9,9.99,Mixed
+928,Comedy,FL,Basic,24,F,2025-03-18,2025-04-05,1.00,37,1,9,9.99,Laptop
+761,Comedy,CA,Ad-Supported,31,F,2025-03-17,,1.00,28,1,9,5.99,Mobile
+606,Action & Adventure,IL,Ad-Supported,28,M,2025-03-17,,1.00,25,1,9,5.99,Mobile
+965,Documentary,NY,Ad-Supported,26,M,2025-03-18,,1.00,26,1,9,5.99,Laptop
+34,Action & Adventure,IL,Ad-Supported,29,F,2025-03-05,,2.00,25,2,9,11.98,Laptop
+736,Horror,IL,Basic,21,F,2025-03-07,2025-04-05,1.00,32,1,9,9.99,Laptop
+720,Documentary,IL,Basic,28,F,2025-03-13,,1.00,35,1,9,9.99,Mobile
+320,Children & Family,FL,Basic,28,M,2025-03-27,,1.00,37,1,9,9.99,Mobile
+429,Comedy,FL,Basic,27,M,2025-03-07,,1.00,35,1,9,9.99,Mixed
+653,Children & Family,FL,Basic,27,M,2025-03-03,,1.00,35,1,9,9.99,Laptop
+984,Children & Family,FL,Basic,26,M,2025-03-13,,1.00,35,1,9,9.99,Mobile
+1000,Comedy,FL,Basic,29,F,2025-03-02,,1.00,35,1,9,9.99,Laptop
+300,Comedy,CO,Basic,29,M,2025-03-15,,1.00,36,1,9,9.99,Tablet
+489,Comedy,CO,Basic,28,F,2025-03-01,,1.00,42,1,9,9.99,Tablet
+569,Children & Family,CO,Basic,27,M,2025-03-26,,1.00,36,1,9,9.99,Mobile
+601,Drama,CO,Basic,29,F,2025-03-15,,1.00,40,1,9,9.99,Mixed
+980,Drama,CO,Basic,27,F,2025-03-05,,1.00,40,1,9,9.99,Tablet
+280,Drama,FL,Basic,22,M,2025-03-06,2025-04-05,1.00,32,1,9,9.99,Mobile
+768,Documentary,IL,Basic,39,M,2025-03-09,,1.00,35,1,9,9.99,Mixed
+792,Documentary,IL,Basic,36,F,2025-03-20,,1.00,40,1,9,9.99,Laptop
+800,Action & Adventure,IL,Basic,31,F,2025-03-06,,1.00,36,1,9,9.99,Laptop
+208,Comedy,FL,Basic,44,M,2025-03-16,,1.00,37,1,9,9.99,Tablet
+413,Comedy,FL,Basic,33,F,2025-03-22,,1.00,35,1,9,9.99,Laptop
+581,Children & Family,FL,Basic,31,F,2025-03-02,,1.00,37,1,9,9.99,Laptop
+597,Comedy,FL,Basic,34,M,2025-03-09,,1.00,35,1,9,9.99,Laptop
+944,Drama,FL,Basic,31,F,2025-03-07,,1.00,35,1,9,9.99,Tablet
+364,Children & Family,CO,Basic,41,M,2025-03-28,,1.00,39,1,9,9.99,Mobile
+665,Children & Family,CO,Basic,43,F,2025-03-07,,1.00,39,1,9,9.99,Mobile
+155,Documentary,WA,Premium,28,F,2025-03-17,,1.00,44,1,9,15.99,Mobile
+540,Action & Adventure,TX,Premium,28,M,2025-03-11,,1.00,58,1,9,15.99,Mobile
+88,Documentary,IL,Premium,26,M,2025-03-20,,1.00,57,1,9,15.99,Mobile
+775,Children & Family,FL,Premium,29,O,2025-03-05,,1.00,58,1,9,15.99,Mixed
+107,Horror,WA,Premium,42,M,2025-03-04,,1.00,48,1,9,15.99,Mobile
+432,Action & Adventure,WA,Premium,37,F,2025-03-04,,1.00,58,1,9,15.99,Mobile
+167,Documentary,TX,Premium,33,F,2025-03-07,,1.00,56,1,9,15.99,Mixed
+460,Documentary,TX,Premium,38,F,2025-03-04,,1.00,58,1,9,15.99,Laptop
+509,Children & Family,FL,Basic,21,F,2025-03-07,2025-04-05,1.00,34,1,9,9.99,Tablet
+524,Horror,TX,Premium,34,O,2025-03-02,,1.00,58,1,9,15.99,Tablet
+532,Documentary,TX,Premium,33,M,2025-03-09,,1.00,56,1,9,15.99,Mobile
+549,Comedy,FL,Basic,20,M,2025-03-14,2025-04-05,1.00,33,1,9,9.99,Tablet
+564,Action & Adventure,TX,Premium,43,F,2025-03-17,,1.00,56,1,9,15.99,Smart TV
+64,Drama,IL,Premium,44,F,2025-03-21,,1.00,56,1,9,15.99,Mobile
+704,Action & Adventure,IL,Premium,34,M,2025-03-15,,1.00,58,1,9,15.99,Tablet
+16,Action & Adventure,FL,Premium,37,M,2025-03-07,,1.00,50,0,9,15.99,Mobile
+731,Comedy,CO,Premium,37,M,2025-03-14,,1.00,57,1,9,15.99,Mobile
+739,Children & Family,CO,Premium,34,F,2025-03-21,,1.00,58,1,9,15.99,Laptop
+77,Action & Adventure,NY,Basic,23,F,2025-03-28,2025-04-28,1.00,25,1,8,9.99,Tablet
+389,Action & Adventure,NY,Ad-Supported,28,F,2025-03-24,2025-04-16,1.00,29,1,8,5.99,Mobile
+117,Action & Adventure,NY,Ad-Supported,46,F,2025-03-07,,1.00,29,1,8,5.99,Mobile
+173,Documentary,NY,Ad-Supported,25,F,2025-03-24,,1.00,28,1,8,5.99,Mobile
+93,Action & Adventure,CA,Basic,25,M,2025-03-08,,1.00,35,1,8,9.99,Mixed
+732,Documentary,GA,Basic,62,F,2025-03-01,,1.00,36,1,8,9.99,Mixed
+256,Drama,FL,Basic,48,F,2025-03-11,,1.00,35,1,8,9.99,Mobile
+352,Children & Family,FL,Basic,56,F,2025-03-02,,1.00,36,1,8,9.99,Mixed
+3,Documentary,FL,Premium,61,F,2025-03-29,,1.00,35,0,8,15.99,Mobile
+44,Documentary,FL,Premium,68,F,2025-03-26,,1.00,36,1,8,15.99,Mobile
+292,Drama,CO,Basic,24,F,2025-03-01,2025-04-01,1.00,35,1,8,9.99,Mixed
+19,Comedy,TX,Ad-Supported,40,F,2025-03-17,,1.00,34,1,8,5.99,Laptop
+193,Children & Family,IL,Ad-Supported,41,F,2025-03-10,,1.00,30,1,8,5.99,Tablet
+450,Action & Adventure,NY,Ad-Supported,35,F,2025-03-29,,1.00,29,1,8,5.99,Mobile
+180,Drama,CO,Basic,30,F,2025-03-16,,1.00,33,1,8,9.99,Mixed
+136,Dramas,FL,Basic,34,F,2025-03-14,,1.00,33,1,8,9.99,Mixed
+131,Horror,WA,Premium,43,F,2025-03-26,,1.00,49,1,8,15.99,Tablet
+72,Action & Adventure,FL,Premium,39,F,2025-03-05,,1.00,48,0,8,15.99,Smart TV
+74,Documentary,CA,Ad-Supported,53,F,2025-03-14,2025-04-14,1.00,30,1,7,5.99,Mobile

@@ -1,0 +1,477 @@
+---
+title: "Attribution Modelling Case Study"
+author: Ceren Unal
+categories: [attribution]
+image: case_study.png
+description: A fictional marketing attribution case study for KNC that analyzes multi-channel performance and compares heuristic vs. data-driven models to guide smarter budget allocation.
+toc: true
+toc-title: Content
+toc-location: right
+number-sections: true
+number-depth: 2 
+smooth-scroll: true
+df-print: kable
+code-fold: true
+code-tools: true
+code-overflow: wrap 
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+highlight-style: pygments
+code-link: true
+execute:
+  warning: false
+  message: false
+---
+
+## **Case study: KNC**
+
+“Let’s show a bird’s eye view of our digital channel performance from this year, first. Here we could have a bar chart on number of online purchases and some advertising data ¬on mobile, paid search, affiliations, and social media activities. And some correlations here as well… What do you think?,” said Levi.
+
+“Perhaps, Prisha will ask about the overall improvement compared to last year, right? So, let’s add the same figures from last year and make a comparison here too,” responded Emma.
+
+Levi and Emma, the marketing science team members at KNC–a European firm that sells trendy and quality make-up and skincare products at affordable prices for students and young professionals– sat round a modern-look, high gloss conference table to discuss what to include in their presentation deck prior to their meeting with Prisha, the chief marketing officer (CMO) of KNC.
+
+“I am sure that during the meeting, she will ask about each channel’s contribution to final purchases. This is quite critical for next year’s budget request. How about drilling down to the individual level data and running some attribution models?,” said Levi.
+
+Emma nodded in agreement and said “We can show the results from the ‘first-touch’ and ‘last-touch’ heuristics, and let her decide which model to use for budget-related decisions. Most brands use the ‘last-touch’ model, anyway.”
+
+After a long day at work, Levi and Emma agreed on what to cover in their presentation for the CMO: an overview of digital channel performance and some detailed results from attribution modelling.
+
+***Meeting with the CMO***
+
+Prisha interrupted the presentation and said “I am a little bit puzzled here, Emma. It is hard to believe that social media channel has lower impact on consumer purchases than affiliates. Most of our targeted consumers are young adults who spend considerable time on social networks. These results are not convincing enough.”
+
+Pointing to the below title of an online article from her laptop screen, Prisha continued: “Look at this”.
+
+“Google won’t use the last-click attribution as the default conversion model. I am not sure what exactly they mean by data modelling but they seem to be right in ditching the last-touch model. It is very clear that assigning full credit for a sale to the last digital touchpoint in consumer’s path to purchase may mislead us.”
+
+Meanwhile, as a recently graduated marketing analyst, Levi opens his laptop, digs up his analytics course content and rediscovers that there are other approaches to attribution modelling.
+
+Inspired by his class materials, Levi responded to Prisha:
+
+“Well, we can use more advanced models – for example Markov chain models– to get a better picture of attribution across all these digital touchpoints. Also, we can use Shapley value-based modelling approach to quantify the effect of a channel removal. What would happen if we turn off a channel? Perhaps, by turning off a particular channel we do not lose much on conversion rates…”
+
+“Excellent suggestions,” said Prisha. “My gut feeling is telling me that the model should assign different weights to all the channels on the customer journey. Why don’t you start right now? I will discuss our digital marketing budget with the board next week. So, we need to be quick on this.”
+
+The R application below will help us address the following questions on the KNC case study:
+
+-   Taking a path-to-purchase view, which customer touchpoint^[1](#fn1)^ contributes more or less to conversion?
+
+-   Should KNC give up on paid search and put more effort into mobile marketing?
+
+-   Which attribution modeling approach should the KNC marketing analysts, Levi and Emma, adopt in the future?
+
+## **2 Preparation and set-up**
+
+### **Install and load R packages**
+
+```{r, eval=TRUE, error=TRUE, warning=FALSE, message=FALSE}
+required_packages <- c(
+  "knitr",
+  "kableExtra",
+  "readxl",
+  "dplyr",
+  "ChannelAttribution",
+  "devtools",
+  "reshape2",
+  "ggplot2",
+  "ggthemes",
+  "ggrepel",
+  "RColorBrewer",
+  "markovchain"
+)
+
+missing_packages <- required_packages[
+  !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
+]
+
+if (length(missing_packages) > 0) {
+  stop(
+    "Missing packages: ",
+    paste(missing_packages, collapse = ", "),
+    ". Install them locally before rendering this document."
+  )
+}
+```
+
+Once the packages are installed to our computer, we should load them to R.
+
+```{r, eval=TRUE, error=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(dplyr)
+library(ChannelAttribution)
+library(devtools)
+library(reshape2)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(RColorBrewer)
+library(markovchain)
+
+```
+
+Next, we will load the dataset.
+
+### **Consumer path-to-purchase data**
+
+The dataset of this case study is available on the website of the book. The file is named ‘*knc_attribution*’, and stored in a *csv* format. We run the following code chunk to load the dataset to R.
+
+```{r}
+# load the dataset
+ 
+attribution <- read.csv(file = "data/knc_attribution.csv", header = TRUE)
+
+```
+
+Looking at the dataset *attribution* from the upper right corner of the R Studio screen, we see that we are given 105 unique online consumer journeys, of which 89 turned into conversion. This corresponds to 85% of conversion rate. Note that this conversion rate is quite high. We typically observe such high conversion rates around heavy promotional times.
+
+The below table provides information on the variables of the dataset and their descriptions.
+
+| Variable | Description |
+|:-----------------------------------|:-----------------------------------|
+| users_id | Unique user ID |
+| channeln | Online advertising (i.e., mobile, paid search, affiliate, and social media) exposure path, with channel1 referring to the first exposure, channel2 the second, ..., channeln the nth (maximum number of exposure = 45). |
+| user_purchase | Consumer final conversion indicator, which takes value of 1 if a specific consumer made purchase (i.e., converted) at the end of her path, and 0 otherwise. |
+| null_purchase | The opposite of 'user_purchase', taking value of 1 if there is no purchase and 0 otherwise. |
+
+After getting a glimpse of the data, we can start running the attribution models.
+
+## **3 Markov chain approach**
+
+### **3.1 Data preparation**
+
+To estimate a Markov chain model, we use the ‘*ChannelAttribution*’ package in R.
+
+We start by knitting consumer advertising exposures into a desired ‘*sequenced path*’ format for the analysis.The below code generates ‘*conversion sequences*’ for all consumers.
+
+```{r}
+# Construct conversions sequences for all visitors
+
+attribution[is.na(attribution)] <- " "
+
+attribution$path= paste(attribution$channel1,attribution$channel2,attribution$channel3,attribution$channel4,attribution$channel5,attribution$channel6,attribution$channel7,attribution$channel8,attribution$channel9,attribution$channel10,attribution$channel11,attribution$channel12,attribution$channel13,attribution$channel14,attribution$channel15,attribution$channel16,attribution$channel17,attribution$channel8,attribution$channel9,attribution$channel20,attribution$channel21,attribution$channel22,attribution$channel23 ,attribution$channel24,attribution$channel25,attribution$channel26,attribution$channel27,attribution$channel28,attribution$channel29,attribution$channel30,attribution$channel31,attribution$channel32,attribution$channel33,attribution$channel34,attribution$channel35,attribution$channel36,attribution$channel37,attribution$channel38,attribution$channel39,attribution$channel40, attribution$channel41, attribution$channel42, attribution$channel43, attribution$channel44,attribution$channel45, sep=">")
+
+path <- gsub("\\s.*","", attribution$path)
+attribution$cleaned_path <-gsub("\\W$","", path)
+
+```
+
+If we take a look at the dataset again, we see that there is a new variable created, called *cleaned_path*.
+
+Now let’s look at the paths of first five consumers in our dataset:
+
+```{r}
+# take a look at the data
+
+data_view <- attribution [1:5,50]
+data_view %>%
+  kable() %>%
+  kable_styling()
+```
+
+We can already observe some heterogeneity across consumers in terms of:
+
+1.  starting touchpoint (i.e., first-touch)
+
+2.  ending touchpoint before (non)conversion (i.e., last-touch), and
+
+3.  composition and length of paths.
+
+For model estimation, we decide to take the first 80 consumers in the dataset as our training set and keep the remaining 25 observations for the test set. The below code chunk splits the data into training and test sets.
+
+```{r}
+
+# define training and testing set
+
+attribution_train <-attribution[1:80,] 
+attribution_test <-attribution[81:105,]
+
+```
+
+As a final preparatory step, we need to create a ‘*channel stack*’, through which we summarize consumer paths and calculate the total number of conversions (frequency)and non-conversions for each path pattern. The following code chunk will help us generate that *channel stack*:
+
+```{r}
+
+channel_stack = attribution_train %>%
+  group_by(cleaned_path) %>%
+  summarize(conversion = sum(user_purchase),non_conversion = sum(null_purchase)) %>%
+  
+collect()
+
+# Take a  look at prepared dataset
+
+data_view <- channel_stack [1:10,]
+data_view %>%
+  kable() %>%
+  kable_styling()
+
+```
+
+Now we are ready to estimate the Markov chain model with the cleaned version of our data.
+
+### **3.2 Markov chain modelling**
+
+To estimate the Markov chain model, we use the *markov_model* function. Specifically, we estimate a third-order Markov model so that the ‘*memory*’ of the chain goes back to the most recent three states. Our assumption here is that consumer journeys typically cannot be restricted to the most recent state, i.e., consumers have a longer memory. Recall that first-order Markov model assumes that the current state is only determined by the previous or the most recent state.
+
+```{r}
+
+# Third-order Markov chain model
+
+markov = markov_model(channel_stack, "cleaned_path", "conversion",  order=3)
+
+table_markov<-data.frame(channel = markov$channel_name,total_conversions =round(markov$total_conversions), percent = round(markov$total_conversions/sum(attribution_train$user_purchase),3))
+
+table_markov
+
+```
+
+The results based on Markov chain model tells us quite a different story compared to what the KNC analysts found using the last-touch heuristic.
+
+Markov chain model informs us that:
+
+-   The effectiveness of four touchpoints in driving conversions do not differ dramatically from each other.
+
+-   Both social media advertising and affiliate advertising contribute around 24% to conversion while both paid search and mobile channels contribute around 26%.
+
+To further make sense of what we have found, we can obtain the transition probabilities between all states through the following codes:
+
+```{r}
+# Transition Matrix of order 3
+
+trans_3rd_order<-transition_matrix(attribution_train, var_path = "cleaned_path", var_conv = "user_purchase", var_null = "null_purchase", order=3, sep=">", flg_equal=TRUE)
+
+```
+
+To summarize the transition matrix of third-order Markov model, we obtain the transition probabilities to conversion state using the three-channel paths.
+
+For example, we can see that consumers with the last three channel exposures **Social Media \> Paid Search \> Affiliate** has the highest conversion probability (p=0.455).
+
+We can imagine that such a path might highly describe a teenage consumer behaviour online. They are attracted by fancy social network advertising on Instagram or Facebook. Then, they click on paid search advertising to get further information about the product.Later, they get further enticed by repeatedly browsing on affiliate websites, and finally decide to purchase the latest beauty product of KNC.
+
+**Question**: Considering the Markov transition matrix and path-to-conversion table above, can you try to infer why we have such a different conclusion about *social media* and *affiliate* channel contributions based on Markov chain and last-touch modelling approaches?
+
+### **3.3 Visualisation**
+
+***Markov graph***
+
+A Markov graph helps us further understand the paths that consumers in our dataset have taken towards conversion and non-conversion. We could plot Markov graph for the third-order Markov chain model that we just estimated. However, due to complexity in visual representation of the third-order model, here we obtain a graph of the first-order Markov chain model to illustrate how to interpret such graphs from Markov chain models.
+
+Running the code chunks below gets us a nice-looking Markov graph.
+
+```{r}
+# Estimate a first-order Markov Model to plot Markov graph for illustration
+
+trans_1st<-transition_matrix(attribution_train, var_path = "cleaned_path", var_conv = "user_purchase", var_null = "null_purchase", order=1, sep=">", flg_equal=TRUE)
+
+trans_matrix_1st <-trans_1st$transition_matrix
+
+
+df_dummy <- data.frame(channel_from = c('(start)', '(conversion)', '(null)'),channel_to = c('(start)', '(conversion)', '(null)'), transition_probability = c(0,1,1))
+
+trans_matrix_1st <-rbind(trans_matrix_1st, df_dummy)
+
+trans_matrix_1st$channel_from <-factor(trans_matrix_1st$channel_from, levels = c('(start)', '(conversion)', '(null)', '1','2','3','4'))
+trans_matrix_1st$channel_to <-factor(trans_matrix_1st$channel_to, levels =c('(start)', '(conversion)', '(null)', '1','2','3','4'))
+
+trans_matrix_1st <-dcast(trans_matrix_1st, channel_from~channel_to, value.var = 'transition_probability')
+
+trans_matrix_final <- matrix(data = as.matrix(trans_matrix_1st[, -1]), nrow = nrow(trans_matrix_1st[, -1]), ncol=ncol(trans_matrix_1st[,-1]), dimnames = list(c(as.character(trans_matrix_1st[,1])), c(colnames(trans_matrix_1st[,-1]))))
+                       
+trans_matrix_final[is.na(trans_matrix_final)] <-0
+trans_matrix1 <- new("markovchain", transitionMatrix = trans_matrix_final)
+
+```
+
+```{r fig, fig.height = 15, fig.width = 10, fig.align = "center"}
+# Plot the Markov graph
+plot(trans_matrix1, edge.arrow.siz=0.01, main="Markov Graph", fill=c("yellow") )
+
+```
+
+On the Markov graph above:
+
+-   Nodes 1, 2, 3, and 4 refer to mobile, paid search, affiliate, and social media advertising, respectively.
+
+-   Nodes ‘conversion’ and ‘null’ refer to conversion and non-conversion, respectively.
+
+-   Node ‘start’ represents a starting point of all paths, as is requested by the plotting package that we use.
+
+-   Arrows point from the ‘departing’ node (i.e., channel) to the ‘arriving’ node (i.e., (n-1)th channel).
+
+-   The numeric value along an arrow pointing from node to node is the transition probability of a customer first getting exposed to channel and then to channel .
+
+Looking at the graph, the probability of purchase for a consumer with a simple path of ‘*start \> paid_search \> conversion*’ is , 0.41\*0.03 =0.0123 since the transition probability from *start* to *paid search* is 0.41, and that from *paid search* to *conversion* is 0.03.
+
+***Transition heatmap***
+
+We may also want to create a **heatmap** for the transition matrix of our estimated Markov model using the following codes. Note that this map is also created based on first-order markov model results (*trans_1st*), since graphical representation of the third-order Markov transition heatmap is too densed and difficult to read.
+
+```{r}
+
+df_plot_trans <-trans_1st$transition_matrix
+# If you prefer a map with 3rd order Markov chain, you may simply run the following line of code instead of the one above:
+#df_plot_trans <-trans_3rd_order$transition_matrix
+
+# Start setting up plotting index 
+ 
+cols <- c("#e7f0fa", "#c9e2f6", "#95cbee", "#0099dc", "#4ab04a", "#ffd73e", "#eec73a",
+          "#e29421")
+t <- max(trans_1st$transition_matrix$transition_probability)
+ 
+ggplot(df_plot_trans, aes(y = channel_from, x = channel_to, fill = transition_probability)) +
+        theme_minimal() +
+        geom_tile(colour = "white", width = .9, height = .9) +
+        scale_fill_gradientn(colours = cols, limits = c(0, t),
+                             breaks = seq(0, t, by = t/4),
+                             labels = c("0", round(t/4*1, 2), round(t/4*2, 2), round(t/4*3, 2), round(t/4*4, 2)),
+                             guide = guide_colourbar(ticks = T, nbin = 50, barheight = .5, label = T, barwidth = 10)) +
+        geom_text(aes(label = round(transition_probability, 2)), fontface = "bold", size = 4) +
+        theme(legend.position = 'bottom',
+              legend.direction = "horizontal",
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              plot.title = element_text(size = 14, face = "bold", vjust = 2, color = 'black', lineheight = 0.8),
+              axis.title.x = element_text(size = 12, face = "bold"),
+              axis.title.y = element_text(size = 12, face = "bold"),
+              axis.text.y = element_text(size = 12, face = "bold", color = 'black'),
+              axis.text.x = element_text(size = 12, angle = 90, hjust = 0.5, vjust = 0.5, face = "plain")) +
+        ggtitle("Transition matrix heatmap")
+
+```
+
+In the transition matrix heatmap, the rows represent the ‘starting point’ and the columns represent the ‘ending point’ of each one-step transition.From this heatmap, we can reach the same conclusions as with the Markov graph.
+
+Note that there are no rows representing *conversion* or *null* states on the matrix because in our setting there are no paths starting from a conversion or starting from a non-conversion. That is also why the cells referring to the transition from *start* to *conversion* and *null* are empty.
+
+## **4 Model comparison**
+
+We would like to see the difference in outcomes of the traditional heuristic approaches (i.e., first-touch, last-touch) and the model-based approach (i.e., Markov chain).
+
+We first use *heuristic_models* function to quickly obtain results for the heuristic models:
+
+```{r warning=FALSE}
+# Heuristic Models
+
+heuristic_models(channel_stack, "cleaned_path", "conversion", NULL, sep = ">")
+
+```
+
+Note that the output of *heuristic_function* also includes the *linear touch* model. As explained previously in the chapter, linear (even-split) touch model is a simple heuristic model that assumes that each channel contributes to final conversion equally. We do not focus on this specific model in this chapter as it is not of interest to KNC.
+
+Now we summarize model results of all three models into one table:
+
+```{r}
+table_summary <- data.frame(Item = c("Mobile" ,"Paid Search", "Affiliate", "Social Media"), First_Touch = round(c(17, 28, 14, 8)/67,3), Last_Touch= round(c(26, 15, 18, 8)/67,3), Markov_Chain = c(0.260, 0.245, 0.238, 0.257))
+
+table_summary
+
+```
+
+The table above suggests that one can get to very different conclusions by adopting first-touch, last-touch, and Markov chain approach, respectively. Such difference is even clearer if we contrast model results by plotting a bar chart:
+
+```{r}
+# create a dataset
+method <- c(rep("First Touch",4) ,rep("Last Touch",4) ,rep("Markov chain",4))
+channel <- rep(c("Mobile" , "Paid Search" , "Affiliate", "Social Media") , 3)
+value <- c(0.254, 0.418, 0.209, 0.119, 0.388, 0.224, 0.269, 0.119,0.260,0.245, 0.238, 0.257)
+data <- data.frame(method,channel,value)
+# Stacked + percent
+ggplot(data, aes(fill=channel, y=value, x=method)) + 
+    geom_bar(position="fill", stat="identity")
+
+```
+
+While first-touch model guides KNC to invest more in paid search and less in social media, last-touch model would suggest strong influence of mobile advertising. Finally, Markov graph approach suggests that the contribution made by all four touchpoints are actually quite evenly distributed.
+
+***Which model should KNC choose?***
+
+There are two options available for KNC when deciding which model to choose:
+
+1.  KNC should try to make sense of these results, first. Prisha can combine the model-based evidence with her managerial intuition. Given her concerns about the touch-based models, Prisha is advised to make her next budget allocation decisions based on Markov chain model output. At the end of the campaign period, she can assess whether there is a significant improvement in conversion rates.
+
+2.  Alternative approach would be to assess the predictive power of attribution models by using a larger dataset. Research on attribution models demonstrate that Markov chain models provide a fairer allocation of weights to channels and perform better than heuristic (e.g., first-touch and last-touch) methods in predicting conversion rates because they take into account the interplay across touchpoints and sequentiality in a customer journey (Anders et al. 2016).In appendix, we illustrate how predictive performance of these models can be assessed using the current dataset. In our illustration, Markov model performs better than heuristic methods. However, we take those results with a grain of salt because some paths to purchase occur only a few times in the test set, which may make conversion probabilities less reliable.
+
+***What if a particular touchpoint is removed?***
+
+What would have happened to conversion rate when a particular channel was removed from path-to-purchase? To address this question, we will use Shapley value-based approach.
+
+## **5 Shapley value-based approach**
+
+This modelling approach allows us to evaluate the relative importance of a customer touchpoint to *conversion*.
+
+Using mobile marketing as an example, we will calculate the **drop** in conversion probability. The scale of the drop will be the importance of mobile marketing in converting customers. Specifically, we will calculate the following:
+
+We do the same for each of the four touchpoints in the dataset.
+
+The below code chunk searches if each of the paths contains mobile, paid search, affiliate, and social media or not. Then, it generates four indicator variables.
+
+```{r}
+# Search if each of the paths contains mobile, paid search, affiliate, and social media or not, and generate four indicator variables.
+
+channel_stack$with_mobile = grepl(x=channel_stack$cleaned_path,pattern="mobile")
+channel_stack$with_paid_search = grepl(x=channel_stack$cleaned_path,pattern="paid_search")
+channel_stack$with_affiliate = grepl(x=channel_stack$cleaned_path,pattern="affiliate")
+channel_stack$with_social_media = grepl(x=channel_stack$cleaned_path,pattern="social_media")
+ 
+
+channel_stack$no_mobile_conversion<-ifelse (channel_stack$with_mobile=="FALSE", channel_stack$conversion,0)
+channel_stack$no_mobile_count<-ifelse (channel_stack$with_mobile=="FALSE",channel_stack$conversion+ channel_stack$non_conversion,0)
+
+channel_stack$no_paidsearch_conversion<-ifelse (channel_stack$with_paid_search=="FALSE", channel_stack$conversion,0)
+channel_stack$no_paidsearch_count<-ifelse (channel_stack$with_paid_search=="FALSE", channel_stack$conversion+ channel_stack$non_conversion,0)
+
+channel_stack$no_affiliate_conversion<-ifelse (channel_stack$with_affiliate=="FALSE", channel_stack$conversion,0)
+channel_stack$no_affiliate_count<-ifelse (channel_stack$with_affiliate=="FALSE", channel_stack$conversion+ channel_stack$non_conversion,0)
+
+channel_stack$no_social_media_conversion<-ifelse (channel_stack$with_social_media=="FALSE", channel_stack$conversion,0)
+channel_stack$no_social_media_count<-ifelse (channel_stack$with_social_media=="FALSE", channel_stack$conversion+ channel_stack$non_conversion,0)
+
+```
+
+Next, we compute the Shapley values for each customer touchpoint and convert them to percentage terms.
+
+```{r}
+# get Shapley values for each touchpoint
+
+shapley_mobile<-(sum(channel_stack$conversion)/105)-(67-sum(channel_stack$no_mobile_conversion))/(105-sum(channel_stack$no_mobile_count))
+shapley_paidsearch<-(sum(channel_stack$conversion)/105)-(67-sum(channel_stack$no_paidsearch_conversion))/(105-sum(channel_stack$no_paidsearch_count))
+shapley_affiliate<-sum(channel_stack$conversion)/105-(67-sum(channel_stack$no_affiliate_conversion))/(105-sum(channel_stack$no_affiliate_count))
+shapley_socialmedia<-sum(channel_stack$conversion)/105-(67-sum(channel_stack$no_social_media_conversion))/(105-sum(channel_stack$no_social_media_count))
+
+shapley_mobile
+shapley_paidsearch
+shapley_affiliate
+shapley_socialmedia
+
+```
+
+```{r}
+# converting Shapley values to percentage terms
+
+shapley_mobile_pct<-shapley_mobile/(shapley_mobile+shapley_paidsearch+shapley_affiliate +shapley_socialmedia)
+shapley_paidsearch_pct <-shapley_paidsearch/(shapley_mobile+shapley_paidsearch+shapley_affiliate +shapley_socialmedia)
+shapley_affiliate_pct<- shapley_affiliate/(shapley_mobile+shapley_paidsearch+shapley_affiliate +shapley_socialmedia)
+shapley_socialmedia_pct<- shapley_socialmedia/(shapley_mobile+shapley_paidsearch+shapley_affiliate+shapley_socialmedia)
+
+shapley_mobile_pct
+shapley_paidsearch_pct
+shapley_affiliate_pct
+shapley_socialmedia_pct
+
+```
+
+The output from the Shapley model suggests that the impact of mobile and paid search advertising is the largest because they are associated with the largest drop in conversion percentage, followed by social media, and then affiliate. Thus, removing mobile and paid search channels would not be an appropriate action for KNC. Our further advice to Prisha is that she needs to evaluate the strategic implications of a channel removal very carefully with a forward-looking perspective because consumers may be pushed to other touchpoints (e.g.paid search), which may result in a higher cost to KNC. Finally, conclusions from Shapley model are not causal. To understand the causal impact of a channel removal, randomized field experiments should be adopted, in which consumers are randomly assigned to control and treatment groups.
+
+## **6 Conclusion**
+
+Overall, the marketing group at KNC seems to be rather confident of the following decisions to make:
+
+-   KNC should analyze and predict consumer conversion by switching from first- and last-touch heuristic approaches to Markov chain model.
+
+-   Instead of downgrading their emphasis on affiliate and social media advertising, KNC should keep investing in all of the customer touchpoints.
+
+-   KNC can use the Shapley value-based modelling approach to quantify the potential impact of a channel removal on consumers’ purchases. However, removal of a channel (e.g., social media) may result in significant changes in the customer journey. Consumers may be pushed to other touchpoints (e.g.paid search) that might be more costly to the firm. Therefore, findings from Shapley model should always be combined with a careful strategic analysis. For instance, even though the model finds zero contribution for the social media channel, the manager may still want to be present on social media to increase the brand awareness in the market.
+
+-   These results do not imply causality. To understand the causal impact of a touchpoint on the relevant performance metrics, KNC is suggested to run randomized field experiments.

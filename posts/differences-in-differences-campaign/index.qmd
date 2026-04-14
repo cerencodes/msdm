@@ -1,0 +1,268 @@
+---
+title: "Post-Campaign Sales Analysis with Differences-in-Differences"
+author: Ceren Unal
+categories: [causal inference, exploratory data analysis]
+image: image-woman-retail-cosmetics.png
+description: Differences-in-Differences method is used to estimate the causal effect of a marketing campaign on sales. 
+toc: true
+toc-title: Content
+toc-location: right
+number-sections: true
+number-depth: 2 
+smooth-scroll: true
+df-print: kable
+code-fold: true
+code-tools: true
+code-overflow: wrap 
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+highlight-style: pygments
+code-link: true
+execute:
+  warning: false
+  message: false
+#comments:
+#  hypothesis: true
+---
+
+In retail environments, randomized A/B testing is often impractical when evaluating marketing campaigns. Store selection for promotional initiatives may be driven by regional strategies, franchise agreements, or operational constraints rather than random assignment. Additionally, withholding potentially revenue-generating campaigns from stores purely for experimental purposes raises ethical and business concerns.
+
+This analysis evaluates a sales campaign implemented across 30 treatment stores using a difference-in-differences (DiD) approach. By comparing sales trends in treatment stores against 30 control stores over an 8-week period (4 weeks pre-campaign, 4 weeks post-campaign), we can isolate the campaign's causal effect. The DiD method accounts for baseline differences between stores and common time trends, measuring whether treatment stores experienced different sales growth compared to what would have occurred absent the intervention, captured by the control group's trajectory.
+
+## Load Packages & Data
+
+We'll be using Tidyverse and base R to prepare our dataset and run a linear regression model.
+
+```{r}
+library(tidyverse)  # ggplot(), %>%, mutate(), and friends
+library(scales)  # Format numbers with functions like comma(), percent(), and dollar()
+
+sales <- read.csv("did_store_sales.csv")
+
+glimpse(sales)
+```
+
+## Exploratory Data Analysis
+
+We have 480 observations across 60 stores. The observations are divided into "Pre" and "Post" treatment periods as indicated in the `period` variable. The stores are divided into "Treatment" and "Control" groups and identified as such in the `group` variable. The revenue recorded for each observation is stored in the `sales` variable.
+
+```{r}
+skimr::skim(sales) 
+```
+
+The groups are nearly identical in terms of sale pre-treatment (baseline) and show similar variability.
+
+```{r}
+sales %>%
+  filter(period == "Pre")  %>%
+  group_by(group, period) %>%
+  summarise(mean = mean(sales), 
+            sd = sd(sales), 
+            median = median(sales))
+```
+
+The groups are well-balanced and there is no indication of outliers impacting the mean.
+
+```{r}
+sales %>%
+  filter(period == "Pre")  %>%
+  ggplot(aes(x = group, y = sales, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Sales Distribution by Group")
+```
+
+### Data Wrangling
+
+Since we will be running regression on this data, we create dummy variables for `group` and `period`.
+
+```{r}
+sales <- sales %>%
+  mutate(
+    treatment = case_when( # Create dummy variables for regression
+     group == "Treatment" ~ 1, 
+     group == "Control" ~ 0),
+  post = case_when(
+    period == "Post" ~ 1,
+    period == "Pre" ~ 0
+  )
+  )  %>%
+  mutate(
+    week_fct = as.factor(week), # Create factor variables for regression
+    store_id_fct = as.factor(store_id)
+  )
+```
+
+### DiD Assumptions
+
+For a differences-in-differences analysis, the existence of parallel is a crucial assumption.
+
+Visual inspection reveals slight non-parallelism in pre-treatment trends, with treatment stores showing more volatility.
+
+```{r}
+pre_data <- sales %>% 
+  filter(period == "Pre")
+
+ggplot(pre_data, aes(x = week, y = sales, color = group)) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +
+  stat_summary(fun = mean, geom = "point", size = 3) +
+  labs(title = "Pre-Treatment Trends (Parallel Trends Check)",
+       subtitle = "Weeks 1-4") +
+  theme_minimal()
+```
+
+```{r}
+sales %>% 
+  filter (period == "Pre")  %>% 
+  group_by(group, week)  %>% 
+  summarise(sales = sum(sales))
+```
+
+To validate the parallel trends assumption, we regressed pre-treatment sales on treatment status, week, and their interaction. The interaction term was not statistically significant (β = -197.1, p = 0.428), indicating that treatment and control groups followed similar trajectories prior to the intervention. While visual inspection shows some volatility, particularly in the treatment group, these deviations fall within sampling variation and do not invalidate the DiD approach.
+
+```{r}
+pre_model <- lm(sales ~ treatment * week, data = pre_data)
+summary(pre_model)  
+```
+
+Checking whether week 4 (last pre-period) shows divergence or not, we find there was no significant difference observed between control and treatment.
+
+```{r}
+t.test(sales ~ group, data = filter(sales, week == 4))
+```
+
+Finally, we confirm we have complete data for all stores. We've observed the same stores throughout the study period, so the composition of our dataset is stable.
+
+```{r}
+sales %>% 
+  count(store_id) %>% 
+  filter(n != 8)  #filter for stores that have observations different from 8 (duration of experiment)
+```
+
+DiD assumptions are met and we can proceed with the analysis.
+
+## Differences-in-Differences
+
+Over time both groups sales are shown to have increased. However, compared to the Control group that serves as our baseline without intervention, the Treatment group has shown a much great increase in sales. With DiD, we will be assessing the impact over time and confirming the difference is not due to random variation.
+
+```{r}
+sales_means <- sales %>%
+  group_by(group, week, period) %>%
+  summarise(
+    mean_sales = mean(sales),
+    se = sd(sales) / sqrt(n()),
+    .groups = "drop"
+  )
+
+ggplot(sales_means, aes(x = week, y = mean_sales, color = group, group = group)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 4.5, linetype = "dashed", color = "gray40") +
+  annotate("text", x = 4.5, y = max(sales_means$mean_sales) * 1.02, 
+           label = "Treatment", hjust = -0.1, color = "gray40", size = 4) +
+  labs(
+    title = "Treatment vs Control Sales",
+    subtitle = "Mean sales over time",
+    x = "Week",
+    y = "Average Sales ($)",
+    caption = "*Vertical line indicates treatment implementation"
+  ) +
+  scale_y_continuous(labels = scales::dollar_format()) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "gray40"),
+    legend.position = "top",
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  )
+
+```
+
+## Model 1 - Without Control Variables
+
+Model 1 estimates DiD by looking at the interaction term `treatment * post`. Treatment stores sold only \$4 more than control at baseline (not significant), confirming once more that groups were balanced before intervention.
+
+Average sales for control group in pre-period is \$22,570 and even without treatment, sales increased by \$1,210.
+
+However, Treatment stores gained an **additional \$3,230** beyond the natural trend, which is **highly significant (p \< 0.001)**. While both groups experienced sales increases during the post-period, treatment stores gained an additional \$3,230 beyond the natural market trend captured by the control group.
+
+This is **strong evidence of campaign impact** and explains 40% of variation.
+
+```{r}
+model <- lm(sales ~ treatment * post, data = sales)
+
+summary(model)
+```
+
+### Model 2 - With Control Variables
+
+We can improve our model by adding fixed effects `store_id_fct` and `week_fct`, controlling for baseline differences between stores (e.g location) and time shocks (e.g seasonality). Since DiD is observational data without random assignment, control variable play a crucial role in fitting the model.
+
+Model 2 has **increased the adjusted R-squared statistic from 0.4 to 0.81**, and therefore is able to explain over 80% of the variation by estimating 97 parameters instead of 4.
+
+**Treatment effect also increased** from \$3,230 to \$3,982.
+
+The `treatment:post:store_id_fctTXX` coefficients show how each treatment store's effect **differs from the \$3,982 average** Most store-specific interactions are **not significant**, meaning the treatment effect is fairly **homogeneous** **across stores**.
+
+```{r}
+model2 <- lm(sales ~ treatment:post * store_id_fct + week_fct, data = sales)
+
+summary(model2)
+
+```
+
+### Discussion
+
+The consistency of high treatment effect (\$3,230 vs \$3,982) and low p-values (p \< 0.001**)** demonstrates the campaign's positive impact is robust across model specifications. That said, the inclusion of confounders is shown to greatly improve model fit (0.4 vs 0.81).
+
+Model 1 is shown to have **omitted variable bias**:
+
+-   Doesn't account for high-performing vs low-performing stores
+
+-   Doesn't control for week-to-week variation (e.g., week 6 had big sales boost)
+
+-   Treatment effect is "contaminated" by these confounders
+
+On the other hand, **Model 2 isolates the true effect** by comparing:
+
+-   Each store to itself (within-store comparison)
+
+-   Same week across groups (within-week comparison)
+
+Model 2 should be preferred for estimating the outcome.
+
+## Campaign Impact
+
+Based on Model 2, the **incremental revenue** generated by the treatment is as follows:
+
+-   Per store per week: \$3,982
+
+-   Per store (4 weeks): \$15,930
+
+-   Total (30 stores): **\$477,389**
+
+```{r}
+# Extract treatment effect from Model 2
+treatment_effect <- 3982.442  # Average treatment effect (treatment:post coefficient)
+
+# Study parameters
+n_treatment_stores <- 30
+n_post_weeks <- 4
+
+# Calculate incremental revenue
+revenue_per_store_per_week <- treatment_effect
+revenue_per_store_total <- revenue_per_store_per_week * n_post_weeks
+total_incremental_revenue <- revenue_per_store_total * n_treatment_stores
+
+revenue_per_store_per_week
+revenue_per_store_total
+total_incremental_revenue
+```
+
+## Conclusion
+
+This difference-in-differences analysis demonstrates that the sales campaign generated a significant and substantial impact. Treatment stores experienced an average increase of **\$3,982 per week** compared to control stores, representing approximately **\$477,000 in incremental revenue** across 30 stores over the four-week post-campaign period. This effect remained highly significant (p \< 0.001) even after controlling for baseline store differences and weekly market fluctuations, providing strong evidence of the campaign's causal impact.
+
+Critically, the treatment effect proved consistent across nearly all stores, with only one location showing a significantly different response. This homogeneity indicates the campaign is **scalable and replicable. Marketing teams can confidently deploy this strategy to additional locations** with predictable results.
+
+The fixed effects model (Model 2) substantially outperformed the simple difference-in-differences specification, explaining 81% of sales variation compared to just 40% in the basic model. By isolating the true campaign effect from confounding factors like store size, location advantages, and seasonal timing, Model 2 provides the most credible estimate for business decision-making. The robustness of results across specifications—ranging from \$3,230 to \$3,982 depending on controls—further validates the campaign's effectiveness and supports broader implementation.

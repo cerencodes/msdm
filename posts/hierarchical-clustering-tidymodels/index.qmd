@@ -1,0 +1,479 @@
+---
+title: "Hierarchical Cluster Analysis with Tidymodels on Retail Data"
+author: Ceren Unal
+categories: [clustering, customer segmentation, exploratory data analysis]
+image: segments.png
+description: Hierarchical Cluster Analysis is conducted on UK-based online retail store data to segment customers based on recency, frequency and monetary metrics.
+toc: true
+toc-title: Content
+toc-location: right
+number-sections: true
+number-depth: 2 
+smooth-scroll: true
+df-print: kable
+code-fold: true
+code-tools: true
+code-overflow: wrap 
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+highlight-style: pygments
+code-link: true
+execute:
+  warning: false
+  message: false
+---
+
+Customer segmentation is one of the primary components of marketing strategy, informing promotional offers, personalized communications and audience signals on paid media platforms. In this study, we run a hierarchical cluster analysis using the Tidymodels package in R, to segment the customers of a real UK-based a online retail store.
+
+## Data Description
+
+The data set is downloaded from UCI Machine Learning Repository and is sourced from a 2012 academic paper on data mining by Chen et al [^1]. The company observed sells gifts for various occasions and the majority of its customers consist of wholesalers.
+
+[^1]: Chen, D. (2015). Online Retail \[Dataset\]. UCI Machine Learning Repository. <https://doi.org/10.24432/C5BW33.>
+
+| **Variable Name** | **Role** | **Type** | **Description** | **Units** |
+|---------------|---------------|---------------|---------------|--------------|
+| InvoiceNo | ID | Categorical | a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'c', it indicates a cancellation |  |
+| StockCode | ID | Categorical | a 5-digit integral number uniquely assigned to each distinct product |  |
+| Description | Feature | Categorical | product name |  |
+| Quantity | Feature | Integer | the quantities of each product (item) per transaction |  |
+| InvoiceDate | Feature | Date | the day and time when each transaction was generated |  |
+| UnitPrice | Feature | Continuous | product price per unit | sterling |
+| CustomerID | Feature | Categorical | a 5-digit integral number uniquely assigned to each customer |  |
+| Country | Feature | Categorical | the name of the country where each customer resides |  |
+
+## Load Packages & Data
+
+We will use the Tidyverse package for data processing. The dataset is in a tidy format, with each variable represented as a column and each observation as a row.
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(tidyclust)
+library(modeldata)
+library(factoextra)
+library(cluster)
+```
+
+```{r}
+retail <- readxl::read_xlsx("retail.xlsx")
+head(retail)
+
+```
+
+For data exploration purposes, I will be adding a sales variable to show the amount collected from each transaction in pounds.
+
+```{r}
+retail <- retail %>%
+  mutate(Sales = UnitPrice * Quantity)
+```
+
+## Data Exploration
+
+We have 406829 observations stored in our data set, each representing the purchase or refund of a stock ID. There are 18287 unique customers across 37 countries. The data set covers a period from 01/12/2010 to 09/12/2011.
+
+```{r}
+skimr::skim(retail)
+
+```
+
+There are some transactions with 0 sterling value, which may have been the result of an offer such as buy one, get one or a complementary addition to the order. The max and minimum quantity are respectively 80995 and -80995, suggesting there are substantial refunds among these transactions.
+
+The dataset also has missing data in the Customer ID column.
+
+```{r}
+summary(retail)
+```
+
+"DOTCOM POSTAGE" is the top product in terms of overall sales, followed by "REGENCY CAKESTAND"
+
+```{r}
+retail %>%
+  group_by(Description)  %>%
+  summarise(Sales = sum(Sales)) %>%
+  arrange(desc(Sales)) %>%
+  slice_head(n=10)
+```
+
+UK is the biggest market, followed by Netherlands.
+
+```{r}
+retail %>%
+  group_by(Country)  %>%
+  summarise(Sales = sum(Sales)) %>%
+  arrange(desc(Sales)) %>%
+  slice_head(n=10)
+```
+
+Global markets only account for 16% of total sales.
+
+```{r}
+retail %>%
+  mutate(Market = if_else(Country == "United Kingdom", "UK", "Global")) %>%
+  group_by(Market) %>%
+  summarise(Sales = sum(Sales)) %>%
+  ungroup() %>%
+  mutate(Perc_of_Sales = Sales / sum(Sales)) %>%
+  ggplot(aes(x = Market, y = Sales, fill = Market)) +
+  geom_col() +
+  geom_text(aes(label = percent(Perc_of_Sales, accuracy = 0.1)),
+            vjust = -0.5, size = 5) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Sales Distribution by Market",
+    x = "Market",
+    y = "Total Sales",
+    fill = "Market"
+  ) +
+  theme_minimal(base_size = 14) 
+```
+
+Likewise, the number of customers in the UK are 10 times the number of customers in Global. Expectedly, the mean and median are quite far from each other, indicating the presence of large outliers.
+
+```{r}
+retail %>%
+  group_by(CustomerID, Country) %>%
+  summarise(Sales_per_Customer = sum(Sales, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Market = if_else(Country == "United Kingdom", "UK", "Global")) %>%
+  group_by(Market) %>%
+  summarise(
+    Customers = n_distinct(CustomerID),
+    mean_sales_per_customer = mean(Sales_per_Customer, na.rm = TRUE),
+    median_sales_per_customer = median(Sales_per_Customer, na.rm = TRUE)
+  )
+```
+
+5% of customers comprise over 50% of sales in both regions.
+
+```{r}
+retail %>%
+  group_by(CustomerID, Country) %>%
+  summarise(Sales_per_Customer = sum(Sales, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Market = if_else(Country == "United Kingdom", "UK", "Global")) %>%
+  group_by(Market) %>%
+  mutate(percentile = ntile(Sales_per_Customer, 100)) %>%
+  summarise(top_5_share = sum(Sales_per_Customer[percentile > 95]) / sum(Sales_per_Customer))
+
+```
+
+According to this boxplot, these are indeed a group of customers that deviate greatly from the median in terms of sales volume.
+
+```{r}
+retail %>%
+  group_by(CustomerID, Country) %>%
+  summarise(Sales_per_Customer = sum(Sales, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Market = if_else(Country == "United Kingdom", "UK", "Global")) %>%
+  ggplot(aes(x = Market, y = Sales_per_Customer, fill = Market)) +
+  geom_boxplot(alpha = 0.4) + 
+  scale_y_log10(labels = comma) +
+  scale_size_continuous(range = c(1, 10), guide = "none") +
+  labs(
+    title = "Customer Sales Distribution by Market",
+    x = "Market",
+    y = "Sales per Customer (log scale)"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+## Hierarchical Cluster Analysis
+
+Data exploration showed that we have some very large wholesale customers that undoubtedly have great value to us. Still, there is room for further exploration via unsupervised learning, taking recency and frequency of of orders alongside order value to look for more granular segments in our customer base.
+
+### Data Preparation
+
+Since we want to analyze customers, we will be removing the observations with missing customer ID from the cluster data set. Around 100,000 rows are missing a customer ID, which may lead to valuable data loss. However, seeing there is no way of connecting those transactions to an individual, they will have to be removed.
+
+Each customer will be assigned RFM (recency, frequency, monetary) scores based on the recency of their last transaction, number of invoices generated and the volume of sales.
+
+```{r}
+# define analysis date (last date in dataset)
+cutoff_date <- max(retail$InvoiceDate, na.rm = TRUE)
+
+rfm <- retail %>%
+  filter(!is.na(CustomerID))  %>% # remove transactions missing customerID
+  group_by(CustomerID) %>%
+  summarise(
+    recency = as.numeric(cutoff_date - max(InvoiceDate)), # number of days since last transaction
+    frequency = n_distinct(InvoiceNo),   # number of transactions
+    monetary = sum(Sales) # total spending
+  ) %>%
+  ungroup()
+```
+
+A quick look at histograms reveals all three of these RFM variables are right-skewed.
+
+```{r}
+hist(rfm$recency)
+hist(rfm$frequency)
+hist(rfm$monetary)
+```
+
+We normalize them by first reducing skewness with log transformation to compress large value and make data more symmetric. Then, we rescale them to ensure all variables are on a comparable scale, which is important for distance-based methods like hyerarchical clustering.
+
+```{r}
+rfm <- rfm  %>%
+  filter(monetary > 0) %>% # remove customers with negative monetary value
+  mutate(
+    recency = log1p(recency), # reduce skewness
+    frequency = log1p(frequency),
+    monetary = log1p(monetary)
+  ) %>%
+  mutate(across(c(recency, frequency, monetary), scale)) #standardize mean=0, sd=1
+
+```
+
+### Creating Clusters
+
+Silhouette Method confirms k = 2 is ideal for forming distinct segments.
+
+```{r}
+
+
+fviz_nbclust(
+  rfm[, c("recency", "frequency", "monetary")],
+  FUN = hcut,               # hierarchical clustering
+  method = "silhouette",    
+  hc_method = "ward.D2"
+) +
+  labs(title = "Silhouette Method for Optimal Number of Clusters")
+
+```
+
+```{r}
+# Define the range of k values you want to test
+k_values <- 2:6
+
+# Compute silhouette average width for each k
+sil_scores <- sapply(k_values, function(k) {
+  model <- hcut(rfm[, c("recency", "frequency", "monetary")],
+                k = k, hc_method = "ward.D2")
+  model$silinfo$avg.width
+})
+
+# Put results in a tidy data frame
+sil_df <- data.frame(k = k_values, silhouette = sil_scores)
+sil_df
+```
+
+Using Tidymodels, we cut the dendrogram into 2 final clusters with Ward’s method to produce compact, roughly spherical clusters. Tidyclust will treat the result as a partitioning model, meaning every observation belongs to exactly one cluster.
+
+```{r}
+
+RecipeCustSeg <- recipe(~ recency + frequency + monetary, rfm)
+
+
+ModelDesignClust <- hier_clust(num_clusters = 2,
+                            linkage_method = "ward.D") %>% 
+                 set_engine("stats")  %>% 
+                 set_mode("partition")
+
+WFModelClust <- workflow()  %>% 
+             add_model(ModelDesignClust)  %>% 
+             add_recipe(RecipeCustSeg)  %>% 
+             fit(rfm)
+
+ModelTrainedClust <-  extract_fit_engine(WFModelClust) 
+
+DataCustSegWithAssignm <- extract_cluster_assignment(WFModelClust)  %>%  cbind(rfm) 
+
+DataCentroids <-  extract_centroids(WFModelClust)
+```
+
+### Results
+
+The clustering algorithm has bucketed customers into groups based on their RFM characteristics.
+
+```{r}
+
+fviz_cluster(
+  list(
+    data = as.matrix(rfm[, c("recency", "frequency", "monetary")]),
+    cluster = as.factor(DataCustSegWithAssignm$.cluster)
+  ),
+  geom = "point",
+  ellipse.type = "convex",
+  palette = "jco",
+  ggtheme = theme_minimal(),
+  main = "Customer Segments (Hierarchical Clustering, k = 2)"
+)
+```
+
+Their characteristics can be summarized as below:
+
+-   **Cluster 1 (positive F & M, negative R)** → frequent, recent, high spenders → “High-Value” customers.
+
+-   **Cluster 2 (negative F & M, positive R)** → infrequent, older purchases, low spend → “Low-Value” customers.
+
+```{r}
+DataCustSegWithAssignm %>%
+  group_by(.cluster) %>%
+  summarise(
+    mean_recency = mean(recency),
+    mean_frequency = mean(frequency),
+    mean_monetary = mean(monetary),
+    n_customers = n()
+  ) %>%
+  mutate(Segment = if_else(.cluster == "Cluster_1", "High-Value", "Low-Value")) 
+```
+
+```{r}
+
+
+DataCentroids %>%
+  pivot_longer(cols = c(recency, frequency, monetary),
+               names_to = "metric", values_to = "mean_value") %>%
+  ggplot(aes(x = metric, y = mean_value, fill = .cluster)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = round(mean_value, 2)),
+            position = position_dodge(width = 0.9), vjust = -0.5, size = 3) +
+  scale_fill_manual(
+    values = c("Cluster_1" = "blue", "Cluster_2" = "orange")  
+  ) +
+  labs(title = "Average Scaled RFM Values by Cluster",
+       x = "RFM Metric",
+       y = "Scaled Mean Value",
+       fill = "Cluster") +
+  theme_minimal(base_size = 12)
+
+```
+
+The radar chart visualizes the characteristics of these segments relative to the three variables and each other. We have cearly differentiated customer groups, the segmentation is strong.
+
+Cluster 1’s polygon expands outward on Frequency and Monetary, and inward on Recency. These are customers with strong loyalty: Recent, frequent, high-spending.
+
+Cluster 2’s polygon is the opposite, expanding towards Recency, indicating older purchases. Below average performance, less frequent, lower spending.
+
+```{r}
+
+library(fmsb)
+
+# Convert to matrix format
+rfm_radar <- as.data.frame(DataCentroids[, -1])
+row.names(rfm_radar) <- DataCentroids$.cluster
+
+# Add upper/lower bounds for fmsb
+rfm_radar <- rbind(rep(2, 3), rep(-2, 3), rfm_radar)
+
+radarchart(rfm_radar,
+           axistype = 1,
+           pcol = c("blue", "orange"),
+           plwd = 2,
+           plty = 1,
+           title = "RFM Cluster Profiles (Scaled Values)")
+
+legend("topright",
+       legend = rownames(rfm_radar)[-c(1, 2)],  # skip the first two scale rows
+       col = c("blue", "orange"),
+       lty = 1,  # same line type as chart
+       lwd = 2,  # same line width as chart
+       title = "Clusters")
+
+```
+
+### Analysis
+
+By joining our cluster analysis table with the original customer dataset, we can obtain a list that can be used for marketing campaigns.
+
+```{r}
+
+retail_with_clusters <- retail %>%
+  left_join(
+    DataCustSegWithAssignm %>%
+      select(CustomerID, .cluster) %>%        
+      rename(Cluster = .cluster),             
+    by = "CustomerID"
+  ) %>%
+  mutate(
+    Segment = recode(Cluster,
+                     "Cluster_1" = "High-Value",
+                     "Cluster_2" = "Low-Value")
+  )
+```
+
+This also enables us to further examine our customer data, and see the sales metrics of the two segments.
+
+A quick look shows that the segments are not only distinct, but give us a very meaningful look into the each segment.
+
+**High-Value Segment**
+
+This group likely includes **wholesale or business buyers**:
+
+-   The average high-value customer spends almost **9× more** than a low-value one.
+
+-   High frequency (**≈8.5 purchases per customer**) suggests strong loyalty or recurring B2B activity.
+
+-   Some very large spenders (wholesale clients) are pulling the average upward.
+
+**Low-Value Segment**
+
+These are likely **individual or casual buyers**.
+
+-   Average sales per customer are very low (\~\$370).
+
+-   Purchase frequency barely above 1. Mostly one-time or occasional buyers.
+
+-   Mean and median are close, little skew. These are fairly consistent low-spenders.
+
+-   **Lifetime value will be highly limited.**
+
+```{r}
+segment_summary <- retail_with_clusters %>%
+  group_by(Segment, CustomerID) %>%
+  summarise(
+    Sales_per_Customer = sum(Sales, na.rm = TRUE),
+    Frequency = n_distinct(InvoiceNo),
+    .groups = "drop_last"
+  ) %>%
+  summarise(
+    Customers = n_distinct(CustomerID),
+    mean_sales_per_customer = mean(Sales_per_Customer, na.rm = TRUE),
+    median_sales_per_customer = median(Sales_per_Customer, na.rm = TRUE),
+    mean_frequency = mean(Frequency, na.rm = TRUE),
+    median_frequency = median(Frequency, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+segment_summary 
+```
+
+**NA Values**
+
+There are Customer ID rows there are either have missing Customer ID (leading to data loss) or have negative or zero Sales value (cannot be considered a customer). Both occurances were excluded from the cluster analysis.
+
+```{r}
+na_segment <- retail_with_clusters %>%
+  filter(is.na(Segment))
+
+na_segment %>% 
+  group_by(CustomerID)  %>% 
+  summarise(
+    n_rows = n(),
+    unique_customers = n_distinct(CustomerID),
+    avg_sales = mean(Sales, na.rm = TRUE),
+    total_sales = sum(Sales, na.rm = TRUE)) %>% 
+  arrange(desc(n_rows))  %>% 
+  head()
+```
+
+## Conclusion
+
+Hierarchical Clustering Analysis is a useful tool in segmenting customers based on shared characteristics, allowing marketers to tailor their strategy to the segments. Now that customers are assigned to clusters, the segment labels can be passed back to a CRM tool and an internal data warehouse for:
+
+-   Segment-based A/B testing
+
+-   Customer lifetime value prediction
+
+-   Marketing automation targeting
+
+**Cluster 1** represents *high-value customers* who purchase more frequently, spend more, and buy more recently than average. **Cluster 2** represents *low-value or inactive customers* with infrequent, lower-spend, and older purchase activity. This segmentation confirms a highly skewed customer base, where a smaller group of wholesale or loyal B2B buyers drive a large share of total revenue.
+
+Therefore, each should receive communications tailored to their profile. High-Value segment in particular should be analyzed more deeply and the marketing strategy should focus on relationship building. Wholesale customers are difficult to acquire yet bring in the most revenue, so the bulk of the marketing budget should be allocated to retaining these accounts.
+
+Low-Value customers don't even make an average of 1 purchase per year and the purchase amount is significantly lower. Therefore, the communications should not be frequent and sales-focused. Some budget may be allocated to reactivation experiments for promising customers that may be small business or organizations.
+
+| Segment | Strategy | Recommended Action |
+|---------------|-----------------------------|-----------------------------|
+| **High-Value** | **Retention & relationship growth** | Account-based marketing, exclusive offers, volume discounts, early access to new inventory. |
+| **Low-Value** | **Light engagement / reactivation** | Seasonal promotions, personalized email nurture flows, referral incentives. |
+
+Next steps should focus on deepening these insights by overlaying additional attributes such as product category preferences, size of the account, buying cycles etc. This will help validate behavioral patterns and reveal sub-segments within each group.
