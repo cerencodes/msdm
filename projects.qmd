@@ -2,6 +2,10 @@
 title: "Marketing Analytics"
 listing:
   contents: posts
+  exclude:
+    - posts/current-trends-answer-engine-optimization/index.qmd
+    - posts/current-trends-marketing-research-digital-twins/index.qmd
+    - posts/ecomm-dash/index.qmd
   sort: "date desc"
   type: default
   categories: true

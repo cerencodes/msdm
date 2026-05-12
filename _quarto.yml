@@ -1,11 +1,11 @@
-﻿project:
+project:
   type: website
   output-dir: docs
 execute-dir: project
 
 website:
-  title: "MSDM"
-  description: "The MSDM website"
+  title: "Porfolio"
+  description: "Ceren Unal - Profolio"
   #image: images/lab/john_helveston_circle.png
   site-url: https://cerencodes.github.io/msdm/
   #favicon: images/favicon/favicon.ico
