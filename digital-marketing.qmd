@@ -1,0 +1,14 @@
+---
+title: "Digital Marketing"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+This page highlights my digital marketing projects, case studies, and dashboards. It is set up to automatically display the projects in my `posts/` folder, so I can keep this section updated by adding or editing project posts there.

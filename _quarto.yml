@@ -19,8 +19,14 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: digital-marketing.qmd
+        text: Digital Marketing
       - href: projects.qmd
-        text: Projects
+        text: Marketing Analytics
+      - href: posts/odi-presentation/index.qmd
+        text: Chatbot Design
+      - href: posts/ecomm-dash/index.qmd
+        text: Website Traffic Analytics
   page-footer:
     center:
       - text: "<a href='https://www.jhelvy.com/cv.html'>Resume</a> &nbsp;<a href='https://github.com/cerencodes' target='blank'><i class='bi bi-github'></i></a> &nbsp;<a href='https://www.linkedin.com/in/cbunal/' target='blank'><i class='bi bi-linkedin'></i></a> &nbsp;</a><br>Site made with <i class='bi bi-heart-fill'></i> <a href='https://github.com/cerencodes' target='_blank'><i class='bi bi-git'></i></a>, and <a href='https://quarto.org/' target='_blank'><img src='https://quarto.org/favicon.png' width=12> quarto</a><br>Â© 2025 Ceren Unal"
