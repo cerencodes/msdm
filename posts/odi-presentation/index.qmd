@@ -8,7 +8,7 @@ description: "A RevealJS presentation on chatbot readability analysis for ODI Gr
 categories: [Presentation, LLM, Marketing Analytics]
 format:
   revealjs:
-    theme: moon
+    theme: white
     width: 1600
     height: 900
     footer: ODI Project

@@ -1,14 +1,17 @@
 ---
 title: "Digital Marketing"
 listing:
-  contents: posts
+  contents:
+    - posts/current-trends-answer-engine-optimization/index.qmd
+    - posts/current-trends-marketing-research-digital-twins/index.qmd
   sort: "date desc"
   type: default
-  categories: true
+  categories: false
   sort-ui: false
   filter-ui: false
 page-layout: full
 title-block-banner: true
 ---
 
-This page highlights my digital marketing projects, case studies, and dashboards. It is set up to automatically display the projects in my `posts/` folder, so I can keep this section updated by adding or editing project posts there.
+This page highlights my current trends posts in digital marketing.
+
