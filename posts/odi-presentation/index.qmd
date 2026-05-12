@@ -1,10 +1,10 @@
 ---
-title: "AI-Powered Social Media and Sales Analysis for ODI Grips"
-subtitle: "AO2 Presentation"
+title: "Designing a More Empathetic ODI Chatbot"
+subtitle: "How model choice and response readability shape customer trust"
 author: "Ceren Unal"
 institute: "IBM 6530, Cal Poly Pomona"
 date: "2026-03-01"
-description: "A RevealJS presentation on chatbot readability analysis for ODI Grips, focused on AI-powered product recommendation communication."
+description: "A RevealJS presentation on how ODI can improve chatbot service quality by optimizing model choice and response design."
 categories: [Presentation, LLM, Marketing Analytics]
 format:
   revealjs:
@@ -15,8 +15,7 @@ format:
     transition: slide
     transition-speed: default
     incremental: false
-    toc: true
-    toc-depth: 1
+    toc: false
     slide-number: true
     scrollable: true
     smaller: true
@@ -31,119 +30,250 @@ execute:
   freeze: auto
 ---
 
-# Introduction
+# ODI's chatbot challenge
 
-## Problem statement
+## Better recommendations are not enough if the experience feels cold
 
-The customer support team for ODI Grips is facing certain challenges:
+ODI's chatbot has to solve a real customer experience problem, not just answer product questions.
 
-::: {.medium-small .incremental}
--   High message volume with limited support
--   Beginners don't know their riding style\
--   Product information feels overly technical\
--   No system in place for consistent product recommendations
+::: medium-small
+-   Riders ask nuanced pain, fit, and comfort questions before buying
+-   Product information is technical and intimidating for beginners
+-   Generic or overly dense answers can reduce confidence even when the recommendation is correct
+-   Weak chatbot interactions risk lower conversion, weaker trust, and less repeat engagement
 :::
 
 . . .
 
-*So, what's the result?*
+**Business need:** Identify the chatbot configuration that feels clearest and most empathetic to customers.
 
-Riders get confused, overwhelmed, or drop off before buying.
+# What this study set out to answer
 
-## Analytics Objective - AO2
+## Which design choices improve perceived empathy?
 
-To develop and apply an LLM-based evaluation framework for assessing chatbot application performance, analyzing readability through quantitative scoring and comparative benchmarking.
+This study tested whether ODI can improve chatbot service quality through:
 
-::: {.medium-small .incremental}
--   **H1**: Readability differs by Model
-
--   **H2**: Readability differs by System Prompt
-
--   **H3**: There is a Model x System Prompt interaction
+::: medium-small
+-   **model choice**
+-   **prompt design**
+-   **response readability**
 :::
 
-## Importance
+. . .
 
-Large Language Models have a tendency to produce verbose and complex output, resulting in bad user experience.
+The goal was not simply to make responses shorter. The goal was to identify the response style that feels **clear, natural, and customer-first**.
 
-Optimizing the readability of chatbot text responses helps make product recommendations more accessible to the average user, improving the customer journey.
+# How the evaluation framework works
 
-# Literature review {.smaller}
+## A pre-launch testing system for chatbot quality
 
-Text readability is evaluated across numerous linguistic levels (Gkikas et al., 2022) including:
+The framework turns chatbot design into a measurable business decision.
 
--   Vocabulary choice
+1.  **25 rider questions** provide realistic customer contexts.
+2.  Multiple LLM and prompt configurations generate ODI responses.
+3.  Each response is scored for readability.
+4.  Two LLM judges rate perceived empathy using a SERVQUAL-based rubric.
+5.  The results are analyzed to identify the strongest configuration.
 
--   Word length
+. . .
 
--   Sentence length
+This gives ODI a scalable way to test service quality before live deployment.
 
--   Structural complexity
+# What empathy means and why the scoring is reliable
 
--   Lexical richness
+## Empathy was evaluated as a structured service-quality construct
 
-There have been many different readability formulas and measures developed to determine the effectiveness of written communication in influencing one's ability to engage with presented information (Davis et al., 2019).
+The scoring rubric measured whether the chatbot:
 
-The most common index to measure readability of a text is the **Flesch-Kincaid Grade Level** (FKGL) which estimates the level of education, measured in grades, needed for the reader to understand the text, based on average sentence and word length (Wang, Miller, Schmitt, and Wen, 2013).
-
-For short content such as social media, **the Dale-Chall formula** is recommended (Pancer et al., 2019). It uses a list of words known to school-aged students to assess word familiarity and syntactic complexity (Narman et al., 2018).
-
-**Lexical diversity** refers to the number and variety of words used in a text (McCarthy and Jarvis, 2010). It can be assessed via Measure of Textual Lexical Diversity (MTLD) and Hypergeometric Distribution D (HDD), with MTLD being more suitable for short-text analysis (Koizumi and In'nami, 2012).
-
-# Methods
-
-## Data
-
-The data for this analytics objective are the chatbot responses to user questions. The transcript from user interactions with the chatbot will be analyzed for readability.
-
-```{r}
-library(readr)
-dataset <- read_csv("ODI_Gold_Standard_Full_Product_Names.csv")
-head(dataset)
-```
-
-## Sample
-
-180 chatbot responses (30 questions * 3 models * 2 prompts)
-
-## Measures
-
-::::: columns
-::: {.column width="50%"}
-**Independent variables**: Model, Prompt
+::: medium-small
+-   addressed the rider's specific situation
+-   used a caring and non-dismissive tone
+-   prioritized comfort, fit, and safety over selling
+-   correctly understood the rider's need
 :::
 
-::: {.column width="50%"}
-**Dependent variables**: Flesch-Kincaid Grade Level, Dale-Chall Readability Score, Measure of Textual Lexical Diversity (MTLD), Hypergeometric Distribution D (HDD)
+. . .
+
+Two LLM judges rated each response independently, with agreement checked using **quadratically weighted kappa**. This made the empathy score auditable and repeatable rather than subjective.
+
+# What was measured and how it was analyzed
+
+## The analysis separated structure from vocabulary
+
+Two readability measures were tested:
+
+::: medium-small
+-   **Flesch-Kincaid Grade Level (FKGL):** structural complexity
+-   **New Dale-Chall:** lexical difficulty
 :::
-:::::
 
-## Analytics Methods
+. . .
 
-**Linear mixed-effects model**
+The main regression tested whether readability predicted empathy while holding the rider question constant, with model and prompt included as controls.
 
-> Readability ~ Model * SystemPrompt + (1 | QuestionID)
+# First business finding
 
-This regression analysis will assess the impact of changes in model and prompt on readability metrics.
+## Model choice matters more than prompt tweaking
+
+Across configurations, **model selection was the strongest driver of empathy**.
+
+![](highest-empathy-by-model-and-prompt-plot.png){fig-alt="Plot comparing the highest empathy scores across model and prompt combinations." width="78%"}
+
+::: medium-small
+-   Gemini responses showed an empathy penalty of roughly **0.6 to 0.7 points** on a 5-point scale relative to the reference model
+-   GPT-4.1-mini did **not** significantly differ from the reference model
+-   Prompt effects were directionally interesting but materially smaller than model effects
+:::
+
+. . .
+
+**Implication:** ODI should treat model selection as the primary strategic lever.
+
+# Second business finding
+
+## Structural readability has a sweet spot
+
+FKGL showed a **nonlinear** relationship with empathy.
+
+![](empathy-readability-regression-plot.png){fig-alt="Regression plot showing the nonlinear relationship between readability and empathy." width="78%"}
+
+::: medium-small
+-   Very simple responses underperformed
+-   Moderately sophisticated responses performed best
+-   Excessively complex responses reduced perceived empathy
+:::
+
+. . .
+
+The strongest responses landed around a **conversational high-school reading level**.
+
+# Why the readability effect matters
+
+## ODI should avoid both extremes
+
+Responses that are too simple can sound robotic and generic. Responses that are too complex can sound technical, verbose, and emotionally distant.
+
+. . .
+
+The best-performing responses were:
+
+::: medium-small
+-   clear
+-   specific
+-   natural in tone
+-   detailed enough to feel genuinely helpful
+:::
+
+. . .
+
+Moving from very simple language to the optimal range improved empathy by roughly **0.3 to 0.5 points** on a 5-point scale.
+
+# Third business finding
+
+## Word difficulty is not a reliable optimization lever
+
+Dale-Chall showed a weaker and less stable relationship with empathy.
+
+::: medium-small
+-   the pooled effect was small
+-   the effect weakened under more conservative inference
+-   direction and strength varied across models
+:::
+
+. . .
+
+**Implication:** simplifying vocabulary alone is not enough to improve ODI's chatbot experience.
+
+# Regression results at a glance
+
+## Executive summary of the model outputs
+
+![](empathy-readability-by-model-scatterplot.png){fig-alt="Scatterplot showing readability and empathy patterns by model." width="72%"}
+
+| Driver | Result | What it means for ODI |
+|----|----|----|
+| Model choice | Largest effect | Biggest lever for service quality |
+| FKGL | Strong, nonlinear | Target conversational high-school readability |
+| Prompt design | Smaller effect | Best used for refinement |
+| Dale-Chall | Weak, not robust | Not a dependable standalone lever |
+| R-squared | \~0.79 to 0.80 | The models explain most empathy variation in this dataset |
+
+# Why the results are credible
+
+## The findings held after standard model checks
+
+Validation included:
+
+::: medium-small
+-   nonlinear specification checks
+-   multicollinearity checks
+-   heteroskedasticity-robust inference
+-   cluster-robust uncertainty by question
+-   influence analysis for outliers
+-   subgroup analysis by LLM
+:::
+
+. . .
+
+The core conclusion stayed consistent: **readability matters, but model choice matters more**.
+
+# What ODI should do next
+
+## Recommended deployment priorities
+
+::: medium-small
+-   choose the best-performing model first
+-   standardize response structure around a conversational high-school reading level
+-   use customer-first framing for pain, fit, and comfort questions
+-   treat prompt tuning as refinement, not rescue
+-   validate live performance with real customer feedback after launch
+:::
+
+# Strategic takeaway
+
+## ODI's opportunity is better service design, not just automation
+
+The chatbot should be designed to:
+
+::: medium-small
+-   sound informed without sounding overly technical
+-   acknowledge the rider's specific use case
+-   balance clarity with enough detail to feel helpful and human
+:::
+
+. . .
+
+The winning design is not the simplest response. It is the one that feels **clear, relevant, and empathetic**.
+
+# Final recommendation
+
+## Build the chatbot around trust
+
+For ODI, the most effective chatbot strategy is to:
+
+::: medium-small
+-   select the highest-empathy model
+-   optimize response structure, not only vocabulary
+-   manage empathy as a measurable service KPI
+-   use pre-launch evaluation to reduce deployment risk
+:::
+
+. . .
+
+If ODI gets this right, the chatbot becomes a scalable brand touchpoint that improves confidence, conversion, and loyalty.
 
 # References {.scrollable}
 
--   Yu, J., Hong, W. C. H., and Egger, R. (2024). The Art of Post Captions: Readability and User Engagement on Social Media. *Journal of Travel Research*, *64*(4), 853-866. <https://doi.org/10.1177/00472875241228822>
+-   Friedman, D. B., and Hoffman-Goetz, L. (2006). A systematic review of readability and comprehension instruments used for print and web-based cancer information. *Health Education & Behavior*, *33*(3), 352-373.
 
--   Guo, S., Yang, C. L., Lin, X. P., et al. (2025). Evaluating Artificial Intelligence-Generated Patient Education Materials for Bariatric Surgery: Comparative Analysis of Response Quality, Reliability, and Readability Across ChatGPT and DeepSeek Models. *OBES SURG*, *35*, 4628-4638. <https://doi.org/10.1007/s11695-025-08249-x>
+-   Hsu, C., and Lin, J. C. (2023). Understanding the user satisfaction and loyalty of customer service chatbots. *Journal of Retailing and Consumer Services*, *71*, 103211. <https://doi.org/10.1016/j.jretconser.2022.103211>
 
--   Gunesli, I., Aksun, S., Fathelbab, J., et al. (2025). Comparative evaluation of ChatGPT-4, ChatGPT-3.5 and Google Gemini on PCOS assessment and management based on recommendations from the 2023 guideline. *Endocrine*, *88*, 315-322. <https://doi.org/10.1007/s12020-024-04121-7>
+-   Kull, A. J., Romero, M., and Monahan, L. (2021). How may I help you? Driving brand engagement through the warmth of an initial chatbot message. *Journal of Business Research*, *135*, 840-850. <https://doi.org/10.1016/j.jbusres.2021.03.005>
 
--   Buker, M., and Mercan, G. (2025). Readability, accuracy and appropriateness and quality of AI chatbot responses as a patient information source on root canal retreatment: A comparative assessment. *International Journal of Medical Informatics*, *201*, 105948. <https://doi.org/10.1016/j.ijmedinf.2025.105948>
+-   Kumar, A., Poungpeth, N., Yang, D., et al. (2026). When large language models are reliable for judging empathic communication. *Nature Machine Intelligence*, *8*, 173-185. <https://doi.org/10.1038/s42256-025-01169-6>
 
--   Pancer, E., Chandler, V., Poole, M., and Noseworthy, T. J. (2019). How readability shapes social media engagement. *Journal of Consumer Psychology*, *29*(2), 262-270. <https://doi.org/10.1002/jcpy.1073>
+-   Parasuraman, A., Zeithaml, V. A., and Berry, L. L. (1988). SERVQUAL: A multiple-item scale for measuring consumer perceptions of service quality. *Journal of Retailing*, *64*(1), 12-40.
 
--   Davis, S. W., Horvath, C., Gretry, A., and Belei, N. (2019). Say what? How the interplay of tweet readability and brand hedonism affects consumer engagement. *Journal of Business Research*, *100*, 150-164. <https://doi.org/10.1016/j.jbusres.2019.01.071>
+-   Singh, S., Jamal, A., and Qureshi, F. (2024). Readability metrics in patient education: Where do we innovate? *Clin Pract*, *14*(6), 2341-2349. <https://doi.org/10.3390/clinpract14060183>
 
--   Narman, H. S., Uulu, A. D., and Liu, J. (2018). Profile analysis for cryptocurrency in social media. IEEE International Symposium on Signal Processing and Information Technology.
-
--   Koizumi, R., and In'nami, Y. (2012). Effects of text length on lexical diversity measures: Using short texts with less than 200 tokens. *System*, *40*(4), 522-532. <https://doi.org/10.1016/j.system.2012.10.017>
-
--   McCarthy, P. M., and Jarvis, S. (2010). MTLD, vocd-D, and HD-D: A validation study of sophisticated approaches to lexical diversity assessment. *Behavior Research Methods*, *42*(2), 381-392. <https://doi.org/10.3758/BRM.42.2.381>
-
--   Wang, L. W., Miller, M. J., Schmitt, M. R., and Wen, F. K. (2013). Assessing readability formula differences with written health information materials: Application, results, and recommendations. *Research in Social and Administrative Pharmacy*, *9*(5), 503-516. <https://doi.org/10.1016/j.sapharm.2012.05.009>
+-   Yun, J., and Park, J. (2022). The effects of chatbot service recovery with emotion words on customer satisfaction, repurchase intention, and positive word-of-mouth. *Frontiers in Psychology*, *13*, 922503. <https://doi.org/10.3389/fpsyg.2022.922503>

@@ -1,1 +1,11 @@
 /* css styles */
+
+strong,
+b {
+  font-weight: 700;
+}
+
+.quarto-about-trestles strong,
+.quarto-about-trestles b {
+  font-weight: 700;
+}

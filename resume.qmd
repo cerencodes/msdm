@@ -11,6 +11,8 @@ execute:
 
 :::{.column-page}
 
-<iframe width="100%" height="600" src="https://cerencodes.github.io/cerencodes/ceren-unal-resume.pdf" title="Resume"></iframe>
+[Open resume PDF in a new tab](resume.pdf)
+
+<iframe width="100%" height="900" src="resume.pdf" title="Resume"></iframe>
 
 :::

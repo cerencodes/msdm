@@ -1,5 +1,5 @@
 ---
-title: "Q1 2026 Ecommerce Dashboard"
+title: "Dashboard for Ecommerce Website"
 subtitle: "Interactive Shiny dashboard"
 author: "Ceren Unal"
 date: "2026-04-13"
